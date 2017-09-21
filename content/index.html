@@ -1,78 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 
+  <!-- ******************* Head Section ******************* -->
   <head>
+    <!-- Application Name -->
+    <title>Event Manager</title>
 
-    <!-- Required meta tags -->
+    <!-- Encoding and Mobile First -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap core CSS -->
-    <link href="../theme/css/bootstrap.css" rel="stylesheet">
-    <link href="../theme/css/bootstrap-grid.css" rel="stylesheet">
-    <link href="../theme/css/bootstrap-reboot.css" rel="stylesheet">
+    <link href="../theme/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../theme/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Insert JavaScript -->
+    <!-- Importing jQuery and other dependencies -->
+    <script src="../theme/js/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
     <script src="../theme/js/bootstrap.js"></script>
-
-    <!-- Importing jQuery -->
-    <script src="../functions/jquery-3.2.1.min.js"></script>
-
   </head>
 
   <body>
 
-    <!-- NavBar -->
-    <nav class="container navbar navbar-expand-lg navbar-dark bg-dark">
-<div class="col-6">
-      <a class="navbar-brand" href="#">
-        <img src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="Logo">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-</div>
+    <!-- ******************* NavBar Handler Section ******************* -->
+    <script>
+    $(document).ready(function(){
+        $("a").click(function(){
+          var url = $(this).attr("link");
+          //window.alert(url.substr(url.lastIndexOf('/') + 1));
+          $("#Content").load(url);
+        });
+    });
+    </script>
 
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav">
-<div class="col-9">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Events <span class="sr-only">(current)</span></a>
-          </li>
-</div>
-<div class="col">
-
-          <li class="nav-item">
-            <a class="nav-link" href="#">Approver</a>
-          </li>
-</div>
-<div class="col">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              POC
-            </a>
-          </li>
-</div>
-<div class="col">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Admin
-            </a>
-          </li>
-</div>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- Actual Content -->
+    <!-- ******************* NavBar Section ******************* -->
     <div class="container">
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <!-- Brand and toggle (hamburger) get grouped for better mobile display -->
+          <div class="navbar-header">
+            <!-- Hamburger -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <!-- Brand icon -->
+            <a class="navbar-brand" href="index.html">
+              <img src="../images/logo.svg" width="30" height="30" alt="Logo">
+            </a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="active">
+                <a link="current.html" style="cursor: pointer;">Current Event</a>
+              </li>
+              <li>
+                <a link="future.html" style="cursor: pointer;">Future Events</a>
+              </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a link="approvers.html" style="cursor: pointer;">Approvers</a>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" link="pocs.html" style="cursor: pointer;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  POCs <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a link="pocCreate.html" style="cursor: pointer;">Create Event</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a link="pocList.html" style="cursor: pointer;">My Events</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a link="admin.html" style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  Administrators <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a link="adminMembers.html" style="cursor: pointer;">Manage Members</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a hlink="adminRoles.html" style="cursor: pointer;">Manage Roles</a></li>
+                  <li><a link="adminEvent.html" style="cursor: pointer;">Manage Events</a></li>
+                  <li><a link="adminAttendance.html" style="cursor: pointer;">Manage Attendance</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a link="adminReports.html" style="cursor: pointer;">Reports</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    </div>
+
+    <!-- ******************* Actual Content Section ******************* -->
+    <div class="container" id="Content" name="Content">
       <h1>Hello World!</h1>
     </div>
 
-    <!-- Footer -->
-
-    <div class="container navbar-dark bg-dark">
-      <p class="nav-link disabled">© 2017 My Company</p>
+    <!-- ******************* Footer Section ******************* -->
+    <div class="container">
+      <div class="nav navbar-inverse">
+        <p class="text-center text-muted">© 2017 My Company</p>
+      </div>
     </div>
 
   </body>
