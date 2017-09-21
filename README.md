@@ -16,12 +16,26 @@ Core web development technologies include:
   * JavaScript
   * PHP
 
+Libraries/Frameworks used:
+  * Bootstrap v.3.3.7 [Stable]
+  * jQuery-3
+
+Important Considerations:
+
+  * Links do not work like they do normally!
+    The links' "href" property has been removed and replaced by a "link" property that is read by
+    the JavaScript link handler function.
+    This is done because we do not want a complete reload of a new page.  We just care about
+    replacing the content of a DIV that represents the content of the pages.  We want to maintain the same navigation menu and footer.
+    This also allows for better management of code in different locations without having a
+    negative effect on others.
+
 # Developers
 
 The core team of developers include:
 
   * Jorge Pabon
   * Joaquin Ortiz
-  * 
-  * 
-  * 
+  *
+  *
+  *
