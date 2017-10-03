@@ -20,15 +20,104 @@
     <!-- Bootstrap JavaScript -->
     <script src="../theme/js/bootstrap.js"></script>
   </head>
-
+  
+  
   <body>
     
 <!-- Form STARTS here -->
 
-    
-    
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="#">Home</a></li>
+  <li class="breadcrumb-item"><a href="#">Event</a></li>
+  <li class="breadcrumb-item active">Event Form</li>
+</ol>
+
+<h1>Event Form</h1>
+<hr>
+
+<form class="container">
+
+  <div class="form-group">
+    <label for="enterpriseID">Enterprise ID:</label>
+    <input type="text" class="form-control" id="enterpriseID" placeholder="john.doe" aria-describedby="enterpriseIDHelp" required>
+	<small id="enterpriseIDHelp" class="form-text text-muted">Use your enterprise ID only, don't include "@accenture.com" or "@accenturefederal.com"</small>
+  </div>
+  
+  <div class="form-group">
+    <label for="eventName">Event Name:</label>
+    <input type="text" class="form-control" id="eventName" placeholder="e.g. Professional Development" required>
+  </div>
+
+  <div class="form-group">
+    <label for="eventDate">Event Date:</label>
+    <input class="form-control" id="eventDate" placeholder="MM/DD/YYYY" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="estimatedBudget">Estimated Budget:</label>
+    <input type="text" class="form-control" id="estimatedBudget" placeholder="1234.56" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="actualBudget">Actual Budget:</label>
+    <input type="text" class="form-control" id="actualBudget" placeholder="1234.56">
+  </div>
+  
+  <div class="form-group">
+    <label for="sponsorCommittee">Sponsor Committee:</label>
+    <select class="form-control" id="sponsorCommittee" required>
+	  <option></option>
+      <option>Advisory Board</option>
+      <option>Communication</option>
+      <option>Community Outreach</option>
+      <option>DC HAERG Co-Leads</option>
+      <option>HAERG Lead Sponsor</option>
+	  <option>Local Marketing</option>
+	  <option>Membership Engagement</option>
+	  <option>Professional Development</option>
+	  <option>Recruiting</option>
+	  <option>Support - Metric & Compliance</option>
+    </select>
+  </div>
+  
+  <div class="form-group">
+    <label for="eventPillar">Event Pillar:</label>
+    <select class="form-control" id="eventPillar">
+	  <option></option>
+      <option>Retention</option>
+      <option>Recruitment</option>
+      <option>Development</option>
+      <option>Vigilance & Visibility</option>
+      <option>Other</option>
+    </select>
+  </div>
+
+    <div class="form-group">
+    <label for="eventType">Event Type:</label>
+    <select class="form-control" id="eventType">
+	  <option></option>
+      <option>Client</option>
+      <option>Cultural Awareness</option>
+      <option>Local Community Outreach</option>
+      <option>Mentoring</option>
+      <option>National Community Outreach</option>
+	  <option>Networking</option>
+	  <option>Professional Development</option>
+	  <option>Professional Organization</option>
+	  <option>Prospective Client Event</option>
+	  <option>Prospective Recruiting Event</option>
+    </select>
+  </div>
+
+<hr>
+<input class="btn btn-primary" type="submit" value="Submit">
+
+<input class="btn btn-primary" type="reset" value="Clear">
+
+</form>
+
+
 <!-- Form ENDS here -->
-    
     
   </body>
 
