@@ -1,124 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
+<!--
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="index.html" style="cursor: pointer;">Home</a></li>
+  <li class="breadcrumb-item"><a link="pocs.html" style="cursor: pointer;">Point of Contact</a></li>
+  <li class="breadcrumb-item active">Event Form</li>
+</ol>
+-->
 
-  <!-- ******************* Head Section ******************* -->
-  <head>
-    <!-- Application Name -->
-    <title>Event Manager</title>
-
-    <!-- Encoding and Mobile First -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap core CSS -->
-    <link href="../theme/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="../theme/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Importing jQuery and other dependencies -->
-    <script src="../theme/js/jquery-3.2.1.min.js"></script>
-
-    <!-- Bootstrap JavaScript -->
-    <script src="../theme/js/bootstrap.js"></script>
-  </head>
-
-
-  <body>
+<h1>Create New Event</h1>
 
 <!-- Form STARTS here -->
 
-<ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="#">Home</a></li>
-  <li class="breadcrumb-item"><a href="#">Event</a></li>
-  <li class="breadcrumb-item active">Event Form</li>
-</ol>
-
-<h1>Event Form</h1>
-<hr>
-
-<form class="container">
+<form class="container" method="POST" id="createEventForm">
+  <hr>
 
   <div class="form-group">
     <label for="enterpriseID">Enterprise ID:</label>
-    <input type="text" class="form-control" id="enterpriseID" placeholder="john.doe" aria-describedby="enterpriseIDHelp" required>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-user"></i>
+      </span>
+      <input type="text" class="form-control" id="enterpriseID" placeholder="john.doe" aria-describedby="enterpriseIDHelp" required>
+    </div>
 	<small id="enterpriseIDHelp" class="form-text text-muted">Use your enterprise ID only, don't include "@company.com"</small>
   </div>
 
   <div class="form-group">
     <label for="eventName">Event Name:</label>
-    <input type="text" class="form-control" id="eventName" placeholder="e.g. Professional Development" required>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </span>
+      <input type="text" class="form-control" id="eventName" placeholder="e.g. Professional Development" required>
+    </div>
   </div>
 
   <div class="form-group">
     <label for="eventDate">Event Date:</label>
-    <input class="form-control" id="eventDate" placeholder="MM/DD/YYYY" required>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-calendar"></i>
+      </span>
+      <input class="form-control" type="text" id="eventDate" placeholder="MM/DD/YYYY" required>
+    </div>
   </div>
+
+  <script>
+		$(function(){
+			window.prettyPrint && prettyPrint();
+			$('#eventDate').datepicker({
+				format: 'mm-dd-yyyy'
+			});
+
+		});
+	</script>
 
   <div class="form-group">
     <label for="estimatedBudget">Estimated Budget:</label>
-    <input type="text" class="form-control" id="estimatedBudget" placeholder="1234.56" required>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-usd"></i>
+      </span>
+      <input type="text" class="form-control" id="estimatedBudget" placeholder="1234.56" required>
+    </div>
+    <small id="enterpriseIDHelp" class="form-text text-muted">Do not include commas.</small>
   </div>
 
   <div class="form-group">
     <label for="actualBudget">Actual Budget:</label>
-    <input type="text" class="form-control" id="actualBudget" placeholder="1234.56">
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-usd"></i>
+      </span>
+      <input type="text" class="form-control" id="actualBudget" placeholder="1234.56" required>
+    </div>
+    <small id="enterpriseIDHelp" class="form-text text-muted">Do not include commas.</small>
   </div>
 
   <div class="form-group">
     <label for="sponsorCommittee">Sponsor Committee:</label>
-    <select class="form-control" id="sponsorCommittee" required>
-	  <option></option>
-      <option>Advisory Board</option>
-      <option>Communication</option>
-      <option>Community Outreach</option>
-      <option>DC HAERG Co-Leads</option>
-      <option>HAERG Lead Sponsor</option>
-	  <option>Local Marketing</option>
-	  <option>Membership Engagement</option>
-	  <option>Professional Development</option>
-	  <option>Recruiting</option>
-	  <option>Support - Metric & Compliance</option>
-    </select>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-th-list"></i>
+      </span>
+      <select class="form-control" id="sponsorCommittee" required>
+  	     <option></option>
+         <option>Advisory Board</option>
+         <option>Communication</option>
+         <option>Community Outreach</option>
+         <option>DC HAERG Co-Leads</option>
+         <option>HAERG Lead Sponsor</option>
+  	     <option>Local Marketing</option>
+  	     <option>Membership Engagement</option>
+  	     <option>Professional Development</option>
+  	     <option>Recruiting</option>
+  	     <option>Support - Metric & Compliance</option>
+      </select>
+    </div>
   </div>
 
   <div class="form-group">
     <label for="eventPillar">Event Pillar:</label>
-    <select class="form-control" id="eventPillar">
-	  <option></option>
-      <option>Retention</option>
-      <option>Recruitment</option>
-      <option>Development</option>
-      <option>Vigilance & Visibility</option>
-      <option>Other</option>
-    </select>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-th-list"></i>
+      </span>
+      <select class="form-control" id="eventPillar">
+  	    <option></option>
+        <option>Retention</option>
+        <option>Recruitment</option>
+        <option>Development</option>
+        <option>Vigilance & Visibility</option>
+        <option>Other</option>
+      </select>
+    </div>
   </div>
 
-    <div class="form-group">
+  <div class="form-group">
     <label for="eventType">Event Type:</label>
-    <select class="form-control" id="eventType">
-	  <option></option>
-      <option>Client</option>
-      <option>Cultural Awareness</option>
-      <option>Local Community Outreach</option>
-      <option>Mentoring</option>
-      <option>National Community Outreach</option>
-	  <option>Networking</option>
-	  <option>Professional Development</option>
-	  <option>Professional Organization</option>
-	  <option>Prospective Client Event</option>
-	  <option>Prospective Recruiting Event</option>
-    </select>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-th-list"></i>
+      </span>
+      <select class="form-control" id="eventType">
+  	    <option></option>
+        <option>Client</option>
+        <option>Cultural Awareness</option>
+        <option>Local Community Outreach</option>
+        <option>Mentoring</option>
+        <option>National Community Outreach</option>
+  	    <option>Networking</option>
+  	    <option>Professional Development</option>
+  	    <option>Professional Organization</option>
+  	    <option>Prospective Client Event</option>
+  	    <option>Prospective Recruiting Event</option>
+      </select>
+    </div>
   </div>
 
 <hr>
-<input class="btn btn-primary" type="submit" value="Submit">
 
+<input class="btn btn-primary" value="Submit">
 <input class="btn btn-primary" type="reset" value="Clear">
 
 </form>
-
-
 <!-- Form ENDS here -->
-
-  </body>
-
-</html>
+<br>
