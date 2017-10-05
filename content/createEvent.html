@@ -19,7 +19,7 @@
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-user"></i>
       </span>
-      <input type="text" class="form-control" id="enterpriseID" placeholder="john.doe" aria-describedby="enterpriseIDHelp" required>
+      <input name="enterpriseID" type="text" class="form-control" id="enterpriseID" placeholder="john.doe" aria-describedby="enterpriseIDHelp" required>
     </div>
 	<small id="enterpriseIDHelp" class="form-text text-muted">Use your enterprise ID only, don't include "@company.com"</small>
   </div>
@@ -30,7 +30,7 @@
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-pencil"></i>
       </span>
-      <input type="text" class="form-control" id="eventName" placeholder="e.g. Professional Development" required>
+      <input name="eventName" type="text" class="form-control" id="eventName" placeholder="e.g. Professional Development" required>
     </div>
   </div>
 
@@ -40,19 +40,22 @@
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-calendar"></i>
       </span>
-      <input class="form-control" type="text" id="eventDate" placeholder="MM/DD/YYYY" required>
+      <input name="eventDate" class="form-control" type="text" id="eventDate" placeholder="MM/DD/YYYY" required>
     </div>
   </div>
 
   <script>
-		$(function(){
-			window.prettyPrint && prettyPrint();
-			$('#eventDate').datepicker({
-				format: 'mm-dd-yyyy'
-			});
-
-		});
-	</script>
+    $('#eventDate').datepicker({
+      format: "mm/dd/yyyy",
+      weekStart: 1,
+      maxViewMode: 3,
+      todayBtn: "linked",
+      autoclose: true,
+      todayHighlight: true
+      }).on('changeDate', function (e) {
+        $(this).focus();
+    });
+  </script>
 
   <div class="form-group">
     <label for="estimatedBudget">Estimated Budget:</label>
@@ -60,7 +63,7 @@
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-usd"></i>
       </span>
-      <input type="text" class="form-control" id="estimatedBudget" placeholder="1234.56" required>
+      <input name="estimatedBudget" type="text" class="form-control" id="estimatedBudget" placeholder="1234.56" required>
     </div>
     <small id="enterpriseIDHelp" class="form-text text-muted">Do not include commas.</small>
   </div>
@@ -71,7 +74,7 @@
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-usd"></i>
       </span>
-      <input type="text" class="form-control" id="actualBudget" placeholder="1234.56" required>
+      <input name="actualBudget" type="text" class="form-control" id="actualBudget" placeholder="1234.56" required>
     </div>
     <small id="enterpriseIDHelp" class="form-text text-muted">Do not include commas.</small>
   </div>
@@ -82,7 +85,7 @@
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-th-list"></i>
       </span>
-      <select class="form-control" id="sponsorCommittee" required>
+      <select name="sponsorCommittee" class="form-control" id="sponsorCommittee" required>
   	     <option></option>
          <option>Advisory Board</option>
          <option>Communication</option>
@@ -104,7 +107,7 @@
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-th-list"></i>
       </span>
-      <select class="form-control" id="eventPillar">
+      <select name="eventPillar" class="form-control" id="eventPillar">
   	    <option></option>
         <option>Retention</option>
         <option>Recruitment</option>
@@ -121,7 +124,7 @@
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-th-list"></i>
       </span>
-      <select class="form-control" id="eventType">
+      <select name="eventType" class="form-control" id="eventType">
   	    <option></option>
         <option>Client</option>
         <option>Cultural Awareness</option>
@@ -139,9 +142,101 @@
 
 <hr>
 
-<input class="btn btn-primary" value="Submit">
+<input class="btn btn-primary" type="submit" value="Submit">
 <input class="btn btn-primary" type="reset" value="Clear">
 
 </form>
 <!-- Form ENDS here -->
 <br>
+
+<script type="text/javascript">
+
+   $(document).ready(function() {
+    $('#createEventForm').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            enterpriseID: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please supply your Enterprise ID.'
+                    }
+                }
+            },
+             eventName: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please supply the Event Name.'
+                    }
+                }
+            },
+
+            eventDate: {
+              // The hidden input will not be ignored
+                excluded: false,
+                validators: {
+                    notEmpty: {
+                      message: 'Please supply the Event Date.'
+                    },
+                    date: {
+                        format: 'mm/dd/yyyy',
+                        message: 'The date is not a valid'
+                    }
+                }
+            },
+            estimatedBudget: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please supply the Estimated Budget.'
+                    }
+                }
+            },
+            sponsorCommittee: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select the Sponsor Committee.'
+                    }
+                }
+            },
+            eventPillar: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select the Event Pillar.'
+                    }
+                }
+            },
+            eventType: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select the Event Type.'
+                    }
+                }
+            },
+          }
+        })
+
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#createEventForm').data('bootstrapValidator').resetForm();
+
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+
+</script>
