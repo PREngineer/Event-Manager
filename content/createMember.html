@@ -22,14 +22,133 @@
   </head>
 
   <body>
-    
+
 <!-- Form STARTS here -->
 
-    
-    
+<!-- ******************* Form Heading *************************** -->
+<div class="container">
+  <div align="center" style="margin-top:25px">
+    <strong style="font-size:25px">HAERG New Member Registration Form
+    </strong>
+  </div>
+<form>
+
+<!-- ******************* Enterprise ID, First Name, Middle Initial & Last Name ******************* -->
+  <div class="form-group">
+    <label for="memberEnterpriseID"> <label class="text-danger">*</label> Enterprise ID</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-user"></i>
+      </span>
+    <input type="text" class="form-control" id="memberNameFirst" placeholder="e.g. john.p.doe">
+  </div>
+    <strong>Note: Use your enterprise ID only, don't include "@company.com"</strong>
+
+  </div>
+  <div class="form-group">
+    <label for="memberNameFirst"><label class="text-danger">*</label> First Name</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </span>
+    <input type="text" class="form-control" id="memberNameFirst" placeholder="John">
+  </div>
+
+  <div class="form-group" style="margin-top:10px">
+    <label for="memberNameFirst">Middle Name (If applicable)</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </span>
+    <input type="text" class="form-control" id="memberMiddleName" placeholder="Paul">
+  </div>
+
+  <div class="form-group" style="margin-top:10px">
+    <label for="memberNameLast"><label class="text-danger">*</label> Last Name</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </span>
+    <input type="text" class="form-control" id="memberNameLast" placeholder="Doe">
+  </div>
+
+  <div class="form-group" style="margin-top:10px">
+    <label for="memberNameSecondLast">Second Last Name (If applicable)</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </span>
+    <input type="text" class="form-control" id="memberNameSecondLast">
+  </div>
+
+  <!-- ******************* Accenture Segment ******************* -->
+<div class="form-group">
+  <fieldset>
+    <label for="accentureSegment" style="margin-top:10px"><label class="text-danger">*</label> Accenture Segment</label>
+  <div class="radio">
+    <label>
+      <input type="radio" name="accentureSegment"> AFS
+    </label>
+
+    <div class="radio">
+      <label>
+        <input type="radio" name="accentureSegment"> LLP
+      </label>
+  </fieldset>
+</div>
+
+  <!-- ******************* Career Level ******************* -->
+  <div class="form-group">
+    <label for="careerLevel"><label class="text-danger">*</label> Career Level</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-th-list"></i>
+      </span>
+    <select class="form-control" id="careerLevel" placeholder="Career Level">
+      <option value="hidden">Career Level</option>
+      <option>14</option>
+      <option>13</option>
+      <option>12</option>
+      <option>11</option>
+      <option>10</option>
+      <option>9</option>
+      <option>8</option>
+      <option>7</option>
+      <option>6</option>
+      <option>Accenture Leadership</option>
+  </select>
+  </div>
+</div>
+
+<!-- ******************* Newsletter ************************* -->
+<div class="form-group">
+<fieldset>
+  <label style="margin-top:15px" style="strong"for="newsLetterRadio">Would you like to be included in our Newsletter? (Optional)</label>
+  <div class="radio">
+    <label>
+      <input type="radio" name="newsLetterRadio">Yes
+    </label>
+
+    <div class="radio">
+      <label>
+        <input type="radio" name="newsLetterRadio">No
+      </label>
+  </label>
+</fieldset>
+</div>
+
+<!-- ******************* Submit, Clear & Cancel Button ******************* -->
+  </div >
+    <div align="center">
+      <button  type="submit" class="btn">Submit</button>
+      <button  type="refresh" class="btn">Clear</button>
+    </div>
+</form>
+
+</div>
+
 <!-- Form ENDS here -->
-    
-    
+
   </body>
 
 </html>
