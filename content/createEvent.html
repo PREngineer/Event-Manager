@@ -14,7 +14,7 @@
   <hr>
 
   <p><strong> Note: All fields marked with an asterisk (<label class="text-danger">*</label>) are required. </strong></p>
-  
+
   <div class="form-group">
     <label for="enterpriseID"> <label class="text-danger">*</label> Enterprise ID:</label>
     <div class="input-group">
@@ -192,7 +192,7 @@
                     }
                 }
             },
-			
+
             estimatedBudget: {
                 validators: {
                     notEmpty: {
@@ -207,20 +207,20 @@
                     }
                 }
             },
-            //eventPillar: {
-            //    validators: {
-            //        notEmpty: {
-            //            message: 'ERROR: Please select the Event Pillar.'
-            //        }
-            //    }
-            //},
-            //eventType: {
-            //    validators: {
-            //        notEmpty: {
-            //            message: 'ERROR: Please select the Event Type.'
-            //        }
-            //    }
-            //},
+            eventPillar: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please select the Event Pillar.'
+                    }
+                }
+            },
+            eventType: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please select the Event Type.'
+                    }
+                }
+            },
           }
         })
 
