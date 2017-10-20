@@ -27,6 +27,12 @@ section,
 summary {
   display: block;
 }
+
+nav {
+  color: #E06928;
+
+}
+
 audio,
 canvas,
 progress,
@@ -240,6 +246,7 @@ th {
   }
   .navbar {
     display: none;
+    color: #d6841b;
   }
   .btn > .caret,
   .dropup > .btn > .caret {
@@ -4172,11 +4179,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 @media (min-width: 768px) {
   .navbar {
     border-radius: 4px;
+    background-color: #E06928
   }
 }
 @media (min-width: 768px) {
   .navbar-header {
     float: left;
+    background-color: #E06928;
+    color:#E06928;
   }
 }
 .navbar-collapse {
