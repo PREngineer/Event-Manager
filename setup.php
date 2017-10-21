@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- ******************* Head Section ******************* -->
+  <head>
+    <!-- Application Name -->
+    <title>Event Manager - Database Setup</title>
+
+    <!-- Encoding and Mobile First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap core CSS -->
+    <link href="theme/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="theme/css/bootstrap.min.css" rel="stylesheet">
+    <link href="theme/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet">
+    <link href="theme/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+
+    <!-- Importing jQuery and other dependencies -->
+    <script src="theme/js/jquery-3.2.1.min.js"></script>
+    <script src="theme/js/bootstrap-datepicker.min.js"></script>
+    <script src="theme/js/BootstrapValidator.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="theme/js/bootstrap.js"></script>
+  </head>
+
+  <body>
+
+    <!-- ******************* START FORM ******************* -->
+    <div class="container" id="Content" name="Content">
+
+      <h1>Event Manager - Database Setup</h1>
+
+      <form class="container" method="POST" id="createEventForm">
+        <hr>
+
+        <p>
+          Please provide the following details to set up the database for the Event Manager Platform.
+        </p>
+
+        <div class="form-group">
+          <label for="username">
+            DB Username:
+          </label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-user"></i>
+            </span>
+            <input name="username" type="text" class="form-control" placeholder="root" aria-describedby="usernameHelp" required>
+          </div>
+      	   <small id="usernameHelp" class="form-text text-muted">This is the database administrator username.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="password">
+            DB Password:
+          </label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-user"></i>
+            </span>
+            <input name="password" type="password" class="form-control" placeholder="password" aria-describedby="passwordHelp" required>
+          </div>
+      	   <small id="passwordHelp" class="form-text text-muted">This is the database administrator password.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="ip">
+            DB IP/URL:
+          </label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-user"></i>
+            </span>
+            <input name="ip" type="text" class="form-control" placeholder="localhost or sub.domain.com or 10.0.0.25" aria-describedby="ipHelp" required>
+          </div>
+      	   <small id="ipHelp" class="form-text text-muted">This is the database ip or url.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="port">
+            DB Port:
+          </label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-user"></i>
+            </span>
+            <input name="port" type="text" class="form-control" placeholder="3306" aria-describedby="portHelp" required>
+          </div>
+      	   <small id="portHelp" class="form-text text-muted">This is the database port.</small>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Submit">
+
+        <hr>
+
+      </form>
+
+      <?php
+
+      include 'functions/DB.php';
+
+      // If the POST has information,
+      // Check if the information provided was correct.
+      if( !empty($_POST) )
+      {
+        // Gather the information provided
+        $user = $_POST['username'];
+        $pass = $_POST['password'];
+        $host = $_POST['ip'];
+        $port = $_POST['port'];
+
+        $check = test_MySQL( $user, $pass, $host, $port );
+
+        // If the information is incorrect
+        if($check !== True)
+        {
+          echo '<br><br>
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                  [!] Could not connect to the MySQL Server.
+                  <br><br>';
+                  echo 'Error(s): ' . $check;
+          echo '<br><br>
+                  Please check that the information provided is correct.
+                </div>';
+        }
+        // If the information is correct
+        else
+        {
+          echo '<div class="alert alert-success alert-dismissible" role="alert">
+                  --> Successfully connected to MySQL server!
+                </div>';
+
+          // Create Database
+          $result = setup_DB( $user, $pass, $host, $port );
+
+          if($result == 1)
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+                    --> Successfully created database "Event_Manager".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating database!<br><br>' .
+                    $result .
+                  '</div>';
+          }
+
+          // Create Attendance Table
+          $result = setup_AttendanceTable();
+
+          if($result['Result'])
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+                    --> Successfully created table "Attendance".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
+
+          // Create Dimensional Committee Table
+          $result = setup_DIMCommitteeTable();
+
+          if($result['Result'])
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+                    --> Successfully created table "DIM Committee".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
+
+          // Create Dimensional Event Objective Table
+          $result = setup_DIMEventObjectiveTable();
+
+          if($result['Result'])
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+                    --> Successfully created table "DIM Event Objective".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
+
+          // Create Dimensional Event Type Table
+          $result = setup_DIMEventTypeTable();
+
+          if($result['Result'])
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+                    --> Successfully created table "DIM Event Type".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
+
+          // Create Events Table
+          $result = setup_EventsTable();
+
+          if($result['Result'])
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+                    --> Successfully created table "Events".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
+
+          // Create Leads Table
+          $result = setup_LeadsTable();
+
+          if($result['Result'])
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+                    --> Successfully created table "Leads".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
+
+          // Create Members Table
+          $result = setup_MembersTable();
+
+          if($result['Result'])
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+                    --> Successfully created table "Members".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
+
+          // Create RSVP Table
+          $result = setup_RSVPTable();
+
+          if($result['Result'])
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+                    --> Successfully created table "RSVP".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
+        }
+      }
+
+      ?>
+
+    </div>
+
+
+    <!-- ******************* END FORM ******************* -->
+
+  </body>
+
+</html>
