@@ -20,15 +20,12 @@ Region Start - Testing MySQL Setup
 */
 Function test_MySQL($user, $pass, $host, $port)
 {
-  // Join Host + Port
-  $host = $host.':'.$port;
-
   // Open Connection
   $link = mysqli_init();
 
   $connection = mysqli_real_connect(
    $link,
-   $host,
+   $host.':'.$port,
    $user,
    $pass
   );

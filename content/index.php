@@ -2,6 +2,14 @@
 
   include '../functions/DB.php';
 
+  if( !file_exists('../functions/settings.php') )
+  {
+    echo '
+<script type="text/javascript">
+    window.location.href = "../setup.php"
+</script>
+    ';
+  }
 ?>
 
 <!DOCTYPE html>
@@ -133,7 +141,6 @@
 
   How to query
 
-  */
   $res = query_DB('SELECT * FROM `DIM Committee`');
 
   $dat = mysqli_fetch_all( $res['Data'] );
@@ -142,5 +149,7 @@
   {
     echo $value[0] . ' ' . $value[1] . '<br>';
   }
+
+  */
 
 ?>

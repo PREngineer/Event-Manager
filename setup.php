@@ -39,6 +39,13 @@
           Please provide the following details to set up the database for the Event Manager Platform.
         </p>
 
+        <p>
+          Important!<br>
+          The user provided should be an administrator.<br>
+          It will create a database and tables and it will set itself to work only on this Database
+          in the future.
+        </p>
+
         <div class="form-group">
           <label for="username">
             DB Username:
