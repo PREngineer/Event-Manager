@@ -34,17 +34,10 @@ Important Considerations:
     This also allows for better management of code in different locations without having a
     negative effect on others.
 
-# Developers
+# The Team
 
-The core team include:
-
-Software Architecture Lead:
   * Carlo Burgos
-
-Development Lead:
   * Jorge Pabon
-
-Front-End Developers:
   * Joaquin Ortiz
   * Jean Mendez
   * Emmanuel Munet
