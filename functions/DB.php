@@ -543,7 +543,7 @@ Function get_EventObjectives()
 */
 Function get_FutureEvents($date)
 {
-  $result = query_DB("SELECT * FROM `Events` WHERE `Date` > '$date'");
+  $result = query_DB("SELECT `ID`, `Name`,`Date`,`Start`,`End`,`Location` FROM `Events` WHERE `Date` > '$date'");
 
   if( $result['Result'] )
   {
