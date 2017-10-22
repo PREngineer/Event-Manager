@@ -1,7 +1,9 @@
 <?php
 
+  // Include DB functions
   include '../functions/DB.php';
 
+  // Redirect if settings was not found
   if( !file_exists('../functions/settings.php') )
   {
     echo '
@@ -10,6 +12,7 @@
 </script>
     ';
   }
+
 ?>
 
 <!DOCTYPE html>
@@ -29,10 +32,12 @@
     <link href="../theme/css/bootstrap.min.css" rel="stylesheet">
     <link href="../theme/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet">
     <link href="../theme/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+    <link href="../theme/css/jquery.timepicker.min.css" rel="stylesheet">
 
     <!-- Importing jQuery and other dependencies -->
     <script src="../theme/js/jquery-3.2.1.min.js"></script>
     <script src="../theme/js/bootstrap-datepicker.min.js"></script>
+    <script src="../theme/js/jquery.timepicker.min.js"></script>
     <script src="../theme/js/BootstrapValidator.min.js"></script>
 
     <!-- Bootstrap JavaScript -->
@@ -78,7 +83,7 @@
                 <a link="current.html" style="cursor: pointer;">Current Event</a>
               </li>
               <li>
-                <a link="future.html" style="cursor: pointer;">Future Events</a>
+                <a link="future.php" style="cursor: pointer;">Future Events</a>
               </li>
               <li>
                 <a link="createMember.html" style="cursor: pointer;">New Member</a>
@@ -94,7 +99,7 @@
                   POCs <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a link="createEvent.html" style="cursor: pointer;">Create Event</a></li>
+                  <li><a link="createEvent.php" style="cursor: pointer;">Create Event</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a link="pocList.html" style="cursor: pointer;">My Events</a></li>
                 </ul>
@@ -120,6 +125,10 @@
     </div>
 
     <!-- ******************* Actual Content Section ******************* -->
+    <?php
+    include '../functions/actions.php';
+    ?>
+
     <div class="container" id="Content" name="Content">
       <h1>Hello World!</h1>
     </div>
@@ -127,7 +136,7 @@
     <!-- ******************* Footer Section ******************* -->
     <div class="container">
       <div class="nav navbar-inverse">
-        <p class="text-center text-muted">© 2017 My Company</p>
+        <p class="text-center text-muted">2017 My Company</p>
       </div>
     </div>
 
@@ -136,6 +145,9 @@
 </html>
 
 <?php
+
+// Include Form Submission Handler
+include '../functions/SubmissionHandler.php';
 
   /*
 

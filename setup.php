@@ -98,7 +98,9 @@
       	   <small id="portHelp" class="form-text text-muted">This is the database port.</small>
         </div>
 
-        <input class="btn btn-primary" type="submit" value="Submit">
+        <div class="form-group">
+          <input class="btn btn-primary" type="submit" value="Setup Database">
+        </div>
 
         <hr>
 
@@ -125,6 +127,7 @@
         {
           echo '<br><br>
                 <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type = "button" class="close" data-dismiss = "alert">x</button>
                   [!] Could not connect to the MySQL Server.
                   <br><br>';
                   echo 'Error(s): ' . $check;
@@ -136,6 +139,7 @@
         else
         {
           echo '<div class="alert alert-success alert-dismissible" role="alert">
+          <button type = "button" class="close" data-dismiss = "alert">x</button>
                   --> Successfully connected to MySQL server!
                 </div>';
 
@@ -145,12 +149,14 @@
           if($result == 1)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     --> Successfully created database "Event_Manager".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     [!] ' . count($result['Errors']) . ' Error(s) occurred while creating database!<br><br>' .
                     $result .
                   '</div>';
@@ -162,12 +168,14 @@
           if($result['Result'])
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     --> Successfully created table "Attendance".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
                     $result['Errors'] .
                   '</div>';
@@ -179,12 +187,14 @@
           if($result['Result'])
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     --> Successfully created table "DIM Committee".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
                     $result['Errors'] .
                   '</div>';
@@ -196,12 +206,14 @@
           if($result['Result'])
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     --> Successfully created table "DIM Event Objective".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
                     $result['Errors'] .
                   '</div>';
@@ -213,12 +225,14 @@
           if($result['Result'])
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     --> Successfully created table "DIM Event Type".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
                     $result['Errors'] .
                   '</div>';
@@ -230,12 +244,14 @@
           if($result['Result'])
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     --> Successfully created table "Events".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
                     $result['Errors'] .
                   '</div>';
@@ -247,12 +263,14 @@
           if($result['Result'])
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     --> Successfully created table "Leads".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
                     $result['Errors'] .
                   '</div>';
@@ -264,12 +282,14 @@
           if($result['Result'])
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     --> Successfully created table "Members".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
                     $result['Errors'] .
                   '</div>';
@@ -281,17 +301,28 @@
           if($result['Result'])
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     --> Successfully created table "RSVP".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
                     [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
                     $result['Errors'] .
                   '</div>';
           }
         }
+
+        echo '
+        <div class="form-group">
+          <p>
+            If you don\'t see any errors or everything already exists,
+          </p>
+          <a class="btn btn-primary" href="index.html">Click Here</a>
+        </div>
+        ';
       }
 
       ?>

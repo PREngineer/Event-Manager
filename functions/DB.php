@@ -136,11 +136,12 @@ Function setup_MembersTable()
     `Volunteer` BOOLEAN NOT NULL COMMENT 'Wants to be a volunteer' ,
     `Active` BOOLEAN NULL COMMENT 'Is an active member' ,
     `Lead` BOOLEAN NULL COMMENT 'Is a lead' ,
+    `Role` INT NULL DEFAULT '1' COMMENT 'Member role in the portal' ,
     PRIMARY KEY (`ID`))
     ENGINE  = InnoDB
     CHARSET = utf8
     COLLATE utf8_general_ci
-    COMMENT = 'Contains all the member information';");
+    COMMENT = 'Contains all the member information'");
 }
 
 /*
@@ -174,7 +175,7 @@ Function setup_EventsTable()
     ENGINE  = InnoDB
     CHARSET = utf8
     COLLATE utf8_general_ci
-    COMMENT = 'Contains all the event information';");
+    COMMENT = 'Contains all the event information'");
 }
 
 /*
@@ -195,7 +196,7 @@ Function setup_LeadsTable()
     ENGINE  = InnoDB
     CHARSET = utf8
     COLLATE utf8_general_ci
-    COMMENT = 'Contains all the committee leads';");
+    COMMENT = 'Contains all the committee leads'");
 }
 
 /*
@@ -216,7 +217,7 @@ Function setup_AttendanceTable()
     ENGINE  = InnoDB
     CHARSET = utf8
     COLLATE utf8_general_ci
-    COMMENT = 'Contains all event attendance history';");
+    COMMENT = 'Contains all event attendance history'");
 }
 
 /*
@@ -237,7 +238,7 @@ Function setup_RSVPTable()
     ENGINE  = InnoDB
     CHARSET = utf8
     COLLATE utf8_general_ci
-    COMMENT = 'Contains all event registration history';");
+    COMMENT = 'Contains all event registration history'");
 }
 
 /*
@@ -258,7 +259,7 @@ Function setup_DIMCommitteeTable()
             ENGINE  = InnoDB
             CHARSET = utf8
             COLLATE utf8_general_ci
-            COMMENT = 'Contains all the committee information';");
+            COMMENT = 'Contains all the committee information'");
 
   if( $create['Result'] )
   {
@@ -298,21 +299,21 @@ Function setup_DIMEventTypeTable()
             ENGINE  = InnoDB
             CHARSET = utf8
             COLLATE utf8_general_ci
-            COMMENT = 'Contains all the Event Types';");
+            COMMENT = 'Contains all the Event Types'");
 
   if( $create['Result'] )
   {
     return query_DB("INSERT INTO `DIM Event Type` (`ID`, `Name`)
-            VALUES  ('1',   'People        -> Attract'),
-                    ('2',   'People        -> Development'),
-                    ('3',   'People        -> Retain'),
-                    ('4',   'People        -> Vigilance & Visibility'),
+            VALUES  ('1',   'People -> Attract'),
+                    ('2',   'People -> Development'),
+                    ('3',   'People -> Retain'),
+                    ('4',   'People -> Vigilance & Visibility'),
                     ('5',   'Community -> Service'),
                     ('6',   'Community -> Attract'),
                     ('7',   'Community -> Vigilance & Visibility'),
-                    ('8',   'Market        -> Attract'),
-                    ('9',   'Market        -> Develop'),
-                    ('10',  'Market        -> Vigilance & Visibility')");
+                    ('8',   'Market -> Attract'),
+                    ('9',   'Market -> Develop'),
+                    ('10',  'Market -> Vigilance & Visibility')");
   }
   else
   {
@@ -337,7 +338,7 @@ Function setup_DIMEventObjectiveTable()
             ENGINE  = InnoDB
             CHARSET = utf8
             COLLATE utf8_general_ci
-            COMMENT = 'Contains all the Event Objectives';");
+            COMMENT = 'Contains all the Event Objectives'");
 
   if( $create['Result'] )
   {
@@ -387,7 +388,7 @@ Region Start - Regular Use MySQL DB Setup Functions
 Function connect_DB()
 {
   // Make sure to load the DB Variables
-  if( $_SERVER['PHP_SELF'] == '/content/index.php')
+  if( file_exists('../functions/settings.php') )
   {
     include '../functions/settings.php';
   }
@@ -456,5 +457,144 @@ Function query_DB($query)
   }
 }
 
+/*
+*****************************
+Region Start - Regular Use MySQL DB Get Functions
+*****************************
+*/
+
+/*
+  Description:
+    This function executes a query to get all the DIM Committee entries.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_Committees()
+{
+  $result = query_DB("SELECT * FROM `DIM Committee`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the DIM Event Type entries.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_EventTypes()
+{
+  $result = query_DB("SELECT * FROM `DIM Event Type`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the DIM Event Obective entries.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_EventObjectives()
+{
+  $result = query_DB("SELECT * FROM `DIM Event Objective`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the future events.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_FutureEvents($date)
+{
+  $result = query_DB("SELECT * FROM `Events` WHERE `Date` > '$date'");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+*****************************
+Region Start - Regular Use MySQL DB Insert Functions
+*****************************
+*/
+
+/*
+  Description:
+    This function executes a query to insert a new Event.
+  @PARAM:
+
+  @RETURN:
+    [Boolean] - True
+    [Array]   - Errors
+*/
+Function insert_newEvent($data)
+{
+
+  $code1 = substr( MD5( date('Y-m-d H:i:s') ), 0, 6 );
+  $code2 = substr( MD5( date('Y-m-d H-i-s') ), 0, 6 );
+
+  $result = query_DB( "INSERT INTO `Events`
+            (`Name`, `Date`, `Start`, `End`, `Estimated_Budget`, `Location`, `Committee_ID`,
+              `Type`, `Objective`, `Creator`, `Person_Code`, `Remote_Code`)
+            VALUES (
+              '" . $data['eventName']        . "', '" . $data['eventDate']        . "',
+              '" . $data['start']            . "', '" . $data['end']              . "',
+              '" . $data['estimatedBudget']  . "', '" . $data['location']         . "',
+              '" . $data['sponsorCommittee'] . "', '" . $data['eventType']        . "',
+              '" . $data['eventObjective']   . "', '" . $data['creator']          . "',
+              '" . $code1                    . "', '" . $code2 . "' )" );
+
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
 
 ?>

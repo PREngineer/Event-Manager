@@ -5,25 +5,68 @@
   <li class="breadcrumb-item active">Event Form</li>
 </ol>
 -->
+<?php
+
+include '../functions/DB.php';
+
+$committees = get_Committees();
+
+$types = get_EventTypes();
+
+// Create an Array with all the Event Types in JavaScript
+echo '
+<script type="text/javascript">
+  var eventTypes = [];
+';
+
+$i = 1;
+
+foreach ($types as $entry => $value)
+{
+  echo 'eventTypes[' . $i . '] = "' . $value[1] . '";';
+  $i++;
+}
+
+$objectives = get_EventObjectives();
+
+// Create an Array with all the Event Objectives in JavaScript
+echo '
+  var eventObjectives = [];
+  var objective;
+';
+
+$i = 1;
+
+foreach ($objectives as $entry => $value)
+{
+  echo 'objective = {ID:"' . $value[0] . '", Name:"' . $value[1] . '"};';
+  echo 'eventObjectives[' . $i . '] = objective;';
+  $i++;
+}
+
+echo '</script>';
+
+?>
 
 <h1>Create New Event</h1>
 
 <!-- Form STARTS here -->
 
 <form class="container" method="POST" id="createEventForm">
+  <input name="action" type="hidden" value="createEvent">
   <hr>
 
-  <p><strong> Note: All fields marked with an asterisk (<label class="text-danger">*</label>) are required. </strong></p>
+  <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required. </strong></p>
 
   <div class="form-group">
-    <label for="enterpriseID"> <label class="text-danger">*</label> Enterprise ID:</label>
+    <label for="creator"> <label class="text-danger">*</label> Enterprise ID:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-user"></i>
       </span>
-      <input name="enterpriseID" type="text" class="form-control" id="enterpriseID" placeholder="john.p.doe" aria-describedby="enterpriseIDHelp" required>
+      <input name="creator" type="text" class="form-control" id="creator" placeholder="john.p.doe" aria-describedby="creatorHelp" required>
     </div>
-	<small id="enterpriseIDHelp" class="form-text text-muted">Use your enterprise ID only, don't include "@company.com"</small>
+	<small id="creatorHelp" class="form-text text-muted">Use your enterprise ID only, don't include "@company.com"</small>
   </div>
 
   <div class="form-group">
@@ -42,13 +85,13 @@
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-calendar"></i>
       </span>
-      <input name="eventDate" class="form-control" type="text" id="eventDate" placeholder="MM/DD/YYYY" required>
+      <input name="eventDate" class="form-control" type="text" id="eventDate" placeholder="YYYY-MM-DD" required>
     </div>
   </div>
 
-  <script>
+  <script type="text/javascript">
     $('#eventDate').datepicker({
-      format: "mm/dd/yyyy",
+      format: "yyyy-mm-dd",
       weekStart: 1,
       maxViewMode: 3,
       todayBtn: "linked",
@@ -58,6 +101,48 @@
         $(this).focus();
     });
   </script>
+
+  <div class="form-group">
+    <label for="start"> <label class="text-danger">*</label> Event Start:</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-calendar"></i>
+      </span>
+      <input name="start" class="form-control" type="text" id="start" placeholder="12:00pm" required>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  $(function(){
+    $('#start').timepicker({ 'timeFormat': 'H:i:s' });
+  });
+  </script>
+
+  <div class="form-group">
+    <label for="end"> <label class="text-danger">*</label> Event End:</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-calendar"></i>
+      </span>
+      <input name="end" class="form-control" type="text" id="end" placeholder="12:00pm" required>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  $(function(){
+    $('#end').timepicker({ 'timeFormat': 'H:i:s' });
+  });
+  </script>
+
+  <div class="form-group">
+    <label for="location"> <label class="text-danger">*</label> Event Location:</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </span>
+      <input name="location" type="text" class="form-control" id="location" placeholder="Glebe Office" required>
+    </div>
+  </div>
 
   <div class="form-group">
     <label for="estimatedBudget"> <label class="text-danger">*</label> Estimated Budget:</label>
@@ -91,63 +176,100 @@
       </span>
       <select name="sponsorCommittee" class="form-control" id="sponsorCommittee" required>
   	     <option></option>
-         <option>Advisory Board</option>
-         <option>Communication</option>
-         <option>Community Outreach</option>
-         <option>DC HAERG Co-Leads</option>
-         <option>HAERG Lead Sponsor</option>
-  	     <option>Local Marketing</option>
-  	     <option>Membership Engagement</option>
-  	     <option>Professional Development</option>
-  	     <option>Recruiting</option>
-  	     <option>Support - Metric & Compliance</option>
+      <?php
+
+         foreach ($committees as $entry => $value)
+         {
+           echo '<option>' . $value[1] . '</option>';
+         }
+
+      ?>
       </select>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="eventPillar">Event Pillar:</label>
+    <label for="eventType"> <label class="text-danger">*</label> Event Type:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-th-list"></i>
       </span>
-      <select name="eventPillar" class="form-control" id="eventPillar">
+      <select onchange="changeObjectives(this.value)" name="eventType" class="form-control" id="eventType" required>
   	    <option></option>
-        <option>Retention</option>
-        <option>Recruitment</option>
-        <option>Development</option>
-        <option>Vigilance & Visibility</option>
-        <option>Other</option>
+        <?php
+
+           foreach ($types as $entry => $value)
+           {
+             echo '<option>' . $value[1] . '</option>';
+           }
+
+        ?>
       </select>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="eventType">Event Type:</label>
+    <label for="eventObjective"> <label class="text-danger">*</label> Event Objective:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-th-list"></i>
       </span>
-      <select name="eventType" class="form-control" id="eventType">
+      <select name="eventObjective" class="form-control" id="eventObjective" required>
   	    <option></option>
-        <option>Client</option>
-        <option>Cultural Awareness</option>
-        <option>Local Community Outreach</option>
-        <option>Mentoring</option>
-        <option>National Community Outreach</option>
-  	    <option>Networking</option>
-  	    <option>Professional Development</option>
-  	    <option>Professional Organization</option>
-  	    <option>Prospective Client Event</option>
-  	    <option>Prospective Recruiting Event</option>
       </select>
     </div>
   </div>
+
+  <script type="text/javascript">
+
+  // Mark the Dropdown to update
+  var obj = document.getElementById("eventObjective");
+
+  function changeObjectives(value){
+
+    // Remove all previous options
+    while(obj.firstChild)
+    {
+      obj.removeChild(obj.firstChild);
+    }
+    if(obj.selectedIndex == 0)
+    {
+      return;
+    }
+
+    // First put the empty option on top
+    var o = document.createElement("option");
+    o.value = '';
+    o.text = '';
+    obj.appendChild(o);
+
+    // Find the ID of the selected event type
+    for(var i = 1; i < eventTypes.length; i++)
+    {
+      // Grab the id of the event type
+      if(eventTypes[i] == value)
+      {
+        // Look for all Objectives that belong to that Event Type
+        for(var j = 1; j < eventObjectives.length; j++)
+        {
+          // If it belongs to that one, create an option
+          if(eventObjectives[j].ID == i)
+          {
+            o = document.createElement("option");
+            o.value = eventObjectives[j].Name;
+            o.text = eventObjectives[j].Name;
+            obj.appendChild(o);
+          }
+        }
+      }
+    }
+  }
+  </script>
 
 <hr>
 
 <input class="btn btn-primary" type="submit" value="Submit">
-<input class="btn btn-primary" type="reset" value="Clear">
+<input class="btn btn-primary" type="reset"  value="Clear">
 
 </form>
 <!-- Form ENDS here -->
@@ -164,7 +286,7 @@
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            enterpriseID: {
+            creator: {
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please enter your Enterprise ID.'
@@ -187,7 +309,7 @@
                       message: 'ERROR: Please enter the Event Date.'
                     },
                     date: {
-                        format: 'mm/dd/yyyy',
+                        format: 'yyyy-mm-dd',
                         message: 'ERROR: The date is not a valid'
                     }
                 }
@@ -207,10 +329,10 @@
                     }
                 }
             },
-            eventPillar: {
+            location: {
                 validators: {
                     notEmpty: {
-                        message: 'ERROR: Please select the Event Pillar.'
+                        message: 'ERROR: Please select the Event Location.'
                     }
                 }
             },
@@ -218,6 +340,27 @@
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please select the Event Type.'
+                    }
+                }
+            },
+            eventObjective: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please select the Event Objective.'
+                    }
+                }
+            },
+            start: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please select the Event Start.'
+                    }
+                }
+            },
+            end: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please select the Event End.'
                     }
                 }
             },

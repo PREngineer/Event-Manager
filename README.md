@@ -19,7 +19,9 @@ Core web development technologies include:
 Libraries/Frameworks used:
   * Bootstrap v.3.3.7 [Stable]
     * Bootstrap coding resources:
+
       http://getbootstrap.com/docs/3.3/components/#input-groups
+
       https://www.w3schools.com/Bootstrap/default.asp
 
   * jQuery-3
@@ -37,7 +39,7 @@ Important Considerations:
 # The Team
 
   * Carlo Burgos
-  * Jorge Pabon
-  * Joaquin Ortiz
   * Jean Mendez
   * Emmanuel Munet
+  * Joaquin Ortiz
+  * Jorge Pabon

@@ -1,86 +1,81 @@
+<h1>New Member Registration Form</h1>
+
 <!-- Form STARTS here -->
 
-<!-- ******************* Form Heading *************************** -->
-<div class="container">
-  <div align="center" style="margin-top:25px">
-    <strong style="font-size:25px">HAERG New Member Registration Form
-    </strong>
-  </div>
-<form>
+<form class="container" method="POST" id="createMemberForm">
+  <input name="action" type="hidden" value="createMember">
+  <hr>
 
-<!-- ******************* Enterprise ID, First Name, Middle Initial & Last Name ******************* -->
+  <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required. </strong></p>
+
   <div class="form-group">
-    <label for="memberEnterpriseID"> <label class="text-danger">*</label> Enterprise ID</label>
+    <label for="enterpriseID"> <label class="text-danger">*</label> Enterprise ID</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-user"></i>
       </span>
-    <input type="text" class="form-control" id="memberNameFirst" placeholder="e.g. john.p.doe">
+      <input name="enterpriseID" type="text" class="form-control" id="enterpriseID" placeholder="john.p.doe" aria-describedby="enterpriseIDHelp" required>
+    </div>
+    <small id="enterpriseIDHelp" class="form-text text-muted">Use your enterprise ID only, don't include "@company.com"</small>
   </div>
-    <strong>Note: Use your enterprise ID only, don't include "@company.com"</strong>
 
-  </div>
   <div class="form-group">
-    <label for="memberNameFirst"><label class="text-danger">*</label> First Name</label>
+    <label for="firstName"> <label class="text-danger">*</label> First Name</label>
     <div class="input-group">
       <span class="input-group-addon">
-        <i class="glyphicon glyphicon-pencil"></i>
+        <i class="glyphicon glyphicon-user"></i>
       </span>
-    <input type="text" class="form-control" id="memberNameFirst" placeholder="John">
+      <input name="firstName" type="text" class="form-control" id="firstName" placeholder="John" aria-describedby="firstNameHelp" required>
+    </div>
   </div>
 
-  <div class="form-group" style="margin-top:10px">
-    <label for="memberNameFirst">Middle Name (If applicable)</label>
-    <div class="input-group">
-      <span class="input-group-addon">
-        <i class="glyphicon glyphicon-pencil"></i>
-      </span>
-    <input type="text" class="form-control" id="memberMiddleName" placeholder="Paul">
-  </div>
-
-  <div class="form-group" style="margin-top:10px">
-    <label for="memberNameLast"><label class="text-danger">*</label> Last Name</label>
-    <div class="input-group">
-      <span class="input-group-addon">
-        <i class="glyphicon glyphicon-pencil"></i>
-      </span>
-    <input type="text" class="form-control" id="memberNameLast" placeholder="Doe">
-  </div>
-
-  <div class="form-group" style="margin-top:10px">
-    <label for="memberNameSecondLast">Second Last Name (If applicable)</label>
-    <div class="input-group">
-      <span class="input-group-addon">
-        <i class="glyphicon glyphicon-pencil"></i>
-      </span>
-    <input type="text" class="form-control" id="memberNameSecondLast">
-  </div>
-
-  <!-- ******************* Accenture Segment ******************* -->
-<div class="form-group">
-  <fieldset>
-    <label for="accentureSegment" style="margin-top:10px"><label class="text-danger">*</label> Accenture Segment</label>
-  <div class="radio">
-    <label>
-      <input type="radio" name="accentureSegment"> AFS
-    </label>
-
-    <div class="radio">
-      <label>
-        <input type="radio" name="accentureSegment"> LLP
-      </label>
-  </fieldset>
-</div>
-
-  <!-- ******************* Career Level ******************* -->
   <div class="form-group">
-    <label for="careerLevel"><label class="text-danger">*</label> Career Level</label>
+    <label for="initials"> Middle Name</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-user"></i>
+      </span>
+      <input name="initials" type="text" class="form-control" id="initials" placeholder="Paul or P" aria-describedby="initialsHelp">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName"> <label class="text-danger">*</label> Last Name(s)</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-user"></i>
+      </span>
+      <input name="lastName" type="text" class="form-control" id="lastName" placeholder="Doe" aria-describedby="lastNameHelp" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email"> <label class="text-danger">*</label> E-mail</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-user"></i>
+      </span>
+      <input name="email" type="email" class="form-control" id="email" placeholder="Doe" aria-describedby="emailHelp" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="segment" style="margin-top:10px"><label class="text-danger">*</label> Company Segment</label>
+    <div class="input-group form-control">
+      <input name="segment" type="radio" id="segment" value="Federal" required> Federal
+    <br>
+      <input name="segment" type="radio" id="segment" value="LLP" required> LLP
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="level"><label class="text-danger">*</label> Career Level</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-th-list"></i>
       </span>
-    <select class="form-control" id="careerLevel" placeholder="Career Level">
-      <option value="hidden">Career Level</option>
+    <select name="level" class="form-control" id="level" required>
+      <option></option>
       <option>14</option>
       <option>13</option>
       <option>12</option>
@@ -90,40 +85,120 @@
       <option>8</option>
       <option>7</option>
       <option>6</option>
-      <option>Accenture Leadership</option>
+      <option>Leadership</option>
   </select>
   </div>
 </div>
 
-<!-- ******************* Newsletter ************************* -->
 <div class="form-group">
-<fieldset>
-  <label style="margin-top:15px" style="strong"for="newsLetterRadio">Would you like to be included in our Newsletter? (Optional)</label>
-  <div class="radio">
-    <label>
-      <input type="radio" name="newsLetterRadio">Yes
-    </label>
+  <div class="input-group">
+    <span class="input-group pull-left">
+      <input name="newsletter" id="newsletter" type="hidden" value="0">
+      <input name="newsletter" id="newsletter" type="checkbox" value="1">
+      Include me in the ERG Newsletter.
+    </span>
+  </div>
+</div>
 
-    <div class="radio">
-      <label>
-        <input type="radio" name="newsLetterRadio">No
-      </label>
-  </label>
-</fieldset>
+<div class="form-group">
+  <div class="input-group">
+    <span class="input-group pull-left">
+      <input name="volunteer" id="volunteer" type="hidden" value="0">
+      <input name="volunteer" id="volunteer" type="checkbox" value="1">
+      I am willing to volunteer.
+    </span>
+  </div>
 </div>
 
 <!-- ******************* Submit, Clear & Cancel Button ******************* -->
   </div >
     <div align="center">
-      <button  type="submit" class="btn">Submit</button>
-      <button  type="refresh" class="btn">Clear</button>
+      <button type="submit" class="btn">Submit</button>
+      <button type="reset"  class="btn">Clear</button>
     </div>
 </form>
 
-</div>
-
 <!-- Form ENDS here -->
 
-  </body>
+<script type="text/javascript">
 
-</html>
+   $(document).ready(function() {
+    $('#createMemberForm').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            enterpriseID: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please enter your enterprise ID.'
+                    }
+                }
+            },
+
+            firstName: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please enter your first name.'
+                    }
+                }
+            },
+
+            lastName: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please enter your last name.'
+                    }
+                }
+            },
+
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please enter your e-mail.'
+                   }
+                }
+            },
+
+            segment: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please enter your company segment.'
+                    }
+                }
+            },
+
+            level: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please enter your level.'
+                    }
+                }
+            },
+        }
+      })
+
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow")
+                $('#createMemberForm').data('bootstrapValidator').resetForm();
+
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+
+</script>
