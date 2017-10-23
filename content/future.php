@@ -34,7 +34,7 @@ else
 {
   foreach ($events as $name => $value)
   {
-    $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?action=rsvp&id=' . $value[0];
+    $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?action=rsvp%26id=' . $value[0];
 
     echo '
     <div class="col-sm-3">
@@ -66,7 +66,7 @@ else
                   <a href="?action=RSVP&id=' . $value[0] . '" class="btn btn-primary" role="button">RSVP</a>
                 </td>
                 <td>
-                  <a href="mailto:?subject=Thought%20you%20would%20like%20to%20know&body=Check%20out%20this%20event.%20%20' . $url . '" class="btn btn-success" role="button">Share</a>
+                  <a href="mailto:?subject=Thought%20you%20would%20like%20to%20know&body=Check%20out%20this%20event.%0A%0A' . $url . '" class="btn btn-success" role="button">Share</a>
                 </td class="text-center">
               </tr>
             </table>
