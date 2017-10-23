@@ -571,11 +571,13 @@ Function get_FutureEvents()
 Function get_CurrentEvents()
 {
   $date = date('Y-m-d');
-  $time = date('H:m:s');
+  $time = date('H:i:s');
 
   $result = query_DB("SELECT `ID`, `Name`,`Date`,`Start`,`End`,`Location`
                       FROM `Events`
-                      WHERE `Date` > '$date'");
+                      WHERE `Date` = '$date'
+                      AND `Start` <= '$time'
+                      AND `End` >= '$time'");
 
   if( $result['Result'] )
   {

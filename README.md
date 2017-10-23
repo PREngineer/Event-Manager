@@ -183,6 +183,36 @@ Libraries/Frameworks used:
     sudo phpenmod mbstring
     sudo ln -s /usr/share/phpmyadmin /usr/share/nginx/html
 
+  * Step 10 - Set Time Zone
+
+    Run:
+
+    sudo dpkg-reconfigure tzdata
+
+    Follow instructions to pick the right time zone.
+
+    Run:
+
+    sudo nano /etc/php/7.0/fpm/php.ini
+
+    Press 'CTRL + W' to search
+
+    Type: date.timezone
+
+    Press Enter
+
+    Change
+
+    ;date.timezone = '';
+
+    to
+
+    ;date.timezone = 'America/New_York';
+
+    Run:
+
+    sudo service php7.0-fpm restart
+
 # Important Considerations:
 
   * Links do not work like they do normally!

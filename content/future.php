@@ -15,7 +15,7 @@ $events = get_FutureEvents();
 
 foreach ($events as $name => $value)
 {
-  $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?action=RSVP?id=' . $value[0];
+  $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?action=rsvp?id=' . $value[0];
 
   echo '
   <div class="col-sm-3">
@@ -24,7 +24,7 @@ foreach ($events as $name => $value)
       <div class="caption">
           <table class="table">
             <tr>
-              <td colspan="2"><h4>' . $value[1] . '</h4></td>
+              <td class="text-center" colspan="2"><h4>' . $value[1] . '</h4></td>
             </tr>
             <tr>
               <td>Date:</td>
@@ -43,12 +43,12 @@ foreach ($events as $name => $value)
               <td>' . $value[5] . '</td>
             </tr>
             <tr>
-              <td>
+              <td class="text-center">
                 <a href="?action=RSVP&id=' . $value[0] . '" class="btn btn-primary" role="button">RSVP</a>
               </td>
               <td>
-                <a href="mailto:?subject=Thought%20you%20would%20like%20to%20know&body=Check%20out%20this%20event.%20%20' . $url . '" class="btn btn-default" role="button">Share</a>
-              </td>
+                <a href="mailto:?subject=Thought%20you%20would%20like%20to%20know&body=Check%20out%20this%20event.%20%20' . $url . '" class="btn btn-success" role="button">Share</a>
+              </td class="text-center">
             </tr>
           </table>
       </div>
