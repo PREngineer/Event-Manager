@@ -34,7 +34,7 @@ else
 {
   foreach ($events as $name => $value)
   {
-    $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?action=rsvp?id=' . $value[0];
+    $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?action=rsvp&id=' . $value[0];
 
     echo '
     <div class="col-sm-3">
