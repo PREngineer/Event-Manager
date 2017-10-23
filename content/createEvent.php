@@ -92,6 +92,7 @@ echo '</script>';
   <script type="text/javascript">
     $('#eventDate').datepicker({
       format: "yyyy-mm-dd",
+      startDate: '+6d',
       weekStart: 1,
       maxViewMode: 3,
       todayBtn: "linked",
