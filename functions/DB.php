@@ -541,9 +541,41 @@ Function get_EventObjectives()
     [Array]   - Data
     [Boolean] - False
 */
-Function get_FutureEvents($date)
+Function get_FutureEvents()
 {
-  $result = query_DB("SELECT `ID`, `Name`,`Date`,`Start`,`End`,`Location` FROM `Events` WHERE `Date` > '$date'");
+  $date = date('Y-m-d');
+
+  $result = query_DB("SELECT `ID`, `Name`,`Date`,`Start`,`End`,`Location`
+                      FROM `Events`
+                      WHERE `Date` > '$date'");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the current events.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_CurrentEvents()
+{
+  $date = date('Y-m-d');
+  $time = date('H:m:s');
+
+  $result = query_DB("SELECT `ID`, `Name`,`Date`,`Start`,`End`,`Location`
+                      FROM `Events`
+                      WHERE `Date` > '$date'");
 
   if( $result['Result'] )
   {

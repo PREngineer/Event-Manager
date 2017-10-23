@@ -2,12 +2,13 @@
 
 include '../functions/DB.php';
 
-$events = get_FutureEvents();
+//$events = get_CurrentEvents();
+echo date('H:i:s');
 
 //print_r($events);
 ?>
 
-<h1>Future Events</h1>
+<h1>Current Events</h1>
 
 <div class="container">
 
