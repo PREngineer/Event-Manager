@@ -62,7 +62,7 @@ echo '</script>';
     <label for="creator"> <label class="text-danger">*</label> Enterprise ID:</label>
     <div class="input-group">
       <span class="input-group-addon">
-        <i class="glyphicon glyphicon-user"></i>
+        <i class="glyphicon glyphicon-lock"></i>
       </span>
       <input name="creator" type="text" class="form-control" id="creator" placeholder="john.p.doe" aria-describedby="creatorHelp" required>
     </div>
@@ -107,7 +107,7 @@ echo '</script>';
     <label for="start"> <label class="text-danger">*</label> Event Start:</label>
     <div class="input-group">
       <span class="input-group-addon">
-        <i class="glyphicon glyphicon-calendar"></i>
+        <i class="glyphicon glyphicon-time"></i>
       </span>
       <input name="start" class="form-control" type="text" id="start" placeholder="12:00pm" required>
     </div>
@@ -123,7 +123,7 @@ echo '</script>';
     <label for="end"> <label class="text-danger">*</label> Event End:</label>
     <div class="input-group">
       <span class="input-group-addon">
-        <i class="glyphicon glyphicon-calendar"></i>
+        <i class="glyphicon glyphicon-time"></i>
       </span>
       <input name="end" class="form-control" type="text" id="end" placeholder="12:00pm" required>
     </div>
@@ -139,7 +139,7 @@ echo '</script>';
     <label for="location"> <label class="text-danger">*</label> Event Location:</label>
     <div class="input-group">
       <span class="input-group-addon">
-        <i class="glyphicon glyphicon-pencil"></i>
+        <i class="glyphicon glyphicon-search"></i>
       </span>
       <input name="location" type="text" class="form-control" id="location" placeholder="Glebe Office" required>
     </div>

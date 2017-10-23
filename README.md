@@ -1,6 +1,6 @@
 # Events Manager
 
-This platform is used to create, manage, and track assistance of events.
+This platform is used to create, manage, and track events and assistance.
 
 # About
 
