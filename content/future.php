@@ -15,7 +15,7 @@ $events = get_FutureEvents(date('Y-m-d'));
 
 foreach ($events as $name => $value)
 {
-  $url = 'http://localhost/content/index.php?action=RSVP?id=' . $value[0];
+  $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?action=RSVP?id=' . $value[0];
 
   echo '
   <div class="col-sm-3">
