@@ -136,7 +136,7 @@
 <?php
     $events = get_CurrentEvents();
 
-    if( sizeof($events) >= 1 )
+    if( sizeof($events) >= 1 && empty($_POST) )
     {
       echo'
       <script>
