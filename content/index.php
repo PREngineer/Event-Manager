@@ -79,22 +79,22 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li class="active">
+              <li id="currentLink">
                 <a link="current.php" style="cursor: pointer;">Current Event</a>
               </li>
-              <li>
+              <li id="futureLink">
                 <a link="future.php" style="cursor: pointer;">Future Events</a>
               </li>
-              <li>
+              <li id="createMemberLink">
                 <a link="createMember.html" style="cursor: pointer;">New Member</a>
               </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-              <li>
+              <li id="approversLink">
                 <a link="approvers.html" style="cursor: pointer;">Approvers</a>
               </li>
-              <li class="dropdown">
+              <li id="pocLink" class="dropdown">
                 <a class="dropdown-toggle" link="pocs.html" style="cursor: pointer;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   POCs <span class="caret"></span>
                 </a>
@@ -104,7 +104,7 @@
                   <li><a link="pocList.html" style="cursor: pointer;">My Events</a></li>
                 </ul>
               </li>
-              <li class="dropdown">
+              <li id="adminLink" class="dropdown">
                 <a link="admin.html" style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   Administrators <span class="caret"></span>
                 </a>

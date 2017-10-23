@@ -7,6 +7,16 @@ $events = get_CurrentEvents();
 //print_r($events);
 ?>
 
+<!-- Handle NavBar Highlights -->
+<script>
+  document.getElementById("currentLink").classList.add('active');
+  document.getElementById("futureLink").classList.remove('active');
+  document.getElementById("createMemberLink").classList.remove('active');
+  document.getElementById("approversLink").classList.remove('active');
+  document.getElementById("pocLink").classList.remove('active');
+  document.getElementById("adminLink").classList.remove('active');
+</script>
+
 <h1>Current Events</h1>
 
 <div class="container">
