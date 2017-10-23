@@ -547,7 +547,8 @@ Function get_FutureEvents()
 
   $result = query_DB("SELECT `ID`, `Name`,`Date`,`Start`,`End`,`Location`
                       FROM `Events`
-                      WHERE `Date` > '$date'");
+                      WHERE `Date` > '$date'
+                      ORDER BY `Date`,`Start`");
 
   if( $result['Result'] )
   {
@@ -577,7 +578,8 @@ Function get_CurrentEvents()
                       FROM `Events`
                       WHERE `Date` = '$date'
                       AND `Start` <= '$time'
-                      AND `End` >= '$time'");
+                      AND `End` >= '$time'
+                      ORDER BY `Date`,`Start`");
 
   if( $result['Result'] )
   {
