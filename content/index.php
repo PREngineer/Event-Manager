@@ -80,7 +80,7 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li id="currentLink">
-                <a link="current.php" style="cursor: pointer;">Current Event</a>
+                <a link="current.php" style="cursor: pointer;">Current Events</a>
               </li>
               <li id="futureLink">
                 <a link="future.php" style="cursor: pointer;">Future Events</a>
