@@ -133,6 +133,21 @@
       <h1>Hello World!</h1>
     </div>
 
+<?php
+    $events = get_CurrentEvents();
+
+    if( sizeof($events) >= 1 )
+    {
+      echo'
+      <script>
+      $(document).ready(function(){
+          $("#Content").load("current.php");
+      });
+      </script>
+      ';
+    }
+?>
+
     <!-- ******************* Footer Section ******************* -->
     <div class="container">
       <div class="nav navbar-inverse">
