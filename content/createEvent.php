@@ -48,7 +48,34 @@ echo '</script>';
 
 ?>
 
-<h1>Create New Event</h1>
+<!-- Header -->
+<a class="skip-navigation sr-only sr-only-focusable" href="#page-title">Skip Navigation</a>
+
+<!-- Main -->
+<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Create New Event</h1>
+
+<!-- Top of the Error Message	
+Note: disabled for now until I get the [#] fixed and how to display the "top of the page error messages" after submission.
+
+<div class="alert alert-danger" role="alert">
+	<h4 class="alert-heading">
+	<span class="glyphicons glyphicons-exclamation-sign" aria-hidden="true"></span>
+	This form contains [#] errors</h4>
+	<hr>
+	<ul>
+		<li><a class="alert-link" href="#enterpriseID">Enterprise ID: This is a required field.</a></li>
+		<li><a class="alert-link" href="#eventName">Event Name: This is a required field.</a></li>
+		<li><a class="alert-link" href="#eventDate">Event Date: This is a required field.</a></li>
+		<li><a class="alert-link" href="#eventStartTime">Event Start Time: This is a required field.</a></li>
+		<li><a class="alert-link" href="#eventEndTime">Event End Time: This is a required field.</a></li>
+		<li><a class="alert-link" href="#eventLocation">Event Location: This is a required field.</a></li>
+		<li><a class="alert-link" href="#estimatedBudget">Estimated Budget: This is a required field.</a></li>
+		<li><a class="alert-link" href="#sponsorCommittee">Sponsor Committee: This is a required field.</a></li>
+		<li><a class="alert-link" href="#eventType">Event Type: This is a required field.</a></li>
+		<li><a class="alert-link" href="#eventObjective">Event Objective: This is a required field.</a></li>
+	</ul>
+</div>
+-->
 
 <!-- Form STARTS here -->
 
@@ -56,17 +83,17 @@ echo '</script>';
   <input name="action" type="hidden" value="createEvent">
   <hr>
 
-  <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required. </strong></p>
+  <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
 
   <div class="form-group">
-    <label for="creator"> <label class="text-danger">*</label> Enterprise ID:</label>
+    <label for="enterpriseID"> <label class="text-danger">*</label> Enterprise ID:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-lock"></i>
       </span>
-      <input name="creator" type="text" class="form-control" id="creator" placeholder="john.p.doe" aria-describedby="creatorHelp" required>
+      <input name="enterpriseID" type="text" class="form-control" id="enterpriseID" placeholder="john.p.doe" aria-describedby="enterpriseIDHelp" aria-required="true">
     </div>
-	<small id="creatorHelp" class="form-text text-muted">Use your enterprise ID only, don't include "@company.com"</small>
+	<small id="enterpriseIDHelp" class="form-text text-muted">Use your enterprise ID only, don't include "@company.com"</small>
   </div>
 
   <div class="form-group">
@@ -75,7 +102,7 @@ echo '</script>';
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-pencil"></i>
       </span>
-      <input name="eventName" type="text" class="form-control" id="eventName" placeholder="e.g. Professional Development" required>
+      <input name="eventName" type="text" class="form-control" id="eventName" placeholder="e.g. Professional Development" aria-required="true">
     </div>
   </div>
 
@@ -85,7 +112,7 @@ echo '</script>';
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-calendar"></i>
       </span>
-      <input name="eventDate" class="form-control" type="text" id="eventDate" placeholder="YYYY-MM-DD" required>
+      <input name="eventDate" class="form-control" type="text" id="eventDate" placeholder="YYYY-MM-DD" aria-required="true">
     </div>
   </div>
 
@@ -104,12 +131,12 @@ echo '</script>';
   </script>
 
   <div class="form-group">
-    <label for="start"> <label class="text-danger">*</label> Event Start:</label>
+    <label for="eventStartTime"> <label class="text-danger">*</label> Event Start Time:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-time"></i>
       </span>
-      <input name="start" class="form-control" type="text" id="start" placeholder="12:00pm" required>
+      <input name="eventStartTime" class="form-control" type="text" id="eventStartTime" placeholder="12:00 pm" aria-required="true">
     </div>
   </div>
 
@@ -120,12 +147,12 @@ echo '</script>';
   </script>
 
   <div class="form-group">
-    <label for="end"> <label class="text-danger">*</label> Event End:</label>
+    <label for="eventEndTime"> <label class="text-danger">*</label> Event End Time:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-time"></i>
       </span>
-      <input name="end" class="form-control" type="text" id="end" placeholder="12:00pm" required>
+      <input name="eventEndTime" class="form-control" type="text" id="eventEndTime" placeholder="12:00 pm" aria-required="true">
     </div>
   </div>
 
@@ -136,12 +163,12 @@ echo '</script>';
   </script>
 
   <div class="form-group">
-    <label for="location"> <label class="text-danger">*</label> Event Location:</label>
+    <label for="eventLocation"> <label class="text-danger">*</label> Event Location:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-search"></i>
       </span>
-      <input name="location" type="text" class="form-control" id="location" placeholder="Glebe Office" required>
+      <input name="eventLocation" type="text" class="form-control" id="eventLocation" placeholder="Glebe Office" aria-required="true">
     </div>
   </div>
 
@@ -151,7 +178,7 @@ echo '</script>';
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-usd"></i>
       </span>
-      <input name="estimatedBudget" type="text" class="form-control" id="estimatedBudget" placeholder="1234.56" aria-describedby="estimatedBudgetHelp" required>
+      <input name="estimatedBudget" type="text" class="form-control" id="estimatedBudget" placeholder="1234.56" aria-describedby="estimatedBudgetHelp" aria-required="true">
     </div>
     <small id="estimatedBudgetHelp" class="form-text text-muted">Do not include commas.</small>
   </div>
@@ -163,7 +190,7 @@ echo '</script>';
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-usd"></i>
       </span>
-      <input name="actualBudget" type="text" class="form-control" id="actualBudget" placeholder="1234.56" aria-describedby="actualBudgetHelp" required>
+      <input name="actualBudget" type="text" class="form-control" id="actualBudget" placeholder="1234.56" aria-describedby="actualBudgetHelp">
     </div>
     <small id="actualBudgetHelp" class="form-text text-muted">Do not include commas.</small>
   </div>
@@ -175,7 +202,7 @@ echo '</script>';
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-th-list"></i>
       </span>
-      <select name="sponsorCommittee" class="form-control" id="sponsorCommittee" required>
+      <select name="sponsorCommittee" class="form-control" id="sponsorCommittee" aria-required="true">
   	     <option></option>
       <?php
 
@@ -195,7 +222,7 @@ echo '</script>';
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-th-list"></i>
       </span>
-      <select onchange="changeObjectives(this.value)" name="eventType" class="form-control" id="eventType" required>
+      <select onchange="changeObjectives(this.value)" name="eventType" class="form-control" id="eventType" aria-required="true">
   	    <option></option>
         <?php
 
@@ -215,11 +242,12 @@ echo '</script>';
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-th-list"></i>
       </span>
-      <select name="eventObjective" class="form-control" id="eventObjective" required>
+      <select name="eventObjective" class="form-control" id="eventObjective" aria-required="true">
   	    <option></option>
       </select>
     </div>
   </div>
+  
 
   <script type="text/javascript">
 
@@ -276,6 +304,12 @@ echo '</script>';
 <!-- Form ENDS here -->
 <br>
 
+<!-- Begin Footer -->
+	<!-- Include some footer links? -->	
+<!-- End Footer -->
+ 
+ 
+<!-- Begin Scripts for Inline Error Messages -->
 <script type="text/javascript">
 
    $(document).ready(function() {
@@ -286,14 +320,17 @@ echo '</script>';
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
+		
         fields: {
-            creator: {
+			
+            enterpriseID: {
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please enter your Enterprise ID.'
                     }
                 }
             },
+			
              eventName: {
                 validators: {
                     notEmpty: {
@@ -315,7 +352,31 @@ echo '</script>';
                     }
                 }
             },
-
+			
+			eventStartTime: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please enter the Event Start Time.'
+                    }
+                }
+            },
+			
+            eventEndTime: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please enter the Event End Time.'
+                    }
+                }
+            },
+			
+			eventLocation: {
+                validators: {
+                    notEmpty: {
+                        message: 'ERROR: Please select the Event Location.'
+                    }
+                }
+            },
+			
             estimatedBudget: {
                 validators: {
                     notEmpty: {
@@ -323,6 +384,7 @@ echo '</script>';
                     }
                 }
             },
+			
             sponsorCommittee: {
                 validators: {
                     notEmpty: {
@@ -330,13 +392,7 @@ echo '</script>';
                     }
                 }
             },
-            location: {
-                validators: {
-                    notEmpty: {
-                        message: 'ERROR: Please select the Event Location.'
-                    }
-                }
-            },
+
             eventType: {
                 validators: {
                     notEmpty: {
@@ -344,6 +400,7 @@ echo '</script>';
                     }
                 }
             },
+			
             eventObjective: {
                 validators: {
                     notEmpty: {
@@ -351,20 +408,7 @@ echo '</script>';
                     }
                 }
             },
-            start: {
-                validators: {
-                    notEmpty: {
-                        message: 'ERROR: Please select the Event Start.'
-                    }
-                }
-            },
-            end: {
-                validators: {
-                    notEmpty: {
-                        message: 'ERROR: Please select the Event End.'
-                    }
-                }
-            },
+			
           }
         })
 
@@ -389,3 +433,4 @@ echo '</script>';
 });
 
 </script>
+<!-- End Scripts for Inline Error Messages -->
