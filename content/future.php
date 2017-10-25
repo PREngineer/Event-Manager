@@ -17,7 +17,7 @@ $events = get_FutureEvents();
   document.getElementById("adminLink").classList.remove('active');
 </script>
 
-<h1>Future Events</h1>
+<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Future Events</h1>
 
 <div class="container">
 

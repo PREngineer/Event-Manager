@@ -49,7 +49,7 @@ echo '</script>';
 ?>
 
 <!-- Header -->
-<a class="skip-navigation sr-only sr-only-focusable" href="#page-title">Skip Navigation</a>
+
 
 <!-- Main -->
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Create New Event</h1>
@@ -86,12 +86,12 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
   <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
 
   <div class="form-group">
-    <label for="enterpriseID"> <label class="text-danger">*</label> Enterprise ID:</label>
+    <label for="creator"> <label class="text-danger">*</label> Enterprise ID:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-lock"></i>
       </span>
-      <input name="enterpriseID" type="text" class="form-control" id="enterpriseID" placeholder="john.p.doe" aria-describedby="enterpriseIDHelp" aria-required="true">
+      <input name="creator" type="text" class="form-control" id="creator" placeholder="john.p.doe" aria-describedby="enterpriseIDHelp" aria-required="true">
     </div>
 	<small id="enterpriseIDHelp" class="form-text text-muted">Use your enterprise ID only, don't include "@company.com"</small>
   </div>
@@ -131,12 +131,12 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
   </script>
 
   <div class="form-group">
-    <label for="eventStartTime"> <label class="text-danger">*</label> Event Start Time:</label>
+    <label for="start"> <label class="text-danger">*</label> Event Start Time:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-time"></i>
       </span>
-      <input name="eventStartTime" class="form-control" type="text" id="eventStartTime" placeholder="12:00 pm" aria-required="true">
+      <input name="start" class="form-control" type="text" id="start" placeholder="12:00 pm" aria-required="true">
     </div>
   </div>
 
@@ -147,12 +147,12 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
   </script>
 
   <div class="form-group">
-    <label for="eventEndTime"> <label class="text-danger">*</label> Event End Time:</label>
+    <label for="end"> <label class="text-danger">*</label> Event End Time:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-time"></i>
       </span>
-      <input name="eventEndTime" class="form-control" type="text" id="eventEndTime" placeholder="12:00 pm" aria-required="true">
+      <input name="end" class="form-control" type="text" id="end" placeholder="12:00 pm" aria-required="true">
     </div>
   </div>
 
@@ -163,12 +163,12 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
   </script>
 
   <div class="form-group">
-    <label for="eventLocation"> <label class="text-danger">*</label> Event Location:</label>
+    <label for="location"> <label class="text-danger">*</label> Event Location:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-search"></i>
       </span>
-      <input name="eventLocation" type="text" class="form-control" id="eventLocation" placeholder="Glebe Office" aria-required="true">
+      <input name="location" type="text" class="form-control" id="location" placeholder="Glebe Office" aria-required="true">
     </div>
   </div>
 
@@ -322,8 +322,7 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
         },
 		
         fields: {
-			
-            enterpriseID: {
+			creator: {
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please enter your Enterprise ID.'
@@ -331,7 +330,7 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
                 }
             },
 			
-             eventName: {
+            eventName: {
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please enter the Event Name.'
@@ -353,7 +352,7 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
                 }
             },
 			
-			eventStartTime: {
+			start: {
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please enter the Event Start Time.'
@@ -361,7 +360,7 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
                 }
             },
 			
-            eventEndTime: {
+            end: {
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please enter the Event End Time.'
@@ -369,7 +368,7 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
                 }
             },
 			
-			eventLocation: {
+			location: {
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please select the Event Location.'

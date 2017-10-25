@@ -58,7 +58,8 @@
     </script>
 
     <!-- ******************* NavBar Section ******************* -->
-    <div class="container">
+    <a class="skip-navigation sr-only sr-only-focusable" href="#page-title">Skip Navigation</a>
+	<div class="container">
       <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <!-- Brand and toggle (hamburger) get grouped for better mobile display -->
@@ -130,7 +131,7 @@
     ?>
 
     <div class="container" id="Content" name="Content">
-      <h1>Hello World!</h1>
+		<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Hello World!</h1>
     </div>
 
 <?php
