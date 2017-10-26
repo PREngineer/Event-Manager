@@ -79,8 +79,13 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
 
 <!-- Form STARTS here -->
 
+<!-- JORGE CHECK THIS! This function "errorMessages" displays (Top of the Page Error Messages) -->
+  <div id="errorMessages" class="alert-danger"></div>
+
+  
 <form class="container" method="POST" id="createEventForm">
   <input name="action" type="hidden" value="createEvent">
+    
   <hr>
 
   <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
@@ -433,3 +438,72 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
 
 </script>
 <!-- End Scripts for Inline Error Messages -->
+
+<!-- JORGE CHECK THIS! Start Scripts for Error Counter and Top of the Page Error Message -->
+<script>
+$("#myform").validate({
+  invalidHandler: function(event, validator) {
+    // 'this' refers to the form
+    var errors = validator.numberOfInvalids();
+    if (errors) {
+      var message = errors == 1
+        ? 'You missed 1 field. It has been highlighted'
+        : 'You missed ' + errors + ' fields. They have been highlighted';
+      $("#errorMessages").html(message);
+      $("#errorMessages").show();
+    } else {
+      $("#errorMessages").hide();
+    }
+  }
+});
+</script>
+<!-- End Scripts for Error Counter -->
+
+<!-- JORGE CHECK THIS! PROBABLY BAD CODING DUE TO (:INVALID) Begin Scripts for "Top of the Page Error Messages"
+<script>
+    var createAllErrors = function() {
+        var form = $( this ),
+            errorList = $( "ul.errorMessages", form );
+
+        var showAllErrorMessages = function() {
+            errorList.empty();
+
+            // Find all invalid fields within the form.
+            var invalidFields = form.find( ":invalid" ).each( function( index, node ) {
+
+                // Find the field's corresponding label
+                var label = $( "label[for=" + node.id + "] "),
+                    // Opera incorrectly does not fill the validationMessage property.
+                    message = node.validationMessage || 'Invalid value.';
+
+                errorList
+                    .show()
+				//	.append( "<li><span>" + createEvent.php() + "</span> " + message + "</li>" );
+                    .append( "<li><span>" + label.html() + "</span> " + message + "</li>" );
+            });
+        };
+
+        // Support Safari
+        form.on( "submit", function( event ) {
+            if ( this.checkValidity && !this.checkValidity() ) {
+                $( this ).find( ":invalid" ).first().focus();
+                event.preventDefault();
+            }
+        });
+
+        $( "input[type=submit], button:not([type=button])", form )
+            .on( "click", showAllErrorMessages);
+
+        $( "input", form ).on( "keypress", function( event ) {
+            var type = $( this ).attr( "type" );
+            if ( /date|email|month|number|search|tel|text|time|url|week/.test ( type )
+              && event.keyCode == 13 ) {
+                showAllErrorMessages();
+            }
+        });
+    };
+    
+    $( "form" ).each( createAllErrors );
+</script>
+
+<!-- End Scripts for "Top of the Page Error Messages" -->
