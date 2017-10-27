@@ -48,44 +48,13 @@ echo '</script>';
 
 ?>
 
-<!-- Header -->
-
-
-<!-- Main -->
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Create New Event</h1>
-
-<!-- Top of the Error Message	
-Note: disabled for now until I get the [#] fixed and how to display the "top of the page error messages" after submission.
-
-<div class="alert alert-danger" role="alert">
-	<h4 class="alert-heading">
-	<span class="glyphicons glyphicons-exclamation-sign" aria-hidden="true"></span>
-	This form contains [#] errors</h4>
-	<hr>
-	<ul>
-		<li><a class="alert-link" href="#enterpriseID">Enterprise ID: This is a required field.</a></li>
-		<li><a class="alert-link" href="#eventName">Event Name: This is a required field.</a></li>
-		<li><a class="alert-link" href="#eventDate">Event Date: This is a required field.</a></li>
-		<li><a class="alert-link" href="#eventStartTime">Event Start Time: This is a required field.</a></li>
-		<li><a class="alert-link" href="#eventEndTime">Event End Time: This is a required field.</a></li>
-		<li><a class="alert-link" href="#eventLocation">Event Location: This is a required field.</a></li>
-		<li><a class="alert-link" href="#estimatedBudget">Estimated Budget: This is a required field.</a></li>
-		<li><a class="alert-link" href="#sponsorCommittee">Sponsor Committee: This is a required field.</a></li>
-		<li><a class="alert-link" href="#eventType">Event Type: This is a required field.</a></li>
-		<li><a class="alert-link" href="#eventObjective">Event Objective: This is a required field.</a></li>
-	</ul>
-</div>
--->
 
 <!-- Form STARTS here -->
 
-<!-- JORGE CHECK THIS! This function "errorMessages" displays (Top of the Page Error Messages) -->
-  <div id="errorMessages" class="alert-danger"></div>
-
-  
 <form class="container" method="POST" id="createEventForm">
   <input name="action" type="hidden" value="createEvent">
-    
+
   <hr>
 
   <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
@@ -125,10 +94,11 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
     $('#eventDate').datepicker({
       format: "yyyy-mm-dd",
       startDate: '+6d',
+      toggleActive: true,
       weekStart: 1,
       maxViewMode: 3,
-      todayBtn: "linked",
       autoclose: true,
+      daysOfWeekHighlighted: "1,2,3,4,5",
       todayHighlight: true
       }).on('changeDate', function (e) {
         $(this).focus();
@@ -188,19 +158,6 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
     <small id="estimatedBudgetHelp" class="form-text text-muted">Do not include commas.</small>
   </div>
 
-<!--
-  <div class="form-group">
-    <label for="actualBudget">Actual Budget:</label>
-    <div class="input-group">
-      <span class="input-group-addon">
-        <i class="glyphicon glyphicon-usd"></i>
-      </span>
-      <input name="actualBudget" type="text" class="form-control" id="actualBudget" placeholder="1234.56" aria-describedby="actualBudgetHelp">
-    </div>
-    <small id="actualBudgetHelp" class="form-text text-muted">Do not include commas.</small>
-  </div>
--->
-
   <div class="form-group">
     <label for="sponsorCommittee"> <label class="text-danger">*</label> Sponsor Committee:</label>
     <div class="input-group">
@@ -252,52 +209,52 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
       </select>
     </div>
   </div>
-  
+
 
   <script type="text/javascript">
 
-  // Mark the Dropdown to update
-  var obj = document.getElementById("eventObjective");
+    // Mark the Dropdown to update
+    var obj = document.getElementById("eventObjective");
 
-  function changeObjectives(value){
+    function changeObjectives(value){
 
-    // Remove all previous options
-    while(obj.firstChild)
-    {
-      obj.removeChild(obj.firstChild);
-    }
-    if(obj.selectedIndex == 0)
-    {
-      return;
-    }
-
-    // First put the empty option on top
-    var o = document.createElement("option");
-    o.value = '';
-    o.text = '';
-    obj.appendChild(o);
-
-    // Find the ID of the selected event type
-    for(var i = 1; i < eventTypes.length; i++)
-    {
-      // Grab the id of the event type
-      if(eventTypes[i] == value)
+      // Remove all previous options
+      while(obj.firstChild)
       {
-        // Look for all Objectives that belong to that Event Type
-        for(var j = 1; j < eventObjectives.length; j++)
+        obj.removeChild(obj.firstChild);
+      }
+      if(obj.selectedIndex == 0)
+      {
+        return;
+      }
+
+      // First put the empty option on top
+      var o = document.createElement("option");
+      o.value = '';
+      o.text = '';
+      obj.appendChild(o);
+
+      // Find the ID of the selected event type
+      for(var i = 1; i < eventTypes.length; i++)
+      {
+        // Grab the id of the event type
+        if(eventTypes[i] == value)
         {
-          // If it belongs to that one, create an option
-          if(eventObjectives[j].ID == i)
+          // Look for all Objectives that belong to that Event Type
+          for(var j = 1; j < eventObjectives.length; j++)
           {
-            o = document.createElement("option");
-            o.value = eventObjectives[j].Name;
-            o.text = eventObjectives[j].Name;
-            obj.appendChild(o);
+            // If it belongs to that one, create an option
+            if(eventObjectives[j].ID == i)
+            {
+              o = document.createElement("option");
+              o.value = eventObjectives[j].Name;
+              o.text = eventObjectives[j].Name;
+              obj.appendChild(o);
+            }
           }
         }
       }
     }
-  }
   </script>
 
 <hr>
@@ -309,32 +266,26 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
 <!-- Form ENDS here -->
 <br>
 
-<!-- Begin Footer -->
-	<!-- Include some footer links? -->	
-<!-- End Footer -->
- 
- 
 <!-- Begin Scripts for Inline Error Messages -->
 <script type="text/javascript">
 
    $(document).ready(function() {
     $('#createEventForm').bootstrapValidator({
+        container: '#messages',
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
-		
         fields: {
-			creator: {
+			      creator: {
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please enter your Enterprise ID.'
                     }
                 }
             },
-			
             eventName: {
                 validators: {
                     notEmpty: {
@@ -342,29 +293,26 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
                     }
                 }
             },
-
             eventDate: {
-              // The hidden input will not be ignored
+                // The hidden input will not be ignored
                 excluded: false,
                 validators: {
                     notEmpty: {
-                      message: 'ERROR: Please enter the Event Date.'
+                        message: 'ERROR: Please enter the Event Date.'
                     },
                     date: {
                         format: 'yyyy-mm-dd',
-                        message: 'ERROR: The date is not a valid'
+                        message: 'ERROR: The date format is not a valid. It should be YYY-mm-dd.'
                     }
                 }
             },
-			
-			start: {
+			      start: {
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please enter the Event Start Time.'
                     }
                 }
             },
-			
             end: {
                 validators: {
                     notEmpty: {
@@ -372,15 +320,13 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
                     }
                 }
             },
-			
-			location: {
+			      location: {
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please select the Event Location.'
                     }
                 }
             },
-			
             estimatedBudget: {
                 validators: {
                     notEmpty: {
@@ -388,7 +334,6 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
                     }
                 }
             },
-			
             sponsorCommittee: {
                 validators: {
                     notEmpty: {
@@ -396,7 +341,6 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
                     }
                 }
             },
-
             eventType: {
                 validators: {
                     notEmpty: {
@@ -404,106 +348,34 @@ Note: disabled for now until I get the [#] fixed and how to display the "top of 
                     }
                 }
             },
-			
             eventObjective: {
                 validators: {
                     notEmpty: {
                         message: 'ERROR: Please select the Event Objective.'
                     }
                 }
-            },
-			
-          }
-        })
+            }
+        }
+    })
 
-        .on('success.form.bv', function(e) {
-            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
-                $('#createEventForm').data('bootstrapValidator').resetForm();
+    // POST if everything is OK
+    .on('success.form.bv', function(e) {
+          alert('Success!');
+          // Prevent form submission
+          e.preventDefault();
 
-            // Prevent form submission
-            e.preventDefault();
+          // Get the form instance
+          var $form = $(e.target);
 
-            // Get the form instance
-            var $form = $(e.target);
+          // Get the BootstrapValidator instance
+          var bv = $form.data('bootstrapValidator');
 
-            // Get the BootstrapValidator instance
-            var bv = $form.data('bootstrapValidator');
-
-            // Use Ajax to submit form data
-            $.post($form.attr('action'), $form.serialize(), function(result) {
-                console.log(result);
-            }, 'json');
-        });
+          // Use Ajax to submit form data
+          $.post($form.attr('action'), $form.serialize(), function(result) {
+              console.log(result);
+          }, 'json');
+    });
 });
 
 </script>
 <!-- End Scripts for Inline Error Messages -->
-
-<!-- JORGE CHECK THIS! Start Scripts for Error Counter and Top of the Page Error Message -->
-<script>
-$("#myform").validate({
-  invalidHandler: function(event, validator) {
-    // 'this' refers to the form
-    var errors = validator.numberOfInvalids();
-    if (errors) {
-      var message = errors == 1
-        ? 'You missed 1 field. It has been highlighted'
-        : 'You missed ' + errors + ' fields. They have been highlighted';
-      $("#errorMessages").html(message);
-      $("#errorMessages").show();
-    } else {
-      $("#errorMessages").hide();
-    }
-  }
-});
-</script>
-<!-- End Scripts for Error Counter -->
-
-<!-- JORGE CHECK THIS! PROBABLY BAD CODING DUE TO (:INVALID) Begin Scripts for "Top of the Page Error Messages"
-<script>
-    var createAllErrors = function() {
-        var form = $( this ),
-            errorList = $( "ul.errorMessages", form );
-
-        var showAllErrorMessages = function() {
-            errorList.empty();
-
-            // Find all invalid fields within the form.
-            var invalidFields = form.find( ":invalid" ).each( function( index, node ) {
-
-                // Find the field's corresponding label
-                var label = $( "label[for=" + node.id + "] "),
-                    // Opera incorrectly does not fill the validationMessage property.
-                    message = node.validationMessage || 'Invalid value.';
-
-                errorList
-                    .show()
-				//	.append( "<li><span>" + createEvent.php() + "</span> " + message + "</li>" );
-                    .append( "<li><span>" + label.html() + "</span> " + message + "</li>" );
-            });
-        };
-
-        // Support Safari
-        form.on( "submit", function( event ) {
-            if ( this.checkValidity && !this.checkValidity() ) {
-                $( this ).find( ":invalid" ).first().focus();
-                event.preventDefault();
-            }
-        });
-
-        $( "input[type=submit], button:not([type=button])", form )
-            .on( "click", showAllErrorMessages);
-
-        $( "input", form ).on( "keypress", function( event ) {
-            var type = $( this ).attr( "type" );
-            if ( /date|email|month|number|search|tel|text|time|url|week/.test ( type )
-              && event.keyCode == 13 ) {
-                showAllErrorMessages();
-            }
-        });
-    };
-    
-    $( "form" ).each( createAllErrors );
-</script>
-
-<!-- End Scripts for "Top of the Page Error Messages" -->

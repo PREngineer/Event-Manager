@@ -39,7 +39,7 @@ else
 
     echo '
     <div class="col-sm-3">
-      <div class="thumbnail">
+      <div class="thumbnail" style="height: 500px;">
         <img src="../images/event.png" alt="Event image" width="150" height="150">
         <div class="caption">
             <table class="table">

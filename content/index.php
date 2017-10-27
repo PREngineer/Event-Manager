@@ -39,6 +39,7 @@
     <script src="../theme/js/bootstrap-datepicker.min.js"></script>
     <script src="../theme/js/jquery.timepicker.min.js"></script>
     <script src="../theme/js/BootstrapValidator.min.js"></script>
+    <script src="../theme/js/validator.js"></script>
 
     <!-- Bootstrap JavaScript -->
     <script src="../theme/js/bootstrap.js"></script>
