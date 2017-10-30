@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- ******************* Head Section ******************* -->
+  <head>
+    <!-- Application Name -->
+    <title>Event Manager</title>
+
+    <!-- Encoding and Mobile First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../theme/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../theme/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet">
+    <link href="../theme/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+
+    <!-- Importing jQuery and other dependencies -->
+    <script src="../theme/js/jquery-3.2.1.min.js"></script>
+    <script src="../theme/js/bootstrap-datepicker.min.js"></script>
+    <script src="../theme/js/BootstrapValidator.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="../theme/js/bootstrap.js"></script>
+  </head>
+
+  <body>
+
+    <!-- ******************* START FORM ******************* -->
+<form class="container" method="POST" id="checkinPage">
+<input name="action" type="hidden" value="checkinPage">
+
+<header role="banner"><h1 d="page-title" tabindex="-1" role="heading" aria-level="1">Event Check-In</h1></header>
+    
+<main role="main" aria-label="main section" class="container main-content" id="main-content" style="display: block;"></main>
+
+<div>
+      <div class="form-group">
+          <label class="form_label" for="enterpriseID"><label class="text-danger">*</label>Enter your Enterprise ID:</label>
+          <div class="input-group">
+          <span class="input-group-addon">
+            <i class="glyphicon glyphicon-user"></i>
+          </span>
+          <input class="form-control" id="enterpriseID" type="text" name="enterpriseID" aria-required="true" placeholder="john.p.doe" aria-describedby="loginIDHelp" required>
+        </div>
+        <small id="loginIDHelp" class="sr-only form-text text-muted">Format:john.p.doe"</small>
+      </div>
+        
+      <div class="form-group">
+        <label class="form_label" for="enterpasscode"> <label class="text-danger">*</label> Enter Event Passcode</label>
+        <div class="input-group">
+          <span class="input-group-addon">
+              <span aria-hidden="true"><em class="glyphicon glyphicon-barcode"></em>
+            </span>
+          </span>
+          <input name="passcode" type="text" class="form-control" id="passcode" placeholder="HRFU872D" aria-describedby="passcodeHelp" required>
+        </div>
+      <small id="passcodeHelp" class="sr-only form-text text-muted">Format:XXXX"</small>
+      </div>
+</div>
+     <!-- ****************** Submit Button *************** --> 
+     
+    <div align="center">
+        <button type="Submit" class="btn">Submit</button>
+    </div>
+    
+</form>
+     
+      
+
+      
+    <!-- ******************* END FORM ******************* -->
+</body>
+    
+<script type="text/javascript">
+
+     $(document).ready(function() {
+      $('#checkinPage').bootstrapValidator({
+          // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+          feedbackIcons: {
+              valid: 'glyphicon glyphicon-ok',
+              invalid: 'glyphicon glyphicon-remove',
+              validating: 'glyphicon glyphicon-refresh'
+          },
+          fields: {
+              enterpriseID: {
+                  validators: {
+                      notEmpty: {
+                          message: 'ERROR: Please enter your Enterprise ID.'
+                      }
+                  }
+              },
+
+              passcode: {
+                  validators: {
+                      notEmpty: {
+                          message: 'ERROR: Please enter your a valid passcode.'
+                      }
+                  }
+              },
+          }
+        })
+
+          .on('success.form.bv', function(e) {
+              $('#success_message').slideDown({ opacity: "show" }, "slow")
+                  $('#loginPage').data('bootstrapValidator').resetForm();
+
+              // Prevent form submission
+              e.preventDefault();
+
+              // Get the form instance
+              var $form = $(e.target);
+
+              // Get the BootstrapValidator instance
+              var bv = $form.data('bootstrapValidator');
+
+              // Use Ajax to submit form data
+              $.post($form.attr('action'), $form.serialize(), function(result) {
+                  console.log(result);
+              }, 'json');
+          });
+  });
+
+  </script>
+
+</html>
