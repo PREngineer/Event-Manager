@@ -31,13 +31,14 @@
 <form class="container" method="POST" id="checkinPage">
 <input name="action" type="hidden" value="checkinPage">
 
-<header role="banner"><h1 d="page-title" tabindex="-1" role="heading" aria-level="1">Event Check-In</h1></header>
-    
-<main role="main" aria-label="main section" class="container main-content" id="main-content" style="display: block;"></main>
+  <header role="banner"><h1 d="page-title" tabindex="-1" role="heading" aria-level="1">Event Check-In</h1></header>
 
-<div>
-      <div class="form-group">
-          <label class="form_label" for="enterpriseID"><label class="text-danger">*</label>Enter your Enterprise ID:</label>
+  <p><strong>All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required. </strong></p>
+
+     <!-- ***************** EnterpriseID Input *************** -->
+
+  <div class="form-group">
+          <label class="form_label" for="enterpriseID"><label class="text-danger">*</label> Enter your Enterprise ID:</label>
           <div class="input-group">
           <span class="input-group-addon">
             <i class="glyphicon glyphicon-user"></i>
@@ -45,10 +46,12 @@
           <input class="form-control" id="enterpriseID" type="text" name="enterpriseID" aria-required="true" placeholder="john.p.doe" aria-describedby="loginIDHelp" required>
         </div>
         <small id="loginIDHelp" class="sr-only form-text text-muted">Format:john.p.doe"</small>
-      </div>
-        
-      <div class="form-group">
-        <label class="form_label" for="enterpasscode"> <label class="text-danger">*</label> Enter Event Passcode</label>
+  </div>
+
+     <!-- ****************** Passcode Input *************** -->
+
+  <div class="form-group">
+        <label class="form_label" for="enterpasscode"> <label class="text-danger">*</label> Enter Event Passcode: </label>
         <div class="input-group">
           <span class="input-group-addon">
               <span aria-hidden="true"><em class="glyphicon glyphicon-barcode"></em>
@@ -56,23 +59,19 @@
           </span>
           <input name="passcode" type="text" class="form-control" id="passcode" placeholder="HRFU872D" aria-describedby="passcodeHelp" required>
         </div>
-      <small id="passcodeHelp" class="sr-only form-text text-muted">Format:XXXX"</small>
-      </div>
-</div>
-     <!-- ****************** Submit Button *************** --> 
-     
-    <div align="center">
-        <button type="Submit" class="btn">Submit</button>
-    </div>
-    
-</form>
-     
-      
+      <small id="passcodeHelp" class="sr-only form-text text-muted">Format:XXXXXXX"</small>
+  </div>
 
-      
+     <!-- ****************** Submit Button *************** -->
+
+  <div align="center">
+        <button type="submit" class="btn">Submit</button>
+  </div>
+
+</form>
     <!-- ******************* END FORM ******************* -->
 </body>
-    
+
 <script type="text/javascript">
 
      $(document).ready(function() {

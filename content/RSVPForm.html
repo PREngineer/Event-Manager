@@ -31,16 +31,14 @@
     <form class="container" method="POST" id="rsvpPage">
     <input name="action" type="hidden" value="rsvpPage">
 
-
     <!-- Heading -->
-    <h1 id="page_title" tabindex="-1" role="heading" aria-level="1">Event ###### Registration</h1>
+    <header role="banner"><h1 id="page_title" tabindex="-1" role="heading" aria-level="1">Event ###### Registration</h1></header>
 
-    <div class="container" id="Content" name="Content">
+    <p><strong>All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required. </strong></p>
 
-      <p><strong>All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required. </strong></p>
-
-      <div class="form-group">
-        <label for="enterpriseID"> <label class="text-danger">*</label> Register with your EnterpriseID </label>
+    <!-- ****************** EnterpriseID Input *************** -->
+    <div class="form-group">
+        <label for="enterpriseID"> <label class="text-danger">*</label> Register with your EnterpriseID: </label>
         <div class="input-group">
           <span class="input-group-addon">
             <i class="glyphicon glyphicon-user"></i>
@@ -48,15 +46,14 @@
           <input name="loginID" type="text" class="form-control" id="loginID" placeholder="john.p.doe" aria-describedby="loginIDHelp" required>
         </div>
         <small id="loginIDHelp" class="sr-only form-text text-muted">Format:john.p.doe"</small>
-      </div>
-
     </div>
 
-    <!--Submit RSVP Button-->
 
-      <div align="center">
+    <!-- ****************** Submit Button *************** -->
+
+    <div align="center">
         <button type="submit" class="btn">Submit</button>
-      </div>
+    </div>
 
 </form>
 </body>
