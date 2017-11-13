@@ -1,10 +1,3 @@
-<!--
-<ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="index.html" style="cursor: pointer;">Home</a></li>
-  <li class="breadcrumb-item"><a link="pocs.html" style="cursor: pointer;">Point of Contact</a></li>
-  <li class="breadcrumb-item active">Event Form</li>
-</ol>
--->
 <?php
 
 include '../functions/DB.php';
@@ -360,7 +353,7 @@ echo '</script>';
 
     // POST if everything is OK
     .on('success.form.bv', function(e) {
-          alert('Success!');
+
           // Prevent form submission
           e.preventDefault();
 

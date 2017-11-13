@@ -171,6 +171,8 @@ Function setup_EventsTable()
     `Creator` TEXT NOT NULL COMMENT 'Event Creator' ,
     `Person_Code` TEXT NOT NULL COMMENT 'Code to give people that attend in person' ,
     `Remote_Code` TEXT NOT NULL COMMENT 'Code to give people that attend remotely' ,
+    `Approved` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'If the Event was approved' ,
+    `Deleted` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'If the Event was marked for deletion' ,
     PRIMARY KEY (`ID`))
     ENGINE  = InnoDB
     CHARSET = utf8
@@ -218,6 +220,52 @@ Function setup_AttendanceTable()
     CHARSET = utf8
     COLLATE utf8_general_ci
     COMMENT = 'Contains all event attendance history'");
+}
+
+/*
+  Description:
+    This function creates the Users table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Array]   - Array if successful
+*/
+Function setup_UsersTable()
+{
+  return query_DB("CREATE TABLE `Event_Manager`.`Users` (
+    `Username` VARCHAR(200) NOT NULL COMMENT 'Username' ,
+    `Password` TEXT NOT NULL COMMENT 'Password' ,
+    `Role` BIGINT NOT NULL COMMENT 'User Role'  ,
+    PRIMARY KEY (`Username`))
+    ENGINE  = InnoDB
+    CHARSET = utf8
+    COLLATE utf8_general_ci
+    COMMENT = 'Contains all accounts'");
+}
+
+/*
+  Description:
+    This function creates the RSVP table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Array]   - Array if successful
+*/
+Function setup_EventChangeLogTable()
+{
+  return query_DB("CREATE TABLE `Event_Manager`.`Event Change Log` (
+    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Entry ID' ,
+    `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
+    `Type` TEXT NOT NULL COMMENT 'Action type' ,
+    `Reason` TEXT NOT NULL COMMENT 'Reason for the change' ,
+    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person made the change' ,
+    PRIMARY KEY (`ID`) )
+    ENGINE  = InnoDB
+    CHARSET = utf8
+    COLLATE utf8_general_ci
+    COMMENT = 'Contains all event change history'");
 }
 
 /*
@@ -548,6 +596,7 @@ Function get_FutureEvents()
   $result = query_DB("SELECT `ID`, `Name`,`Date`,`Start`,`End`,`Location`
                       FROM `Events`
                       WHERE `Date` > '$date'
+                      AND `Approved` = 1
                       ORDER BY `Date`,`Start`");
 
   if( $result['Result'] )
@@ -579,6 +628,7 @@ Function get_CurrentEvents()
                       WHERE `Date` = '$date'
                       AND `Start` <= '$time'
                       AND `End` >= '$time'
+                      AND `Approved` = 1
                       ORDER BY `Date`,`Start`");
 
   if( $result['Result'] )
@@ -612,6 +662,7 @@ Function insert_newEvent($data)
   $code1 = substr( MD5( date('Y-m-d H:i:s') ), 0, 6 );
   $code2 = substr( MD5( date('Y-m-d H-i-s') ), 0, 6 );
 
+  // Insert into the Events Table
   $result = query_DB( "INSERT INTO `Events`
             (`Name`, `Date`, `Start`, `End`, `Estimated_Budget`, `Location`, `Committee_ID`,
               `Type`, `Objective`, `Creator`, `Person_Code`, `Remote_Code`)
@@ -623,13 +674,162 @@ Function insert_newEvent($data)
               '" . $data['eventObjective']   . "', '" . $data['creator']          . "',
               '" . $code1                    . "', '" . $code2 . "' )" );
 
+  // If successful
   if( $result['Result'] )
+  {
+    // Get the Event's ID
+    $result = query_DB( "SELECT `ID`
+                         FROM `Events`
+                         WHERE `Name` = '" . $data['eventName'] . "'");
+
+    // Grab the Event ID
+    $evID = ( ( mysqli_fetch_all( $result['Data'] ) )[0] )[0];
+
+    // If got it
+    if( $result['Result'] )
+    {
+      // Create the Log Entry
+      $result = query_DB( "INSERT INTO `Event Change Log`
+                (`EventID`, `Type`, `Reason`)
+                VALUES (
+                  '" . $evID                     . "', 'Create',
+                  'New Event Creation Form')" );
+
+      // If successful
+      if( $result['Result'] )
+      {
+        return True;
+      }
+    }
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function adds an admin user to the Users Table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Boolean] - True  for successful
+*/
+Function create_adminUser()
+{
+  $pass = hash( 'sha256', SHA1( MD5("password") ) );
+  $create = query_DB("INSERT INTO `Users`
+                      (`Username`, `Password`, `Role`)
+                      VALUES ('administrator','" . $pass . "','3')");
+
+  if( $create['Result'] )
   {
     return True;
   }
   else
   {
-    return $result['Errors'];
+    return False;
+  }
+}
+
+/*
+  Description:
+    This function adds a user to the Users Table
+  @PARAM:
+    [Array] - Array containing all the user Data
+    1. Username
+    2. Password
+    3. Role
+  @RETURN:
+    [Boolean] - False for failure
+    [Boolean] - True  for successful
+*/
+Function insert_newUser($data)
+{
+  $create = query_DB("INSERT INTO `Users`
+                      (`Username`, `Password`, `Role`)
+                      VALUES ('" . $data['Username'] . "','" . $data['Password'] . "','" . $data['Role'] . "')");
+
+  if( $create['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Description:
+    This function checks if the user credentials provided are correct
+  @PARAM:
+    [Array] - Array containing all the user Data
+    1. Username
+    2. Password
+    3. Role
+  @RETURN:
+    [Boolean] - False for failure
+    [Boolean] - True  for successful
+*/
+Function check_login($data)
+{
+  $check = query_DB("SELECT Count(Username)
+                      FROM `Users`
+                      WHERE `Username` = '" . $data['username'] . "'
+                      AND `Password` = '" . $data['password'] . "'");
+
+  if( $check['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Function that validates if the user information is correct to initiate SESSION
+  - User in the Login Page
+  @Param - Two Strings
+  @Return - Boolean (T or F) if correct
+*/
+function login($username, $password)
+{
+  // Sanitize the username & password
+  //$username = sanitize($username);
+  //$password = sanitize($password);
+
+  // Encrypt password with MD5->SHA1->SHA256
+  $password = hash( 'sha256', SHA1( MD5($password) ) );
+
+  // Check if the username & password combination exists
+  $query = query_DB("SELECT COUNT(`Username`)
+                    FROM `Users`
+                    WHERE `Username` = '$username'
+                    AND `Password` = '$password'");
+
+  if( $query['Result'] )
+  {
+    if( mysqli_fetch_all($query['Data'])[0][0] == 1 )
+    {
+      $res = query_DB("SELECT `Username`, `Role`
+                        FROM `Users`
+                        WHERE `Username` = '$username'
+                        AND `Password` = '$password'");
+      return $res;
+    }
+    else
+    {
+      return False;
+    }
+  }
+  else
+  {
+    return $query['Errors'];
   }
 }
 

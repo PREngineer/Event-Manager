@@ -106,6 +106,15 @@
 
       </form>
 
+      <!-- Close the alerts after 15 seconds -->
+      <script>
+      window.setTimeout(function() {
+          $(".alert").fadeTo(500, 0).slideUp(500, function(){
+              $(this).remove();
+          });
+      }, 15000);
+      </script>
+
       <?php
 
       include 'functions/DB.php';
@@ -257,6 +266,25 @@
                   '</div>';
           }
 
+          // Create Event Change Log Table
+          $result = setup_EventChangeLogTable();
+
+          if($result['Result'])
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created table "Event Change Log".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
+
           // Create Leads Table
           $result = setup_LeadsTable();
 
@@ -313,6 +341,44 @@
                     $result['Errors'] .
                   '</div>';
           }
+
+          // Create Users Table
+          $result = setup_UsersTable();
+
+          if($result['Result'])
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created table "Users".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
+
+          // Create admin user
+          $result = create_adminUser();
+
+          if($result)
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created admin user.
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating admin user!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
         }
 
         echo '
@@ -321,6 +387,13 @@
             If you don\'t see any errors or everything already exists,
           </p>
           <a class="btn btn-primary" href="index.html">Click Here</a>
+          <br><br><br>
+          <p>
+            You admin user and password combination is:<br>
+            Username: administrator<br>
+            Password: password<br>
+            <b>Remember to change it immediately.</b>
+          </p>
         </div>
         ';
       }

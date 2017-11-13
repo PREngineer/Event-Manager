@@ -3,6 +3,7 @@
   document.getElementById("currentLink").classList.remove('active');
   document.getElementById("futureLink").classList.remove('active');
   document.getElementById("createMemberLink").classList.remove('active');
+  document.getElementById("loginLink").classList.remove('active');
   document.getElementById("approversLink").classList.remove('active');
   document.getElementById("pocLink").classList.remove('active');
   document.getElementById("adminLink").classList.add('active');
@@ -30,14 +31,14 @@
       <tr>
     </thead>
     <tr>
-      <td>Manage Members</td>
+      <td><a href="?action=Members">Manage Members</a></td>
       <td>
         Use this option to manage the members of the Employee Resource Group.
         Use it to add, remove or edit member information.
       </td>
     </tr>
     <tr>
-      <td>Manage Roles</td>
+      <td><a href="?action=Roles">Manage Roles</a></td>
       <td>
         Use this option to determine which members of the Employee Resource
         Group can have the following roles:<br>
@@ -47,7 +48,7 @@
       </td>
     </tr>
     <tr>
-      <td>Manage Events</td>
+      <td><a href="?action=Events">Manage Events</a></td>
       <td>
         Use this option to manage the information currently stored in the
         database.  This gives you the option to perform the following event
@@ -58,7 +59,7 @@
       </td>
     </tr>
     <tr>
-      <td>Manage Attendance</td>
+      <td><a href="?action=Attendance">Manage Attendance</a></td>
       <td>
         Use this option to manage attendance related information.
         This gives you the option to:<br>
@@ -68,7 +69,7 @@
       </td>
     </tr>
     <tr>
-      <td>Reports</td>
+      <td><a href="?action=Reports">Reports</a></td>
       <td>
         Use this option to view live or historical reports about the
         Employee Resource Group's<br>

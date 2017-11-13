@@ -3,6 +3,7 @@
   document.getElementById("currentLink").classList.remove('active');
   document.getElementById("futureLink").classList.remove('active');
   document.getElementById("createMemberLink").classList.add('active');
+  document.getElementById("loginLink").classList.remove('active');
   document.getElementById("approversLink").classList.remove('active');
   document.getElementById("pocLink").classList.remove('active');
   document.getElementById("adminLink").classList.remove('active');
@@ -68,7 +69,7 @@
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-envelope"></i>
       </span>
-      <input name="email" type="email" class="form-control" id="email" placeholder="john.p.doe@companysegment.com"
+      <input name="email" type="email" class="form-control" id="email" placeholder="john.p.doe@company.com"
       aria-describedby="emailHelp" required>
     </div>
   </div>
@@ -126,9 +127,9 @@
 
 <!-- ******************* Submit, Clear & Cancel Button ******************* -->
   </div >
-    <div align="center">
-      <button type="submit" class="btn">Submit</button>
-      <button type="reset"  class="btn">Clear</button>
+    <div>
+      <input class="btn btn-primary" type="submit" value="Submit">
+      <button class="btn btn-primary" type="reset">Clear</button>
     </div>
 </form>
 

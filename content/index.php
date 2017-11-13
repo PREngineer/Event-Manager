@@ -1,7 +1,12 @@
 <?php
 
+  session_start();
+
   // Include DB functions
   include '../functions/DB.php';
+
+  // Include Session Init
+  include '../functions/Init.php';
 
   // Redirect if settings was not found
   if( !file_exists('../functions/settings.php') )
@@ -93,33 +98,42 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+<?php
+
+if( !logged_in() )
+{
+  echo'
+              <li id="loginLink">
+                <a link="login.php" style="cursor: pointer;">Login</a>
+              </li>
+  ';
+}
+else if( logged_in() && $_SESSION['userRole'] == 1 )
+{
+  echo'
               <li id="approversLink">
                 <a link="approvers.html" style="cursor: pointer;">Approvers</a>
               </li>
-              <li id="pocLink" class="dropdown">
-                <a class="dropdown-toggle" link="pocs.html" style="cursor: pointer;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  POCs <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a link="createEvent.php" style="cursor: pointer;">Create Event</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a link="pocList.html" style="cursor: pointer;">My Events</a></li>
-                </ul>
+  ';
+}
+else if( logged_in() && $_SESSION['userRole'] == 2 )
+{
+  echo'
+              <li id="pocLink">
+                <a link="pocs.html" style="cursor: pointer;">POCs</a>
               </li>
+  ';
+}
+else if( logged_in() && $_SESSION['userRole'] == 3 )
+{
+  echo'
               <li id="adminLink" class="dropdown">
-                <a link="admin.html" style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  Administrators <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a link="adminMembers.html" style="cursor: pointer;">Manage Members</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a hlink="adminRoles.html" style="cursor: pointer;">Manage Roles</a></li>
-                  <li><a link="adminEvent.html" style="cursor: pointer;">Manage Events</a></li>
-                  <li><a link="adminAttendance.html" style="cursor: pointer;">Manage Attendance</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a link="adminReports.html" style="cursor: pointer;">Reports</a></li>
-                </ul>
+                <a link="admin.html" style="cursor: pointer;">Administrators</a>
               </li>
+  ';
+}
+
+?>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -132,7 +146,7 @@
     ?>
 
     <div class="container" id="Content" name="Content">
-		<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Hello World!</h1>
+		<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Announcements</h1>
     </div>
 
 <?php
@@ -165,20 +179,5 @@
 
 // Include Form Submission Handler
 include '../functions/SubmissionHandler.php';
-
-  /*
-
-  How to query
-
-  $res = query_DB('SELECT * FROM `DIM Committee`');
-
-  $dat = mysqli_fetch_all( $res['Data'] );
-
-  foreach ($dat as $entry => $value)
-  {
-    echo $value[0] . ' ' . $value[1] . '<br>';
-  }
-
-  */
 
 ?>
