@@ -61,6 +61,18 @@ $("#Content").load("login.php");
   }
 }
 
+// Logout
+if( $_GET['action'] == 'logout' )
+{
+  session_destroy();
+
+  echo '
+  <script>
+    window.location = "index.php";
+  </script>
+  ';
+}
+
 //print_r($_POST);
 
 ?>

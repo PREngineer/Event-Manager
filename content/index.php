@@ -114,6 +114,9 @@ else if( logged_in() && $_SESSION['userRole'] == 1 )
               <li id="approversLink">
                 <a link="approvers.html" style="cursor: pointer;">Approvers</a>
               </li>
+              <li id="loginLink">
+                <a href="?action=logout" style="cursor: pointer;">Logout</a>
+              </li>
   ';
 }
 else if( logged_in() && $_SESSION['userRole'] == 2 )
@@ -122,6 +125,9 @@ else if( logged_in() && $_SESSION['userRole'] == 2 )
               <li id="pocLink">
                 <a link="pocs.html" style="cursor: pointer;">POCs</a>
               </li>
+              <li id="loginLink">
+                <a href="?action=logout" style="cursor: pointer;">Logout</a>
+              </li>
   ';
 }
 else if( logged_in() && $_SESSION['userRole'] == 3 )
@@ -129,6 +135,9 @@ else if( logged_in() && $_SESSION['userRole'] == 3 )
   echo'
               <li id="adminLink" class="dropdown">
                 <a link="admin.html" style="cursor: pointer;">Administrators</a>
+              </li>
+              <li id="loginLink">
+                <a href="?action=logout" style="cursor: pointer;">Logout</a>
               </li>
   ';
 }
