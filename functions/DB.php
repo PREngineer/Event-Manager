@@ -727,6 +727,7 @@ Function get_FutureEvents()
                       FROM `Events`
                       WHERE `Date` > '$date'
                       AND `Approved` = 1
+                      AND `Deleted` = 0
                       ORDER BY `Date`,`Start`");
 
   if( $result['Result'] )
@@ -759,6 +760,7 @@ Function get_CurrentEvents()
                       AND `Start` <= '$time'
                       AND `End` >= '$time'
                       AND `Approved` = 1
+                      AND `Deleted` = 0
                       ORDER BY `Date`,`Start`");
 
   if( $result['Result'] )
