@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+
+include '../functions/DB.php';
+
+$EvenID = $_GET['id'];
+
+?>
+
+
   <!-- ******************* Head Section ******************* -->
   <head>
     <!-- Application Name -->
@@ -69,6 +78,44 @@
   </div>
 
 </form>
+
+<?php
+
+// Retrieving Textboxes Values for LoginID and Event Passcode
+
+$loginID = $_POST['enterpriseID'];
+$passcode = $_POST['passcode'];
+
+
+// SQL query to retrieve Actual Passcode from Event Master
+$inPersonCode = "SELECT `Person_Code` FROM `Events` WHERE `ID` = $EventID";
+$remoteCode = "SELECT `Remote_Code` FROM `Events` WHERE `ID` = $EventID";
+
+// Assign Actual Passcode to var
+$ActualPersonCode = query_DB($inPersonCode);
+$ActualRemoteCode = query_DB($remoteCode)
+
+$insertQuery = "INSERT INTO Attendance (`EventID`, `EnterpriseID`, `Flag_Attendance`, `Timestamp`)
+                VALUES (". $EventID ."," . $loginID . ",". $FlagAttendance ."," . DATE(YYY-MM_DD:H:i:s"))";
+
+// if correct Event Passcode, then upload loginID and Timestamp to correspongin EventID
+if($passcode == $ActualPersonCode)
+{
+  $FlagAttendance = "IN PERSON";
+  query_DB( $insertQuery);
+}
+elseif ($passcode == $ActualRemoteCode){
+  $FlagAttendance = "REMOTE";
+  query_DB( $insertQuery);
+}
+
+echo "ERROR: Passcode is incorrect";
+
+}
+
+
+
+ ?>
     <!-- ******************* END FORM ******************* -->
 </body>
 
