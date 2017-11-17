@@ -32,6 +32,26 @@ $("#Content").load("myEvents.php");
   ';
 }
 
+// All Events (Admins)
+if( $_POST['action'] == 'Events' || $_GET['action'] == 'Events' )
+{
+  echo'
+<script>
+$("#Content").load("events.php");
+</script>
+  ';
+}
+
+// Edit Events (Admins)
+if( $_POST['action'] == 'editEvent' || $_GET['action'] == 'editEvent' )
+{
+  echo'
+<script>
+$("#Content").load("editEvent.php?id=' . $_GET['id'] . '");
+</script>
+  ';
+}
+
 // Login
 if( $_POST['action'] == 'login')
 {

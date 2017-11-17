@@ -418,6 +418,32 @@ Function setup_DIMEventObjectiveTable()
 }
 
 /*
+  Description:
+    This function adds an admin user to the Users Table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Boolean] - True  for successful
+*/
+Function create_adminUser()
+{
+  $pass = hash( 'sha256', SHA1( MD5("password") ) );
+  $create = query_DB("INSERT INTO `Users`
+                      (`Username`, `Password`, `Role`)
+                      VALUES ('administrator','" . $pass . "','3')");
+
+  if( $create['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
 *****************************
 Region Start - Regular Use MySQL DB Setup Functions
 *****************************
@@ -502,6 +528,110 @@ Function query_DB($query)
     mysqli_close($con);
 
     return array( "Result"=>False, "Errors"=>$errors );
+  }
+}
+
+/*
+  Description:
+    This function prevents SQL Injection.
+  @PARAM:
+    String - A string
+  @RETURN:
+    String - The sanitized string
+*/
+Function sanitize($string)
+{
+  $string = str_replace("'", "", $string);
+  $string = str_replace('"', "", $string);
+  $string = str_replace("\0", "", $string);
+  $string = str_replace("\b", "", $string);
+  $string = str_replace("\n", "", $string);
+  $string = str_replace("\r", "", $string);
+  $string = str_replace("\t", "", $string);
+  $string = str_replace("\Z", "", $string);
+  $string = str_replace("\\", "", $string);
+  $string = str_replace("%", "", $string);
+  $string = str_replace("\_", "", $string);
+  $string = str_replace("`", "", $string);
+  $string = str_replace(";", "", $string);
+  $string = str_replace(",", "", $string);
+  return $string;
+}
+
+/*
+*****************************
+Region Start - Session Related MySQL DB Functions
+*****************************
+*/
+
+/*
+  Description:
+    This function checks if the user credentials provided are correct
+  @PARAM:
+    [Array] - Array containing all the user Data
+    1. Username
+    2. Password
+    3. Role
+  @RETURN:
+    [Boolean] - False for failure
+    [Boolean] - True  for successful
+*/
+Function check_login($data)
+{
+  $check = query_DB("SELECT Count(Username)
+                      FROM `Users`
+                      WHERE `Username` = '" . $data['username'] . "'
+                      AND `Password` = '" . $data['password'] . "'");
+
+  if( $check['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Function that validates if the user information is correct to initiate SESSION
+  - User in the Login Page
+  @Param - Two Strings
+  @Return - Boolean (T or F) if correct
+*/
+function login($username, $password)
+{
+  // Sanitize the username & password
+  //$username = sanitize($username);
+  //$password = sanitize($password);
+
+  // Encrypt password with MD5->SHA1->SHA256
+  $password = hash( 'sha256', SHA1( MD5($password) ) );
+
+  // Check if the username & password combination exists
+  $query = query_DB("SELECT COUNT(`Username`)
+                    FROM `Users`
+                    WHERE `Username` = '$username'
+                    AND `Password` = '$password'");
+
+  if( $query['Result'] )
+  {
+    if( mysqli_fetch_all($query['Data'])[0][0] == 1 )
+    {
+      $res = query_DB("SELECT `Username`, `Role`
+                        FROM `Users`
+                        WHERE `Username` = '$username'
+                        AND `Password` = '$password'");
+      return $res;
+    }
+    else
+    {
+      return False;
+    }
+  }
+  else
+  {
+    return $query['Errors'];
   }
 }
 
@@ -642,6 +772,60 @@ Function get_CurrentEvents()
 }
 
 /*
+  Description:
+    This function executes a query to get all the events in the DB.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllEvents()
+{
+  $date = date('Y-m-d');
+  $time = date('H:i:s');
+
+  $result = query_DB("SELECT `ID`, `Name`, `Date`, `Created`, `Creator`, `Person_Code`, `Remote_Code`,
+                             `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
+                      FROM `Events`
+                      ORDER BY `Date`,`Start`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the events in the DB.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_EventData($id)
+{
+  $result = query_DB("SELECT *
+                      FROM `Events`
+                      WHERE `ID` = '$id'");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
 *****************************
 Region Start - Regular Use MySQL DB Insert Functions
 *****************************
@@ -667,12 +851,12 @@ Function insert_newEvent($data)
             (`Name`, `Date`, `Start`, `End`, `Estimated_Budget`, `Location`, `Committee_ID`,
               `Type`, `Objective`, `Creator`, `Person_Code`, `Remote_Code`)
             VALUES (
-              '" . $data['eventName']        . "', '" . $data['eventDate']        . "',
-              '" . $data['start']            . "', '" . $data['end']              . "',
-              '" . $data['estimatedBudget']  . "', '" . $data['location']         . "',
-              '" . $data['sponsorCommittee'] . "', '" . $data['eventType']        . "',
-              '" . $data['eventObjective']   . "', '" . $data['creator']          . "',
-              '" . $code1                    . "', '" . $code2 . "' )" );
+              '" . sanitize($data['eventName'])        . "', '" . sanitize($data['eventDate'])        . "',
+              '" . sanitize($data['start'])            . "', '" . sanitize($data['end'])              . "',
+              '" . sanitize($data['estimatedBudget'])  . "', '" . sanitize($data['location'])         . "',
+              '" . sanitize($data['sponsorCommittee']) . "', '" . sanitize($data['eventType'])        . "',
+              '" . sanitize($data['eventObjective'])   . "', '" . sanitize($data['creator'])          . "',
+              '" . $code1                              . "', '" . $code2 . "' )" );
 
   // If successful
   if( $result['Result'] )
@@ -710,32 +894,6 @@ Function insert_newEvent($data)
 
 /*
   Description:
-    This function adds an admin user to the Users Table
-  @PARAM:
-    NONE
-  @RETURN:
-    [Boolean] - False for failure
-    [Boolean] - True  for successful
-*/
-Function create_adminUser()
-{
-  $pass = hash( 'sha256', SHA1( MD5("password") ) );
-  $create = query_DB("INSERT INTO `Users`
-                      (`Username`, `Password`, `Role`)
-                      VALUES ('administrator','" . $pass . "','3')");
-
-  if( $create['Result'] )
-  {
-    return True;
-  }
-  else
-  {
-    return False;
-  }
-}
-
-/*
-  Description:
     This function adds a user to the Users Table
   @PARAM:
     [Array] - Array containing all the user Data
@@ -763,25 +921,25 @@ Function insert_newUser($data)
 }
 
 /*
-  Description:
-    This function checks if the user credentials provided are correct
-  @PARAM:
-    [Array] - Array containing all the user Data
-    1. Username
-    2. Password
-    3. Role
-  @RETURN:
-    [Boolean] - False for failure
-    [Boolean] - True  for successful
+*****************************
+Region Start - Other Regular Use MySQL DB Functions
+*****************************
 */
-Function check_login($data)
-{
-  $check = query_DB("SELECT Count(Username)
-                      FROM `Users`
-                      WHERE `Username` = '" . $data['username'] . "'
-                      AND `Password` = '" . $data['password'] . "'");
 
-  if( $check['Result'] )
+/*
+  Function that approves the event
+  @Param  - Int - The EventID.
+  @Return - Boolean (T or F) if correct
+*/
+function approveEvent($id)
+{
+  // Insert into the Events Table
+  $result = query_DB( "UPDATE `Events`
+                       SET `Approved` = '1'
+                       WHERE `id` = $id" );
+
+  // If successful
+  if( $result['Result'] )
   {
     return True;
   }
@@ -792,45 +950,111 @@ Function check_login($data)
 }
 
 /*
-  Function that validates if the user information is correct to initiate SESSION
-  - User in the Login Page
-  @Param - Two Strings
+  Function that disapproves the event
+  @Param  - Int - The EventID.
   @Return - Boolean (T or F) if correct
 */
-function login($username, $password)
+function disapproveEvent($id)
 {
-  // Sanitize the username & password
-  //$username = sanitize($username);
-  //$password = sanitize($password);
+  // Insert into the Events Table
+  $result = query_DB( "UPDATE `Events`
+                       SET `Approved` = '0'
+                       WHERE `id` = $id" );
 
-  // Encrypt password with MD5->SHA1->SHA256
-  $password = hash( 'sha256', SHA1( MD5($password) ) );
-
-  // Check if the username & password combination exists
-  $query = query_DB("SELECT COUNT(`Username`)
-                    FROM `Users`
-                    WHERE `Username` = '$username'
-                    AND `Password` = '$password'");
-
-  if( $query['Result'] )
+  // If successful
+  if( $result['Result'] )
   {
-    if( mysqli_fetch_all($query['Data'])[0][0] == 1 )
-    {
-      $res = query_DB("SELECT `Username`, `Role`
-                        FROM `Users`
-                        WHERE `Username` = '$username'
-                        AND `Password` = '$password'");
-      return $res;
-    }
-    else
-    {
-      return False;
-    }
+    return True;
   }
   else
   {
-    return $query['Errors'];
+    return False;
   }
 }
+
+/*
+  Function that deletes the event
+  @Param  - Int - The EventID.
+  @Return - Boolean (T or F) if correct
+*/
+function deleteEvent($id)
+{
+  // Insert into the Events Table
+  $result = query_DB( "UPDATE `Events`
+                       SET `Deleted` = '1'
+                       WHERE `id` = $id" );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Function that recovers the event
+  @Param  - Int - The EventID.
+  @Return - Boolean (T or F) if correct
+*/
+function recoverEvent($id)
+{
+  // Insert into the Events Table
+  $result = query_DB( "UPDATE `Events`
+                       SET `Deleted` = '0'
+                       WHERE `id` = $id" );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Description:
+    This function executes a query to update an Event.
+  @PARAM:
+    [Array]   - The event data
+    [Int]     - The Event ID
+  @RETURN:
+    [Boolean] - True
+    [Array]   - Errors
+*/
+Function update_Event($data, $id)
+{
+  // Update the Events Table
+  $result = query_DB( "UPDATE `Events`
+                       SET `Name`             = '" . sanitize($data['eventName'])        . "',
+                           `Date`             = '" . sanitize($data['eventDate'])        . "',
+                           `Start`            = '" . sanitize($data['start'])            . "',
+                           `End`              = '" . sanitize($data['end'])              . "',
+                           `Estimated_Budget` = '" . sanitize($data['estimatedBudget'])  . "',
+                           `Location`         = '" . sanitize($data['location'])         . "',
+                           `Committee_ID`     = '" . sanitize($data['sponsorCommittee']) . "',
+                           `Type`             = '" . sanitize($data['eventType'])        . "',
+                           `Objective`        = '" . sanitize($data['eventObjective'])   . "',
+                           `Creator`          = '" . sanitize($data['creator'])          . "'
+                       WHERE `ID` = " . $id
+                    );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
 
 ?>
