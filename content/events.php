@@ -90,7 +90,7 @@ $events = get_AllEvents();
   else
   {
     echo '
-        <a href="disapproveEvent.php?id=' . $value[0] . '"><i class="glyphicon glyphicon-remove" title="Approve" style="color: red"></i></a>
+        <a href="disapproveEvent.php?id=' . $value[0] . '"><i class="glyphicon glyphicon-remove" title="Disapprove" style="color: red"></i></a>
     ';
   }
   if( $value[10] == 0 )
