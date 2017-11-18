@@ -22,6 +22,16 @@ $("#Content").load("createEvent.php");
   ';
 }
 
+// Approver's Menu
+if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'approve' )
+{
+  echo'
+<script>
+$("#Content").load("approvers.php");
+</script>
+  ';
+}
+
 // My Events
 if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'myEvents' )
 {

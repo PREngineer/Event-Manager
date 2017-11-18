@@ -643,6 +643,35 @@ Region Start - Regular Use MySQL DB Get Functions
 
 /*
   Description:
+    This function executes a query to get all the events in the DB.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllEvents()
+{
+  $date = date('Y-m-d');
+  $time = date('H:i:s');
+
+  $result = query_DB("SELECT `ID`, `Name`, `Date`, `Created`, `Creator`, `Person_Code`, `Remote_Code`,
+                             `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
+                      FROM `Events`
+                      ORDER BY `Date`,`Start`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
     This function executes a query to get all the DIM Committee entries.
   @PARAM:
 
@@ -653,82 +682,6 @@ Region Start - Regular Use MySQL DB Get Functions
 Function get_Committees()
 {
   $result = query_DB("SELECT * FROM `DIM Committee`");
-
-  if( $result['Result'] )
-  {
-    return mysqli_fetch_all( $result['Data'] );
-  }
-  else
-  {
-    return $result['Errors'];
-  }
-}
-
-/*
-  Description:
-    This function executes a query to get all the DIM Event Type entries.
-  @PARAM:
-
-  @RETURN:
-    [Array]   - Data
-    [Boolean] - False
-*/
-Function get_EventTypes()
-{
-  $result = query_DB("SELECT * FROM `DIM Event Type`");
-
-  if( $result['Result'] )
-  {
-    return mysqli_fetch_all( $result['Data'] );
-  }
-  else
-  {
-    return $result['Errors'];
-  }
-}
-
-/*
-  Description:
-    This function executes a query to get all the DIM Event Obective entries.
-  @PARAM:
-
-  @RETURN:
-    [Array]   - Data
-    [Boolean] - False
-*/
-Function get_EventObjectives()
-{
-  $result = query_DB("SELECT * FROM `DIM Event Objective`");
-
-  if( $result['Result'] )
-  {
-    return mysqli_fetch_all( $result['Data'] );
-  }
-  else
-  {
-    return $result['Errors'];
-  }
-}
-
-/*
-  Description:
-    This function executes a query to get all the future events.
-  @PARAM:
-
-  @RETURN:
-    [Array]   - Data
-    [Boolean] - False
-*/
-Function get_FutureEvents()
-{
-  $date = date('Y-m-d');
-
-  $result = query_DB("SELECT `ID`, `Name`,`Date`,`Start`,`End`,`Location`
-                      FROM `Events`
-                      WHERE `Date` > '$date'
-                      AND `Approved` = 1
-                      AND `Deleted` = 0
-                      ORDER BY `Date`,`Start`");
 
   if( $result['Result'] )
   {
@@ -782,14 +735,86 @@ Function get_CurrentEvents()
     [Array]   - Data
     [Boolean] - False
 */
-Function get_AllEvents()
+Function get_EventData($id)
+{
+  $result = query_DB("SELECT *
+                      FROM `Events`
+                      WHERE `ID` = '$id'");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the DIM Event Obective entries.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_EventObjectives()
+{
+  $result = query_DB("SELECT * FROM `DIM Event Objective`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the DIM Event Type entries.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_EventTypes()
+{
+  $result = query_DB("SELECT * FROM `DIM Event Type`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the future events.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_FutureEvents()
 {
   $date = date('Y-m-d');
-  $time = date('H:i:s');
 
-  $result = query_DB("SELECT `ID`, `Name`, `Date`, `Created`, `Creator`, `Person_Code`, `Remote_Code`,
-                             `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
+  $result = query_DB("SELECT `ID`, `Name`,`Date`,`Start`,`End`,`Location`
                       FROM `Events`
+                      WHERE `Date` > '$date'
+                      AND `Approved` = 1
+                      AND `Deleted` = 0
                       ORDER BY `Date`,`Start`");
 
   if( $result['Result'] )
@@ -804,18 +829,54 @@ Function get_AllEvents()
 
 /*
   Description:
-    This function executes a query to get all the events in the DB.
+    This function executes a query to get all the POC's events in the DB.
   @PARAM:
 
   @RETURN:
     [Array]   - Data
     [Boolean] - False
 */
-Function get_EventData($id)
+Function get_MyEvents($id)
 {
-  $result = query_DB("SELECT *
+  $date = date('Y-m-d');
+  $time = date('H:i:s');
+
+  $result = query_DB("SELECT `ID`, `Name`, `Date`, `Created`, `Creator`, `Person_Code`, `Remote_Code`,
+                             `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
                       FROM `Events`
-                      WHERE `ID` = '$id'");
+                      WHERE `Creator` LIKE '$id'
+                      ORDER BY `Date`,`Start`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the unapproved events in the DB.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_approverEvents()
+{
+  $date = date('Y-m-d');
+  $time = date('H:i:s');
+
+  $result = query_DB("SELECT `ID`, `Name`, `Date`, `Created`, `Creator`, `Person_Code`, `Remote_Code`,
+                             `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
+                      FROM `Events`
+                      WHERE `Date` > '$date'
+                      AND `Deleted` = '0'
+                      ORDER BY `Date`,`Start`");
 
   if( $result['Result'] )
   {
@@ -1039,6 +1100,7 @@ Function update_Event($data, $id)
                            `Start`            = '" . sanitize($data['start'])            . "',
                            `End`              = '" . sanitize($data['end'])              . "',
                            `Estimated_Budget` = '" . sanitize($data['estimatedBudget'])  . "',
+                           `Actual_Budget`    = '" . sanitize($data['actualBudget'])     . "',
                            `Location`         = '" . sanitize($data['location'])         . "',
                            `Committee_ID`     = '" . sanitize($data['sponsorCommittee']) . "',
                            `Type`             = '" . sanitize($data['eventType'])        . "',

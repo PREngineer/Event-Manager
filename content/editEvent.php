@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include '../functions/DB.php';
 
 $committees = get_Committees();
@@ -48,7 +50,16 @@ echo '</script>';
 ?>
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Edit Existing Event</h1>
-
+<?php
+if( $_SESSION['userRole'] == 2 )
+{
+  echo '<p><a href="?action=myEvents"><- Go Back</a></p>';
+}
+else
+{
+  echo '<p><a href="?action=Events"><- Go Back</a></p>';
+}
+?>
 <!-- Form STARTS here -->
 
 <form class="container" method="POST" id="createEventForm">
@@ -164,6 +175,19 @@ echo '</script>';
        value="<?php echo $eventData[5]; ?>">
     </div>
     <small id="estimatedBudgetHelp" class="form-text text-muted">Do not include commas.</small>
+  </div>
+
+  <div class="form-group">
+    <label for="actualBudget"> <label class="text-danger">*</label> Actual Budget:</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-usd"></i>
+      </span>
+      <input name="actualBudget" type="text" class="form-control" id="actualBudget"
+      placeholder="1234.56" aria-describedby="actualBudgetHelp" aria-required="true"
+       value="<?php echo $eventData[6]; ?>">
+    </div>
+    <small id="actualBudgetHelp" class="form-text text-muted">Do not include commas.</small>
   </div>
 
   <div class="form-group">

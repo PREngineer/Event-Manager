@@ -112,7 +112,7 @@ else if( logged_in() && $_SESSION['userRole'] == 1 )
 {
   echo'
               <li id="approversLink">
-                <a link="approvers.html" style="cursor: pointer;">Approvers</a>
+                <a href="?action=approve" style="cursor: pointer;">Approvers</a>
               </li>
               <li id="loginLink">
                 <a href="?action=logout" style="cursor: pointer;">Logout</a>

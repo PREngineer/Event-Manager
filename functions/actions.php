@@ -54,7 +54,7 @@ if( !empty($_POST) && ($_POST['action'] == 'editEvent') )
 }
 
 // Message upon Approval of Events
-if( isset($_GET['approval']) && ($_GET['action'] == 'Events') )
+if( isset($_GET['approval']) && ( ($_GET['action'] == 'Events') || ($_GET['action'] == 'approve') ) )
 {
   if( $_GET['approval'] == 1)
   {
@@ -74,7 +74,7 @@ if( isset($_GET['approval']) && ($_GET['action'] == 'Events') )
 }
 
 // Message upon Disapproval of Events
-if( isset($_GET['disapproval']) && ($_GET['action'] == 'Events') )
+if( isset($_GET['disapproval']) && ( ($_GET['action'] == 'Events') || ($_GET['action'] == 'approve') ) )
 {
   if( $_GET['disapproval'] == 1)
   {
@@ -94,7 +94,7 @@ if( isset($_GET['disapproval']) && ($_GET['action'] == 'Events') )
 }
 
 // Message upon Deletion of Events
-if( isset($_GET['delete']) && ($_GET['action'] == 'Events') )
+if( isset($_GET['delete']) && ( ($_GET['action'] == 'Events') || ($_GET['action'] == 'myEvents') ) )
 {
   if( $_GET['delete'] == 1)
   {
@@ -114,7 +114,7 @@ if( isset($_GET['delete']) && ($_GET['action'] == 'Events') )
 }
 
 // Message upon Recovery of Events
-if( isset($_GET['recover']) && ($_GET['action'] == 'Events') )
+if( isset($_GET['recover']) && ( ($_GET['action'] == 'Events') || ($_GET['action'] == 'myEvents') ) )
 {
   if( $_GET['recover'] == 1)
   {

@@ -76,7 +76,7 @@ $events = get_AllEvents();
   foreach ($events as $key => $value)
   {
     echo'
-    <tr>
+    <tr id="Entry' . $value[0] . '">
 
       <td>
         <a href="?action=editEvent&id=' . $value[0] . '"><i class="glyphicon glyphicon-edit" title="Edit" style="color: orange"></i></a>
