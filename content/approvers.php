@@ -1,4 +1,5 @@
 <?php
+
   // Include DB functions
   include '../functions/DB.php';
   session_start();
@@ -26,8 +27,6 @@ echo '
   }
 
 echo '</script>';
-
-include '../functions/DB.php';
 
 $events = get_approverEvents();
 
