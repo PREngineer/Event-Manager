@@ -560,7 +560,7 @@ Function sanitize($string)
 
 /*
 *****************************
-Region Start - Session Related MySQL DB Functions
+Region Start - Session Related Session Functions
 *****************************
 */
 

@@ -161,7 +161,7 @@ else if( logged_in() && $_SESSION['userRole'] == 3 )
 <?php
     $events = get_CurrentEvents();
 
-    if( sizeof($events) >= 1 && empty($_POST) )
+    if( sizeof($events) >= 1 && empty($_POST) && empty($_GET) )
     {
       echo'
       <script>

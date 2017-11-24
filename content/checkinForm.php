@@ -1,80 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <?php
 
 include '../functions/DB.php';
 
-$EvenID = $_GET['id'];
+$EventID = $_GET['id'];
 
 ?>
 
-
-  <!-- ******************* Head Section ******************* -->
-  <head>
-    <!-- Application Name -->
-    <title>Event Manager</title>
-
-    <!-- Encoding and Mobile First -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap core CSS -->
-    <link href="../theme/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="../theme/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../theme/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet">
-    <link href="../theme/css/bootstrap-datepicker3.min.css" rel="stylesheet">
-
-    <!-- Importing jQuery and other dependencies -->
-    <script src="../theme/js/jquery-3.2.1.min.js"></script>
-    <script src="../theme/js/bootstrap-datepicker.min.js"></script>
-    <script src="../theme/js/BootstrapValidator.min.js"></script>
-
-    <!-- Bootstrap JavaScript -->
-    <script src="../theme/js/bootstrap.js"></script>
-  </head>
-
-  <body>
-
-    <!-- ******************* START FORM ******************* -->
 <form class="container" method="POST" id="checkinPage">
 <input name="action" type="hidden" value="checkinPage">
 
-  <header role="banner"><h1 d="page-title" tabindex="-1" role="heading" aria-level="1" align="center" >Event Check-In</h1></header>
+  <h1 d="page-title" tabindex="-1" role="heading" aria-level="1" align="center">Event Check-In</h1>
 
   <p><strong>All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required. </strong></p>
 
-     <!-- ***************** EnterpriseID Input *************** -->
-
   <div class="form-group">
-          <label class="form_label" for="enterpriseID"><label class="text-danger">*</label> Enter your Enterprise ID:</label>
-          <div class="input-group">
-          <span class="input-group-addon">
-            <i class="glyphicon glyphicon-user"></i>
-          </span>
-          <input class="form-control" id="enterpriseID" type="text" name="enterpriseID" aria-required="true" placeholder="john.p.doe" aria-describedby="loginIDHelp" required>
-        </div>
-        <small id="loginIDHelp" class="sr-only form-text text-muted">Format:john.p.doe"</small>
+    <label class="form_label" for="enterpriseID"><label class="text-danger">*</label> Enter your Enterprise ID:</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-user"></i>
+      </span>
+      <input class="form-control" id="enterpriseID" type="text" name="enterpriseID" aria-required="true" placeholder="john.p.doe" aria-describedby="loginIDHelp" required>
+    </div>
+    <small id="loginIDHelp" class="sr-only form-text text-muted">Format:john.p.doe"</small>
   </div>
 
-     <!-- ****************** Passcode Input *************** -->
-
   <div class="form-group">
-        <label class="form_label" for="enterpasscode"> <label class="text-danger">*</label> Enter Event Passcode: </label>
-        <div class="input-group">
-          <span class="input-group-addon">
-              <span aria-hidden="true"><em class="glyphicon glyphicon-barcode"></em>
-            </span>
-          </span>
-          <input name="passcode" type="text" class="form-control" id="passcode" placeholder="HRFU872D" aria-describedby="passcodeHelp" required>
-        </div>
+    <label class="form_label" for="enterpasscode"> <label class="text-danger">*</label> Enter Event Passcode: </label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <span aria-hidden="true"><em class="glyphicon glyphicon-barcode"></em></span>
+      </span>
+      <input name="passcode" type="text" class="form-control" id="passcode" placeholder="HRFU872D" aria-describedby="passcodeHelp" required>
+    </div>
       <small id="passcodeHelp" class="sr-only form-text text-muted">Format:XXXXXXX"</small>
   </div>
 
-     <!-- ****************** Submit Button *************** -->
-
   <div align="center">
-        <button type="submit" class="btn">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 
 </form>
@@ -113,11 +75,7 @@ echo "ERROR: Passcode is incorrect";
 
 }
 
-
-
- ?>
-    <!-- ******************* END FORM ******************* -->
-</body>
+?>
 
 <script type="text/javascript">
 
@@ -169,5 +127,3 @@ echo "ERROR: Passcode is incorrect";
   });
 
   </script>
-
-</html>

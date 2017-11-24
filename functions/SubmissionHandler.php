@@ -2,23 +2,13 @@
 
 // Handle Form Submissions
 
-// Create Member
-if( $_POST['action'] == 'createMember' || $_GET['action'] == 'createMember' )
+// All Events (Admins)
+if( $_POST['action'] == 'Events' || $_GET['action'] == 'Events' )
 {
   echo'
-<script>
-$("#Content").load("createMember.html");
-</script>
-  ';
-}
-
-// Create Event
-if( $_POST['action'] == 'createEvent' || $_GET['action'] == 'createEvent' )
-{
-  echo'
-<script>
-$("#Content").load("createEvent.php");
-</script>
+    <script>
+      $("#Content").load("events.php");
+    </script>
   ';
 }
 
@@ -26,29 +16,39 @@ $("#Content").load("createEvent.php");
 if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'approve' )
 {
   echo'
-<script>
-$("#Content").load("approvers.php");
-</script>
+    <script>
+      $("#Content").load("approvers.php");
+    </script>
   ';
 }
 
-// My Events
-if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'myEvents' )
+// Checkin
+if( $_GET['action'] == 'checkin' )
 {
   echo'
-<script>
-$("#Content").load("myEvents.php");
-</script>
+    <script>
+      $("#Content").load("checkinForm.php");
+    </script>
   ';
 }
 
-// All Events (Admins)
-if( $_POST['action'] == 'Events' || $_GET['action'] == 'Events' )
+// Create Event
+if( $_POST['action'] == 'createEvent' || $_GET['action'] == 'createEvent' )
 {
   echo'
-<script>
-$("#Content").load("events.php");
-</script>
+    <script>
+      $("#Content").load("createEvent.php");
+    </script>
+  ';
+}
+
+// Create Member
+if( $_POST['action'] == 'createMember' || $_GET['action'] == 'createMember' )
+{
+  echo'
+    <script>
+      $("#Content").load("createMember.html");
+    </script>
   ';
 }
 
@@ -56,9 +56,9 @@ $("#Content").load("events.php");
 if( $_POST['action'] == 'editEvent' || $_GET['action'] == 'editEvent' )
 {
   echo'
-<script>
-$("#Content").load("editEvent.php?id=' . $_GET['id'] . '");
-</script>
+  <script>
+    $("#Content").load("editEvent.php?id=' . $_GET['id'] . '");
+  </script>
   ';
 }
 
@@ -66,9 +66,9 @@ $("#Content").load("editEvent.php?id=' . $_GET['id'] . '");
 if( $_POST['action'] == 'login')
 {
   echo'
-<script>
-$("#Content").load("login.php");
-</script>
+    <script>
+      $("#Content").load("login.php");
+    </script>
   ';
 
   $user = $_POST['username'];
@@ -97,9 +97,29 @@ if( $_GET['action'] == 'logout' )
   session_destroy();
 
   echo '
-  <script>
-    window.location = "index.php";
-  </script>
+    <script>
+      window.location = "index.php";
+    </script>
+  ';
+}
+
+// My Events
+if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'myEvents' )
+{
+  echo'
+    <script>
+      $("#Content").load("myEvents.php");
+    </script>
+  ';
+}
+
+// RSVP
+if( $_POST['action'] == 'RSVP' || $_GET['action'] == 'RSVP' )
+{
+  echo'
+    <script>
+      $("#Content").load("RSVPForm.php");
+    </script>
   ';
 }
 
