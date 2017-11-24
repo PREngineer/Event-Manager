@@ -849,6 +849,7 @@ Function get_MyEvents($id)
                              `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
                       FROM `Events`
                       WHERE `Creator` LIKE '$id'
+                      AND `Date` > '$date'
                       ORDER BY `Date`,`Start`");
 
   if( $result['Result'] )
