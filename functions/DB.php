@@ -281,9 +281,12 @@ Function setup_EventChangeLogTable()
 Function setup_RSVPTable()
 {
   return query_DB("CREATE TABLE `Event_Manager`.`RSVP` (
+    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Entry ID' ,
     `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
-    `EnterpriseID` BIGINT NOT NULL COMMENT 'Enterprise ID' ,
-    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person registered' )
+    `EnterpriseID` TEXT NOT NULL COMMENT 'Enterprise ID' ,
+    `Cancel` BOOLEAN NOT NULL COMMENT 'Was it cancelled' ,
+    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person registered',
+    PRIMARY KEY (`ID`) )
     ENGINE  = InnoDB
     CHARSET = utf8
     COLLATE utf8_general_ci
@@ -1021,6 +1024,76 @@ Function user_checkIn($eid, $id, $type)
   else
   {
     return 2;
+  }
+}
+
+/*
+  Description:
+    This function adds a user entry to the RSVP Table
+  @PARAM:
+    1. [String] - Employee ID
+    2. [String] - Event ID
+  @RETURN:
+    [Boolean] - False for failure
+    [Boolean] - True  for successful
+    [Int]     - 2 for already in Table
+*/
+Function user_RSVP($eid, $id)
+{
+  $exists = ( mysqli_fetch_all(
+                query_DB("SELECT COUNT(EventID)
+                        FROM `RSVP`
+                        WHERE `EventID`      = '" . $id . "'
+                        AND   `EnterpriseID` = '" . $eid . "'"
+                )[Data]
+              )[0]
+            )[0];
+
+  if( $exists == 0 )
+  {
+    $create = query_DB("INSERT INTO `RSVP`
+                        (`EventID`, `EnterpriseID`, `Cancel`)
+                        VALUES ('" . $id . "', '" . $eid . "', '0')");
+
+    if( $create['Result'] )
+    {
+      return 1;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+  else
+  {
+    $cancelled = ( mysqli_fetch_all( query_DB("SELECT COUNT(EventID)
+                        FROM `RSVP`
+                        WHERE `EventID`      = '" . $id . "'
+                        AND   `EnterpriseID` = '" . $eid . "'
+                        AND   `Cancel`       = 1")[Data] )[0] )[0];
+
+    if($cancelled == 1)
+    {
+      $timestamp = date('Y-m-d H:i:s');
+
+      $create = query_DB("UPDATE `RSVP`
+                          SET `Cancel`       = '0'
+                          WHERE `EventID`    = '" . $id . "'
+                          AND `EnterpriseID` = '" . $eid . "'");
+
+      if( $create['Result'] )
+      {
+        return 3;
+      }
+      else
+      {
+        return 0;
+      }
+    }
+    else
+    {
+      return 2;
+    }
   }
 }
 

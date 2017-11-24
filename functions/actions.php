@@ -157,7 +157,7 @@ if( !empty($_POST) && ($_POST['action'] == 'checkin') )
   {
     $res = False;
   }
-  
+
   if( $res == 1)
   {
     echo '<div class="container alert alert-success alert-dismissible" role="alert">
@@ -176,6 +176,39 @@ if( !empty($_POST) && ($_POST['action'] == 'checkin') )
     echo '<div class="container alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] You attendance was already taken for this event.</div>';
+  }
+}
+
+// Message upon RSVP
+if( !empty($_POST) && ($_POST['action'] == 'RSVP') )
+{
+  // Retrieve the codes for this event
+  $res = user_RSVP($_POST['EID'], $_GET['id']);
+
+  if( $res == 1)
+  {
+    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+            Your reservation has been made!
+          </div>';
+  }
+  else if( $res == 0)
+  {
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] Something went wrong while reserving your space.  Please, try again.</div>';
+  }
+  else if( $res == 2)
+  {
+    echo '<div class="container alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] You have already registered.</div>';
+  }
+  else
+  {
+    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] You cancellation was rolled back.</div>';
   }
 }
 

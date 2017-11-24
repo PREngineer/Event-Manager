@@ -34,16 +34,6 @@
 
     <!-- ******************* END FORM ******************* -->
 
-<?php
-
-//Verify user has posted his/her form in order to extract the enterprise ID
-include '../functions/DB.php';
-
-query_DB( "INSERT INTO RSVP (`EventID`, `EnterpriseID`, `TimeStamp`)
-VALUES ('" . $_GET['id'] . "', '" . $_POST['EID'] . "', '" . NOW() ."')");
-
-?>
-
 <script type="text/javascript">
 
    $(document).ready(function() {
