@@ -1,8 +1,31 @@
 <?php
+  // Include DB functions
+  include '../functions/DB.php';
+  session_start();
 
-session_start();
+echo '
+<!-- Handle NavBar Highlights -->
+<script>
+  document.getElementById("currentLink").classList.remove("active");
+  document.getElementById("futureLink").classList.remove("active");
+  document.getElementById("createMemberLink").classList.remove("active");
+  document.getElementById("loginLink").classList.remove("active");
+';
 
-include '../functions/DB.php';
+  if( $_SESSION['userRole'] == 1 )
+  {
+    echo 'document.getElementById("approversLink").classList.remove("active");';
+  }
+  if( $_SESSION['userRole'] == 2 )
+  {
+    echo 'document.getElementById("pocLink").classList.add("active");';
+  }
+  if( $_SESSION['userRole'] == 3 )
+  {
+    echo 'document.getElementById("adminLink").classList.remove("active");';
+  }
+
+echo '</script>';
 
 $events = get_MyEvents($_SESSION['userID']);
 

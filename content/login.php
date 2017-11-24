@@ -4,9 +4,6 @@
   document.getElementById("futureLink").classList.remove('active');
   document.getElementById("createMemberLink").classList.remove('active');
   document.getElementById("loginLink").classList.add('active');
-  document.getElementById("approversLink").classList.remove('active');
-  document.getElementById("pocLink").classList.remove('active');
-  document.getElementById("adminLink").classList.remove('active');
 </script>
 
 <!--Skip Navigation Link-->

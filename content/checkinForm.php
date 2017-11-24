@@ -1,86 +1,42 @@
-<?php
+<form class="container" method="POST" id="checkinForm">
+  <input name="action" type="hidden" value="checkin">
 
-include '../functions/DB.php';
-
-$EventID = $_GET['id'];
-
-?>
-
-<form class="container" method="POST" id="checkinPage">
-<input name="action" type="hidden" value="checkinPage">
-
-  <h1 d="page-title" tabindex="-1" role="heading" aria-level="1" align="center">Event Check-In</h1>
+  <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Event Check-In</h1>
 
   <p><strong>All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required. </strong></p>
 
   <div class="form-group">
-    <label class="form_label" for="enterpriseID"><label class="text-danger">*</label> Enter your Enterprise ID:</label>
+    <label class="form_label" for="enterpriseID"><label class="text-danger">*</label>Enterprise ID:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-user"></i>
       </span>
-      <input class="form-control" id="enterpriseID" type="text" name="enterpriseID" aria-required="true" placeholder="john.p.doe" aria-describedby="loginIDHelp" required>
+      <input class="form-control" id="enterpriseID" type="text" name="enterpriseID" aria-required="true" placeholder="john.p.doe" aria-describedby="enterpriseIDHelp" required>
     </div>
-    <small id="loginIDHelp" class="sr-only form-text text-muted">Format:john.p.doe"</small>
+    <small id="enterpriseIDHelp" class="sr-only form-text text-muted"></small>
   </div>
 
   <div class="form-group">
-    <label class="form_label" for="enterpasscode"> <label class="text-danger">*</label> Enter Event Passcode: </label>
+    <label class="form_label" for="code"> <label class="text-danger">*</label>Event Code: </label>
     <div class="input-group">
       <span class="input-group-addon">
         <span aria-hidden="true"><em class="glyphicon glyphicon-barcode"></em></span>
       </span>
-      <input name="passcode" type="text" class="form-control" id="passcode" placeholder="HRFU872D" aria-describedby="passcodeHelp" required>
+      <input name="code" type="text" class="form-control" id="code" placeholder="abc123" aria-describedby="codeHelp" required>
     </div>
-      <small id="passcodeHelp" class="sr-only form-text text-muted">Format:XXXXXXX"</small>
+      <small id="codeHelp" class="sr-only form-text text-muted"></small>
   </div>
 
-  <div align="center">
+  <div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 
 </form>
 
-<?php
-
-// Retrieving Textboxes Values for LoginID and Event Passcode
-
-$loginID = $_POST['enterpriseID'];
-$passcode = $_POST['passcode'];
-
-
-// SQL query to retrieve Actual Passcode from Event Master
-$inPersonCode = "SELECT `Person_Code` FROM `Events` WHERE `ID` = $EventID";
-$remoteCode = "SELECT `Remote_Code` FROM `Events` WHERE `ID` = $EventID";
-
-// Assign Actual Passcode to var
-$ActualPersonCode = query_DB($inPersonCode);
-$ActualRemoteCode = query_DB($remoteCode)
-
-$insertQuery = "INSERT INTO Attendance (`EventID`, `EnterpriseID`, `Flag_Attendance`, `Timestamp`)
-                VALUES (". $EventID ."," . $loginID . ",". $FlagAttendance ."," . DATE(YYY-MM_DD:H:i:s"))";
-
-// if correct Event Passcode, then upload loginID and Timestamp to correspongin EventID
-if($passcode == $ActualPersonCode)
-{
-  $FlagAttendance = "IN PERSON";
-  query_DB( $insertQuery);
-}
-elseif ($passcode == $ActualRemoteCode){
-  $FlagAttendance = "REMOTE";
-  query_DB( $insertQuery);
-}
-
-echo "ERROR: Passcode is incorrect";
-
-}
-
-?>
-
 <script type="text/javascript">
 
      $(document).ready(function() {
-      $('#checkinPage').bootstrapValidator({
+      $('#checkinForm').bootstrapValidator({
           // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
           feedbackIcons: {
               valid: 'glyphicon glyphicon-ok',
@@ -96,10 +52,10 @@ echo "ERROR: Passcode is incorrect";
                   }
               },
 
-              passcode: {
+              code: {
                   validators: {
                       notEmpty: {
-                          message: 'ERROR: Please enter your a valid passcode.'
+                          message: 'ERROR: Please enter a valid passcode.  This code is provided during the event.'
                       }
                   }
               },

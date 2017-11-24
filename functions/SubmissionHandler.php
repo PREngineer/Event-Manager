@@ -23,7 +23,7 @@ if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'approve' )
 }
 
 // Checkin
-if( $_GET['action'] == 'checkin' )
+if( $_POST['action'] == 'checkin' || $_GET['action'] == 'checkin' )
 {
   echo'
     <script>
@@ -94,6 +94,7 @@ if( $_POST['action'] == 'login')
 // Logout
 if( $_GET['action'] == 'logout' )
 {
+  unset($_SESSION);
   session_destroy();
 
   echo '

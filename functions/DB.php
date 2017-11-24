@@ -214,7 +214,8 @@ Function setup_AttendanceTable()
 {
   return query_DB("CREATE TABLE `Event_Manager`.`Attendance` (
     `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
-    `EnterpriseID` BIGINT NOT NULL COMMENT 'Enterprise ID' ,
+    `EnterpriseID` TEXT NOT NULL COMMENT 'Enterprise ID' ,
+    `Type` BOOLEAN NOT NULL COMMENT 'Type of Attendee' ,
     `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time attendance was taken' )
     ENGINE  = InnoDB
     CHARSET = utf8
@@ -984,6 +985,46 @@ Function insert_newUser($data)
 }
 
 /*
+  Description:
+    This function adds a user entry to the Attendance Table
+  @PARAM:
+    1. [String] - Employee ID
+    2. [String] - Event ID
+    3. [Bool]   - Attendance Type
+  @RETURN:
+    [Boolean] - False for failure
+    [Boolean] - True  for successful
+    [Int]     - 2 for already in Table
+*/
+Function user_checkIn($eid, $id, $type)
+{
+  $exists = ( mysqli_fetch_all( query_DB("SELECT COUNT(EventID)
+                      FROM `Attendance`
+                      WHERE `EventID`      = '" . $id . "'
+                      AND   `EnterpriseID` = '" . $eid . "'")[Data] )[0] )[0];
+
+  if( $exists == 0 )
+  {
+    $create = query_DB("INSERT INTO `Attendance`
+                        (`EventID`, `EnterpriseID`, `Type`)
+                        VALUES ('" . $id . "','" . $eid . "','" . $type . "')");
+
+    if( $create['Result'] )
+    {
+      return True;
+    }
+    else
+    {
+      return False;
+    }
+  }
+  else
+  {
+    return 2;
+  }
+}
+
+/*
 *****************************
 Region Start - Other Regular Use MySQL DB Functions
 *****************************
@@ -1051,6 +1092,31 @@ function deleteEvent($id)
   if( $result['Result'] )
   {
     return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Function that retrieves the event codes
+  @Param  - NONE
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+function get_eventCodes($id)
+{
+  // Insert into the Events Table
+  $result = query_DB( "SELECT `Person_Code`,`Remote_Code`
+                       FROM `Events`
+                       WHERE `id` = $id" );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return (mysqli_fetch_all( $result['Data'] ) )[0];
   }
   else
   {

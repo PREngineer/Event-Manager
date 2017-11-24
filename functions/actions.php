@@ -31,7 +31,7 @@ if( !empty($_POST) && ($_POST['action'] == 'createEvent') )
   }
 }
 
-// Message upon Creation of Events
+// Message upon Edition of Events
 if( !empty($_POST) && ($_POST['action'] == 'editEvent') )
 {
   $res = update_Event($_POST, $_GET['id']);
@@ -133,6 +133,53 @@ if( isset($_GET['recover']) && ( ($_GET['action'] == 'Events') || ($_GET['action
   }
 }
 
+// Message upon Event Checkin
+if( !empty($_POST) && ($_POST['action'] == 'checkin') )
+{
+  // Retrieve the codes for this event
+  $codes = get_eventCodes( $_GET['id'] );
+
+  // Check if the code provided is valid
+  if( $_POST['code'] == $codes[0] || $_POST['code'] == $codes[1] )
+  {
+    // If In Person Code
+    if( $_POST['code'] == $codes[0] )
+    {
+      $res = user_checkIn( $_POST['enterpriseID'], $_GET['id'], 0 );
+    }
+    // If Remote code
+    else
+    {
+      $res = user_checkIn( $_POST['enterpriseID'], $_GET['id'], 1 );
+    }
+  }
+  else
+  {
+    $res = False;
+  }
+  
+  if( $res == 1)
+  {
+    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+            Your attendace has been taken!
+          </div>';
+  }
+  else if( $res == 0)
+  {
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] The code that was provided is invalid.  Please, try again.</div>';
+  }
+  else
+  {
+    echo '<div class="container alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] You attendance was already taken for this event.</div>';
+  }
+}
+
+// Message upon Creation of Member
 if( !empty($_POST) && ($_POST['action'] == 'createMember') )
 {
 

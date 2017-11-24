@@ -1,13 +1,33 @@
+<?php
+  // Include DB functions
+  include '../functions/DB.php';
+  session_start();
+
+echo '
 <!-- Handle NavBar Highlights -->
 <script>
-  document.getElementById("currentLink").classList.remove('active');
-  document.getElementById("futureLink").classList.remove('active');
-  document.getElementById("createMemberLink").classList.remove('active');
-  document.getElementById("loginLink").classList.remove('active');
-  document.getElementById("approversLink").classList.remove('active');
-  document.getElementById("pocLink").classList.remove('active');
-  document.getElementById("adminLink").classList.add('active');
-</script>
+  document.getElementById("currentLink").classList.remove("active");
+  document.getElementById("futureLink").classList.remove("active");
+  document.getElementById("createMemberLink").classList.remove("active");
+  document.getElementById("loginLink").classList.remove("active");
+';
+
+  if( $_SESSION['userRole'] == 1 )
+  {
+    echo 'document.getElementById("approversLink").classList.remove("active");';
+  }
+  if( $_SESSION['userRole'] == 2 )
+  {
+    echo 'document.getElementById("pocLink").classList.remove("active");';
+  }
+  if( $_SESSION['userRole'] == 3 )
+  {
+    echo 'document.getElementById("adminLink").classList.add("active");';
+  }
+
+echo '</script>';
+
+?>
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Administrator</h1>
 

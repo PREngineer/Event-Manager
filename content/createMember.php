@@ -1,13 +1,32 @@
+<?php
+
+session_start();
+
+echo '
 <!-- Handle NavBar Highlights -->
 <script>
-  document.getElementById("currentLink").classList.remove('active');
-  document.getElementById("futureLink").classList.remove('active');
-  document.getElementById("createMemberLink").classList.add('active');
-  document.getElementById("loginLink").classList.remove('active');
-  document.getElementById("approversLink").classList.remove('active');
-  document.getElementById("pocLink").classList.remove('active');
-  document.getElementById("adminLink").classList.remove('active');
-</script>
+  document.getElementById("currentLink").classList.remove("active");
+  document.getElementById("futureLink").classList.remove("active");
+  document.getElementById("createMemberLink").classList.add("active");
+  document.getElementById("loginLink").classList.remove("active");
+';
+
+  if( $_SESSION['userRole'] == 1 )
+  {
+    echo 'document.getElementById("approversLink").classList.remove("active");';
+  }
+  if( $_SESSION['userRole'] == 2 )
+  {
+    echo 'document.getElementById("pocLink").classList.remove("active");';
+  }
+  if( $_SESSION['userRole'] == 3 )
+  {
+    echo 'document.getElementById("adminLink").classList.remove("active");';
+  }
+
+echo '</script>';
+
+?>
 
 <!--Skip Navigation Link-->
 <a class="skip-navigation sr-only sr-only-focusable" href="#page_title">Skip Navigation</a>

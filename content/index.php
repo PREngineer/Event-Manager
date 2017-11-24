@@ -93,14 +93,14 @@
                 <a link="future.php" style="cursor: pointer;">Future Events</a>
               </li>
               <li id="createMemberLink">
-                <a link="createMember.html" style="cursor: pointer;">New Member</a>
+                <a link="createMember.php" style="cursor: pointer;">New Member</a>
               </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
 <?php
 
-if( !logged_in() )
+if( !isset($_SESSION['userRole']) )
 {
   echo'
               <li id="loginLink">
@@ -108,7 +108,7 @@ if( !logged_in() )
               </li>
   ';
 }
-else if( logged_in() && $_SESSION['userRole'] == 1 )
+else if( $_SESSION['userRole'] == 1 )
 {
   echo'
               <li id="approversLink">
@@ -119,22 +119,22 @@ else if( logged_in() && $_SESSION['userRole'] == 1 )
               </li>
   ';
 }
-else if( logged_in() && $_SESSION['userRole'] == 2 )
+else if( $_SESSION['userRole'] == 2 )
 {
   echo'
               <li id="pocLink">
-                <a link="pocs.html" style="cursor: pointer;">POCs</a>
+                <a link="pocs.php" style="cursor: pointer;">POCs</a>
               </li>
               <li id="loginLink">
                 <a href="?action=logout" style="cursor: pointer;">Logout</a>
               </li>
   ';
 }
-else if( logged_in() && $_SESSION['userRole'] == 3 )
+else if( $_SESSION['userRole'] == 3 )
 {
   echo'
               <li id="adminLink" class="dropdown">
-                <a link="admin.html" style="cursor: pointer;">Administrators</a>
+                <a link="admin.php" style="cursor: pointer;">Administrators</a>
               </li>
               <li id="loginLink">
                 <a href="?action=logout" style="cursor: pointer;">Logout</a>

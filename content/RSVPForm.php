@@ -1,5 +1,5 @@
 <!-- ******************* START FORM ******************* -->
-<form class="container" method="POST">
+<form class="container" method="POST" id="rsvpForm">
   <input name="action" type="hidden" value="RSVP">
 
   <!-- Heading -->
@@ -47,7 +47,7 @@ VALUES ('" . $_GET['id'] . "', '" . $_POST['EID'] . "', '" . NOW() ."')");
 <script type="text/javascript">
 
    $(document).ready(function() {
-    $('#rsvpPage').bootstrapValidator({
+    $('#rsvpForm').bootstrapValidator({
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
