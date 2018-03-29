@@ -189,7 +189,7 @@ if( !empty($_POST) && ($_POST['action'] == 'RSVP') )
   {
     echo '<div class="container alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-            Your reservation has been made!
+            Your reservation has been recorded!
           </div>';
   }
   else if( $res == 0)
@@ -215,7 +215,28 @@ if( !empty($_POST) && ($_POST['action'] == 'RSVP') )
 // Message upon Creation of Member
 if( !empty($_POST) && ($_POST['action'] == 'createMember') )
 {
+  // Insert new member
+  $res = insert_newMember($_POST);
 
+  if( $res == 1)
+  {
+    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+            New Member has been recorded!
+          </div>';
+  }
+  else if( $res == 0)
+  {
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] Something went wrong while recording New Member.  Please, try again.</div>';
+  }
+  else
+  {
+    echo '<div class="container alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] This Member already exists.</div>';
+  }
 }
 
 ?>

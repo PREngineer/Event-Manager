@@ -962,6 +962,63 @@ Function insert_newEvent($data)
 
 /*
   Description:
+    This function adds a Member to the Members Table
+  @PARAM:
+    [Array] - Array containing all the user Data
+    1. enterpriseID
+    2. firstName
+    3. initials
+    4. lastName
+    5. email
+    6. segment
+    7. level
+    8. newsletter
+    9. volunteer
+  @RETURN:
+    [Boolean] - False for failure
+    [Boolean] - True  for successful
+*/
+Function insert_newMember($data)
+{
+  $exists = ( mysqli_fetch_all( query_DB("SELECT COUNT(ID)
+                      FROM `Members`
+                      WHERE `ID`      = '" . $data['enterpriseID'] . "'")[Data] )[0] )[0];
+
+  // If the user does not exist
+  if( $exists == 0 )
+  {
+    $insert = query_DB("INSERT INTO `Members`
+                      (`ID`, `FName`, `Initials`,`LName`,`Email`,`Segment`,`Level`,`Newsletter`,`Volunteer`)
+                      VALUES ('" . $data['enterpriseID'] . "',
+                              '" . $data['firstName'] . "',
+                              '" . $data['initials'] . "',
+                              '" . $data['lastName'] . "',
+                              '" . $data['email'] . "',
+                              '" . $data['segment'] . "',
+                              '" . $data['level'] . "',
+                              '" . $data['newsletter'] . "',
+                              '" . $data['volunteer'] . "')");
+
+    if( $insert['Result'] )
+    {
+      // If successful
+      return 1;
+    }
+    else
+    {
+      // If failed
+      return 0;
+    }
+  }
+  else
+  {
+    // If user already exists
+    return 2;
+  }
+}
+
+/*
+  Description:
     This function adds a user to the Users Table
   @PARAM:
     [Array] - Array containing all the user Data
@@ -974,11 +1031,11 @@ Function insert_newEvent($data)
 */
 Function insert_newUser($data)
 {
-  $create = query_DB("INSERT INTO `Users`
+  $insert = query_DB("INSERT INTO `Users`
                       (`Username`, `Password`, `Role`)
                       VALUES ('" . $data['Username'] . "','" . $data['Password'] . "','" . $data['Role'] . "')");
 
-  if( $create['Result'] )
+  if( $insert['Result'] )
   {
     return True;
   }
@@ -1007,23 +1064,27 @@ Function user_checkIn($eid, $id, $type)
                       WHERE `EventID`      = '" . $id . "'
                       AND   `EnterpriseID` = '" . $eid . "'")[Data] )[0] )[0];
 
+  // If the user has not alreay checked in
   if( $exists == 0 )
   {
-    $create = query_DB("INSERT INTO `Attendance`
+    $checkIn = query_DB("INSERT INTO `Attendance`
                         (`EventID`, `EnterpriseID`, `Type`)
                         VALUES ('" . $id . "','" . $eid . "','" . $type . "')");
 
-    if( $create['Result'] )
+    if( $checkIn['Result'] )
     {
+      // If successful
       return True;
     }
     else
     {
+      // If failed
       return False;
     }
   }
   else
   {
+    // If user is already checked in
     return 2;
   }
 }
@@ -1041,6 +1102,7 @@ Function user_checkIn($eid, $id, $type)
 */
 Function user_RSVP($eid, $id)
 {
+  // Check if the user has already RSVPed
   $exists = ( mysqli_fetch_all(
                 query_DB("SELECT COUNT(EventID)
                         FROM `RSVP`
@@ -1050,49 +1112,58 @@ Function user_RSVP($eid, $id)
               )[0]
             )[0];
 
+  // If the user hasn't RSVPed before
   if( $exists == 0 )
   {
-    $create = query_DB("INSERT INTO `RSVP`
+    $rsvp = query_DB("INSERT INTO `RSVP`
                         (`EventID`, `EnterpriseID`, `Cancel`)
                         VALUES ('" . $id . "', '" . $eid . "', '0')");
 
-    if( $create['Result'] )
+    if( $rsvp['Result'] )
     {
+      // Success
       return 1;
     }
     else
     {
+      // Error occurred
       return 0;
     }
   }
   else
   {
+    // Check if the user RSVPed before but cancelled
     $cancelled = ( mysqli_fetch_all( query_DB("SELECT COUNT(EventID)
                         FROM `RSVP`
                         WHERE `EventID`      = '" . $id . "'
                         AND   `EnterpriseID` = '" . $eid . "'
                         AND   `Cancel`       = 1")[Data] )[0] )[0];
 
+    // If the user had RSVPed before but cancelled
     if($cancelled == 1)
     {
       $timestamp = date('Y-m-d H:i:s');
 
-      $create = query_DB("UPDATE `RSVP`
+      // Attempt to restore the RSVP to a valid RSVP
+      $restore = query_DB("UPDATE `RSVP`
                           SET `Cancel`       = '0'
                           WHERE `EventID`    = '" . $id . "'
                           AND `EnterpriseID` = '" . $eid . "'");
 
-      if( $create['Result'] )
+      if( $restore['Result'] )
       {
+        // Return that RSVP has been restored.
         return 3;
       }
       else
       {
+        // Error occurred
         return 0;
       }
     }
     else
     {
+      // If the user is already registered.
       return 2;
     }
   }
