@@ -4,6 +4,7 @@
   document.getElementById("futureLink").classList.remove('active');
   document.getElementById("createMemberLink").classList.remove('active');
   document.getElementById("loginLink").classList.add('active');
+  document.getElementById("myRSVP").classList.remove("active");
 </script>
 
 <!--Skip Navigation Link-->

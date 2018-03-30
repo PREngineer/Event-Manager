@@ -9,6 +9,7 @@ echo '
   document.getElementById("futureLink").classList.remove("active");
   document.getElementById("createMemberLink").classList.add("active");
   document.getElementById("loginLink").classList.remove("active");
+  document.getElementById("myRSVP").classList.remove("active");
 ';
 
   if( $_SESSION['userRole'] == 1 )

@@ -676,6 +676,37 @@ Function get_AllEvents()
 
 /*
   Description:
+    This function executes a query to get all the unapproved events in the DB.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_approverEvents()
+{
+  $date = date('Y-m-d');
+  $time = date('H:i:s');
+
+  $result = query_DB("SELECT `ID`, `Name`, `Date`, `Created`, `Creator`, `Person_Code`, `Remote_Code`,
+                             `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
+                      FROM `Events`
+                      WHERE `Date` > '$date'
+                      AND `Deleted` = '0'
+                      ORDER BY `Date`,`Start`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
     This function executes a query to get all the DIM Committee entries.
   @PARAM:
 
@@ -864,31 +895,36 @@ Function get_MyEvents($id)
 
 /*
   Description:
-    This function executes a query to get all the unapproved events in the DB.
+    This function executes a query to get all the RSVPS for an Enterprise ID.
   @PARAM:
 
   @RETURN:
     [Array]   - Data
     [Boolean] - False
 */
-Function get_approverEvents()
+Function get_myRSVPs($id)
 {
   $date = date('Y-m-d');
-  $time = date('H:i:s');
 
-  $result = query_DB("SELECT `ID`, `Name`, `Date`, `Created`, `Creator`, `Person_Code`, `Remote_Code`,
-                             `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
-                      FROM `Events`
-                      WHERE `Date` > '$date'
-                      AND `Deleted` = '0'
-                      ORDER BY `Date`,`Start`");
+  $result = query_DB("SELECT DISTINCT
+                        Events.ID         AS EventID,
+                        Events.Name       AS EventName,
+                        Events.Date       AS EventDate,
+                        Events.Location   AS EventLocation,
+                        RSVP.EnterpriseID AS UserID
+                      FROM Events INNER JOIN RSVP
+                      WHERE Events.Date >= '$date'
+                      AND Events.Approved = '1'
+                      AND RSVP.EnterpriseID = '$id'");
 
   if( $result['Result'] )
   {
+    // If successful
     return mysqli_fetch_all( $result['Data'] );
   }
   else
   {
+    // If failure
     return $result['Errors'];
   }
 }
@@ -988,7 +1024,7 @@ Function insert_newMember($data)
   if( $exists == 0 )
   {
     $insert = query_DB("INSERT INTO `Members`
-                      (`ID`, `FName`, `Initials`,`LName`,`Email`,`Segment`,`Level`,`Newsletter`,`Volunteer`)
+                      (`ID`, `FName`, `Initials`,`LName`,`Email`,`Segment`,`Level`,`Newsletter`,`Volunteer`,`Role`)
                       VALUES ('" . $data['enterpriseID'] . "',
                               '" . $data['firstName'] . "',
                               '" . $data['initials'] . "',
@@ -997,7 +1033,8 @@ Function insert_newMember($data)
                               '" . $data['segment'] . "',
                               '" . $data['level'] . "',
                               '" . $data['newsletter'] . "',
-                              '" . $data['volunteer'] . "')");
+                              '" . $data['volunteer'] . "',
+                              '0')");
 
     if( $insert['Result'] )
     {

@@ -114,12 +114,22 @@ if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'myEvents' )
   ';
 }
 
-// RSVP
+// RSVP Form
 if( $_POST['action'] == 'RSVP' || $_GET['action'] == 'RSVP' )
 {
   echo'
     <script>
       $("#Content").load("RSVPForm.php");
+    </script>
+  ';
+}
+
+// Show My RSVPs
+if( $_POST['action'] == 'myRSVP' || $_GET['action'] == 'myRSVP' )
+{
+  echo'
+    <script>
+      $("#Content").load("myRSVP.php?action=myRSVP&enterpriseID=' . $_POST['enterpriseID'] . '");
     </script>
   ';
 }

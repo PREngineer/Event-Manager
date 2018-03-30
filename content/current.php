@@ -15,6 +15,7 @@ echo '
   document.getElementById("futureLink").classList.remove("active");
   document.getElementById("createMemberLink").classList.remove("active");
   document.getElementById("loginLink").classList.remove("active");
+  document.getElementById("myRSVP").classList.remove("active");
 ';
 
   if( $_SESSION['userRole'] == 1 )

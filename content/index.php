@@ -95,6 +95,9 @@
               <li id="createMemberLink">
                 <a link="createMember.php" style="cursor: pointer;">New Member</a>
               </li>
+              <li id="myRSVP">
+                <a link="myRSVP.php" style="cursor: pointer;">My RSVPs</a>
+              </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
