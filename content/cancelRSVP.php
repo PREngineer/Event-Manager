@@ -25,7 +25,7 @@ if( !empty($_GET) )
 Your cancellation has been received.
 </h4>
 
-<table>
+<table style="width:50%">
 
 <tr>
   <td style="width:50%">
