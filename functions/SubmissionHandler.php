@@ -1,6 +1,21 @@
 <?php
+/*
+This contains the form submission handlers as well as the get submission handlers.
+
+This is used to determine which element will be loaded into the center of the page.
+*/
 
 // Handle Form Submissions
+
+// Show Current Events
+if( $_POST['action'] == 'announcements' || $_GET['action'] == 'announcements' )
+{
+  echo'
+    <script>
+      $("#Content").load("announcements.php");
+    </script>
+  ';
+}
 
 // Show Current Events
 if( $_POST['action'] == 'current' || $_GET['action'] == 'current' )

@@ -3,6 +3,7 @@
 session_start();
 
 include '../functions/DB.php';
+include '../functions/Mail.php';
 
 ?>
 

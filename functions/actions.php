@@ -1,3 +1,11 @@
+<?php
+/*
+This contains the action alert notifications that appear on top.
+
+The alerts are dismissible but they disappear after 5 a seconds with an upper scroll.
+*/
+?>
+
 <!-- Close the alerts after 5 seconds -->
 <script>
 window.setTimeout(function() {
@@ -218,7 +226,7 @@ if( !empty($_GET) && ($_GET['action'] == 'cancelRSVP') )
   echo '<div class="container alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
             You will receive an e-mail.<br><br>
-            Confirm this action to process that cancellation.
+            Confirm this action to process the cancellation.
           </div>';
 }
 

@@ -1,4 +1,7 @@
 <?php
+/*
+This contains all of the Database related functions.
+*/
 
 /*
 *****************************

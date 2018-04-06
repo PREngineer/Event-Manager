@@ -86,6 +86,9 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+              <li id="announcementsLink">
+                <a href="?action=announcements" style="cursor: pointer;">Announcements</a>
+              </li>
               <li id="currentLink">
                 <a href="?action=current" style="cursor: pointer;">Current Events</a>
               </li>
@@ -158,13 +161,22 @@ else if( $_SESSION['userRole'] == 3 )
     ?>
 
     <div class="container" id="Content" name="Content">
-		<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Announcements</h1>
     </div>
 
 <?php
     $events = get_CurrentEvents();
 
-    if( sizeof($events) >= 1 && empty($_POST) && empty($_GET) )
+    if( sizeof($events) == 0 && empty($_GET) && empty($_POST) )
+    {
+      echo'
+      <script>
+      $(document).ready(function(){
+          $("#Content").load("announcements.php");
+      });
+      </script>
+      ';
+    }
+    else if( sizeof($events) >= 1 && empty($_GET) )
     {
       echo'
       <script>
@@ -179,7 +191,7 @@ else if( $_SESSION['userRole'] == 3 )
     <!-- ******************* Footer Section ******************* -->
     <div class="container">
       <div class="nav navbar-inverse">
-        <p class="text-center text-muted">2017 My Company</p>
+        <p class="text-center text-muted">2017-<?php echo DATE("Y"); ?> My Company</p>
       </div>
     </div>
 
