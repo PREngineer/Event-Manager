@@ -2,6 +2,36 @@
 
 // Handle Form Submissions
 
+// Show Current Events
+if( $_POST['action'] == 'current' || $_GET['action'] == 'current' )
+{
+  echo'
+    <script>
+      $("#Content").load("current.php");
+    </script>
+  ';
+}
+
+// Show Future Events
+if( $_POST['action'] == 'future' || $_GET['action'] == 'future' )
+{
+  echo'
+    <script>
+      $("#Content").load("future.php");
+    </script>
+  ';
+}
+
+// Show Create Member Form
+if( $_POST['action'] == 'createMember' || $_GET['action'] == 'createMember' )
+{
+  echo'
+    <script>
+      $("#Content").load("createMember.php");
+    </script>
+  ';
+}
+
 // All Events (Admins)
 if( $_POST['action'] == 'Events' || $_GET['action'] == 'Events' )
 {
@@ -130,6 +160,16 @@ if( $_POST['action'] == 'myRSVP' || $_GET['action'] == 'myRSVP' )
   echo'
     <script>
       $("#Content").load("myRSVP.php?action=myRSVP&enterpriseID=' . $_POST['enterpriseID'] . '");
+    </script>
+  ';
+}
+
+// Show cancellation notification
+if( $_POST['action'] == 'cancelRSVP' || $_GET['action'] == 'cancelRSVP' )
+{
+  echo'
+    <script>
+      $("#Content").load("cancelRSVP.php?id=' . $_GET['id'] . '&eid=' . $_GET['eid'] . '");
     </script>
   ';
 }

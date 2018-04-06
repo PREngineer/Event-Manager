@@ -75,7 +75,7 @@ if( !empty($_GET) && ($_GET['action'] == 'myRSVP') )
 
   //print_r($rsvps);
 
-  if( sizeof($rsvps) == 0 )
+  if( sizeof($rsvps) == 0 && !empty($_POST) )
   {
     echo '
     <div class="container">
@@ -87,8 +87,6 @@ if( !empty($_GET) && ($_GET['action'] == 'myRSVP') )
   {
     foreach ($rsvps as $name => $value)
     {
-      $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?action=rsvp%26id=' . $value[0];
-
       echo '
       <div class="col-sm-4">
         <div class="thumbnail" style="height: 500px;">
@@ -112,7 +110,7 @@ if( !empty($_GET) && ($_GET['action'] == 'myRSVP') )
                 </tr>
                 <tr>
                   <td colspan="2" class="text-center">
-                    <a href="?action=cancelRSVP&id=' . $value[0] . '" class="btn btn-danger" role="button">Cancel my RSVP</a>
+                    <a href="?action=cancelRSVP&id=' . $value[0] . '&eid=' . $value[4] . '" class="btn btn-danger" role="button">Cancel my RSVP</a>
                   </td>
                 </tr>
               </table>

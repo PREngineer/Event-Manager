@@ -212,6 +212,15 @@ if( !empty($_POST) && ($_POST['action'] == 'RSVP') )
   }
 }
 
+// Message upon RSVP Cancellation Request
+if( !empty($_GET) && ($_GET['action'] == 'cancelRSVP') )
+{
+  echo '<div class="container alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+            You will receive and e-mail to confirm this action for it to be processed.
+          </div>';
+}
+
 // Message upon Creation of Member
 if( !empty($_POST) && ($_POST['action'] == 'createMember') )
 {
