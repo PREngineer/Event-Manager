@@ -46,54 +46,57 @@ echo '</script>';
 
   <!-- Table -->
   <table class="table">
+
     <thead>
       <tr>
       <th>Option</th>
       <th>Description</th>
       <tr>
     </thead>
+
     <tr>
-      <td><a href="?action=Members">Manage Members</a></td>
+      <td><a href="?action=Members">Announcements</a></td>
       <td>
-        Use this option to manage the members of the Employee Resource Group.
-        Use it to:<br>
-        * Add Member<br>
-        * Remove Member<br>
-        * Edit Member Information
+        Use this option to manage the announcements:<br>
+        * Create<br>
+        * Remove<br>
+        * Edit<br>
+        * Expire
       </td>
     </tr>
+
     <tr>
-      <td><a href="?action=Roles">Manage Roles</a></td>
+      <td><a href="?action=Attendance">Attendance</a></td>
       <td>
-        Use this option to determine which members of the Employee Resource
-        Group can have the following roles:<br>
-        * Portal Administrator<br>
-        * Point Of Contact<br>
-        * Event Approver
+        Use this option to manage attendance related information:<br>
+        * Add (outside of the event date)
+        * Remove
+        * Modify
       </td>
     </tr>
+
     <tr>
-      <td><a href="?action=Events">Manage Events</a></td>
+      <td><a href="?action=Events">Events</a></td>
       <td>
         Use this option to manage the information currently stored in the
-        database.  This gives you the option to perform the following event
-        related actions:<br>
-        * Create new event<br>
-        * Delete / Recover existing event<br>
-        * Modify existing event<br>
-        * Approve / Disapprove existing event
+        database:<br>
+        * Create<br>
+        * Delete / Recover<br>
+        * Modify<br>
+        * Approve / Disapprove
       </td>
     </tr>
+
     <tr>
-      <td><a href="?action=Attendance">Manage Attendance</a></td>
+      <td><a href="?action=Members">Members</a></td>
       <td>
-        Use this option to manage attendance related information.
-        This gives you the option to:<br>
-        * Add entries outside of the event date
-        * Remove entries
-        * Modify entries
+        Use this option to manage the members of the Employee Resource Group:<br>
+        * Add<br>
+        * Remove<br>
+        * Edit
       </td>
     </tr>
+
     <tr>
       <td><a href="?action=Reports">Reports</a></td>
       <td>
@@ -101,7 +104,19 @@ echo '</script>';
         Employee Resource Group's:<br>
         * Membership<br>
         * Attendance<br>
-        * Events
+        * Events<br>
+        * Others
+      </td>
+    </tr>
+
+    <tr>
+      <td><a href="?action=Roles">Roles</a></td>
+      <td>
+        Use this option to determine which members of the Employee Resource
+        Group can have the following roles:<br>
+        * Portal Administrator<br>
+        * Point Of Contact<br>
+        * Event Approver
       </td>
     </tr>
   </table>
