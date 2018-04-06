@@ -912,9 +912,13 @@ Function get_myRSVPs($id)
                         Events.Date       AS EventDate,
                         Events.Location   AS EventLocation,
                         RSVP.EnterpriseID AS UserID
-                      FROM Events INNER JOIN RSVP
-                      WHERE Events.Date >= '$date'
-                      AND Events.Approved = '1'
+                      FROM `Events`,`RSVP`
+                      WHERE Date >= '$date'
+                      AND Approved = '1'
+                      AND Deleted = '0'
+                      AND Events.ID IN
+                      (SELECT EventID FROM `RSVP`
+                        WHERE EnterpriseID = '$id')
                       AND RSVP.EnterpriseID = '$id'");
 
   if( $result['Result'] )
