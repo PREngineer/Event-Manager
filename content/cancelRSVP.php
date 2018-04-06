@@ -64,3 +64,5 @@ Your cancellation has been received.
 </tr>
 
 </table>
+
+<br><br>
