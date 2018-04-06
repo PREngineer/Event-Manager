@@ -217,7 +217,8 @@ if( !empty($_GET) && ($_GET['action'] == 'cancelRSVP') )
 {
   echo '<div class="container alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-            You will receive and e-mail to confirm this action for it to be processed.
+            You will receive an e-mail.<br><br>
+            Confirm this action to process that cancellation.
           </div>';
 }
 
