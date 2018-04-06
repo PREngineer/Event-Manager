@@ -90,7 +90,7 @@ Libraries/Frameworks used:
 
     Replace its contents with:
 
-    server {
+        server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
@@ -122,7 +122,7 @@ Libraries/Frameworks used:
         location ~ /\.ht {
                 deny all;
         }
-    }
+        }
 
 
     Run:
