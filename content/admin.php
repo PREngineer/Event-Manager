@@ -55,7 +55,7 @@ echo '</script>';
     </thead>
 
     <tr>
-      <td><a href="?action=Members">Announcements</a></td>
+      <td><a href="?action=Announcements">Announcements</a></td>
       <td>
         Use this option to manage the announcements:<br>
         * Create<br>
@@ -69,8 +69,8 @@ echo '</script>';
       <td><a href="?action=Attendance">Attendance</a></td>
       <td>
         Use this option to manage attendance related information:<br>
-        * Add (outside of the event date)
-        * Remove
+        * Add (outside of the event date)<br>
+        * Remove<br>
         * Modify
       </td>
     </tr>
@@ -110,7 +110,7 @@ echo '</script>';
     </tr>
 
     <tr>
-      <td><a href="?action=Roles">Roles</a></td>
+      <td><a href="?action=UserRoles">User Roles</a></td>
       <td>
         Use this option to determine which members of the Employee Resource
         Group can have the following roles:<br>
