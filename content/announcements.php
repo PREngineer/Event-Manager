@@ -4,14 +4,12 @@ session_start();
 
 include '../functions/DB.php';
 
-//$events = get_Announcements();
-
-//print_r($events);
+$announcements = get_Announcements();
 
 echo '
 <!-- Handle NavBar Highlights -->
 <script>
-  document.getElementById("announcementsLink").classList.add("active");
+  document.getElementById("announcementsLink").classList.remove("active");
   document.getElementById("currentLink").classList.remove("active");
   document.getElementById("futureLink").classList.remove("active");
   document.getElementById("createMemberLink").classList.remove("active");
@@ -40,6 +38,34 @@ echo '</script>';
 
 <div class="container">
 
-<!-- Announcements go here -->
+  <?php
+
+  if( sizeof($announcements) == 0 )
+  {
+    echo '
+    <div class="container">
+      <h3>There are no Announcements to show.</h3>
+    </div>
+    ';
+  }
+  else
+  {
+    foreach ($announcements as $name => $value)
+    {
+      echo '
+        <div class="thumbnail">
+              <table class="table">
+                <tr>
+                  <td class="table text-center" colspan="2"><h4>' . $value[1] . '</h4></td>
+                </tr>
+                <tr>
+                  <td>' . $value[2] . '</td>
+                </tr>
+              </table>
+        </div>
+      ';
+    }
+  }
+  ?>
 
 </div>

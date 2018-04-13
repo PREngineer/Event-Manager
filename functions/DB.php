@@ -72,6 +72,76 @@ Region Start - MySQL DB Setup Functions
 
 /*
   Description:
+    This function adds an admin user to the Users Table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Boolean] - True  for successful
+*/
+Function create_adminUser()
+{
+  $pass = hash( 'sha256', SHA1( MD5("password") ) );
+  $create = query_DB("INSERT INTO `Users`
+                      (`Username`, `Password`, `Role`)
+                      VALUES ('administrator','" . $pass . "','3')");
+
+  if( $create['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Description:
+    This function creates the Announcements table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Array]   - Array if successful
+*/
+Function setup_AnnouncementsTable()
+{
+  return query_DB("CREATE TABLE `Announcements` (
+    `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Announcement ID',
+    `Title` text NOT NULL COMMENT 'Announcement Title',
+    `Content` text NOT NULL COMMENT 'Announcement Content',
+    `Expires` date NOT NULL COMMENT 'When the Announcement should be removed',
+    PRIMARY KEY (`ID`))
+    ENGINE=InnoDB DEFAULT
+    CHARSET=utf8
+    COMMENT='Contains all the announcements that will be displayed'");
+}
+
+/*
+  Description:
+    This function creates the Attendance table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Array]   - Array if successful
+*/
+Function setup_AttendanceTable()
+{
+  return query_DB("CREATE TABLE `Event_Manager`.`Attendance` (
+    `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
+    `EnterpriseID` TEXT NOT NULL COMMENT 'Enterprise ID' ,
+    `Type` BOOLEAN NOT NULL COMMENT 'Type of Attendee' ,
+    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time attendance was taken' )
+    ENGINE  = InnoDB
+    CHARSET = utf8
+    COLLATE utf8_general_ci
+    COMMENT = 'Contains all event attendance history'");
+}
+
+/*
+  Description:
     This function creates the Database.
   @PARAM:
     1. [String] User - The MySQL username
@@ -113,187 +183,6 @@ Function setup_DB($user, $pass, $host, $port)
   }
 
   return $dbCreation;
-}
-
-/*
-  Description:
-    This function creates the Members table
-  @PARAM:
-    NONE
-  @RETURN:
-    [Boolean] - False for failure
-    [Array]   - Array if successful
-*/
-Function setup_MembersTable()
-{
-  return query_DB("CREATE TABLE `Event_Manager`.`Members` (
-    `ID` BIGINT NOT NULL COMMENT 'Member enterprise ID' ,
-    `FName` TEXT NOT NULL COMMENT 'Member first name' ,
-    `Initials` TEXT NULL COMMENT 'Member initials' ,
-    `LName` TEXT NOT NULL COMMENT 'Member last name' ,
-    `Level` INT NOT NULL COMMENT 'Member level' ,
-    `Title` TEXT NULL COMMENT 'Member title' ,
-    `Segment` TEXT NOT NULL COMMENT 'Company Segment (Commercial, Federal)' ,
-    `Email` TEXT NOT NULL COMMENT 'Member e-mail' ,
-    `Newsletter` BOOLEAN NOT NULL COMMENT 'Wants to receive newsletter' ,
-    `Volunteer` BOOLEAN NOT NULL COMMENT 'Wants to be a volunteer' ,
-    `Active` BOOLEAN NULL COMMENT 'Is an active member' ,
-    `Lead` BOOLEAN NULL COMMENT 'Is a lead' ,
-    `Role` INT NULL DEFAULT '1' COMMENT 'Member role in the portal' ,
-    PRIMARY KEY (`ID`))
-    ENGINE  = InnoDB
-    CHARSET = utf8
-    COLLATE utf8_general_ci
-    COMMENT = 'Contains all the member information'");
-}
-
-/*
-  Description:
-    This function creates the Events table
-  @PARAM:
-    NONE
-  @RETURN:
-    [Boolean] - False for failure
-    [Array]   - Array if successful
-*/
-Function setup_EventsTable()
-{
-  return query_DB("CREATE TABLE `Event_Manager`.`Events` (
-    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Event ID' ,
-    `Name` TEXT NOT NULL COMMENT 'Event name' ,
-    `Date` DATE NOT NULL COMMENT 'Event date' ,
-    `Start` TIME NOT NULL COMMENT 'Event start time' ,
-    `End` TIME NOT NULL COMMENT 'Event end time' ,
-    `Estimated_Budget` DOUBLE NOT NULL COMMENT 'Event estimated eudget' ,
-    `Actual_Budget` DOUBLE NULL COMMENT 'Event actual budget' ,
-    `Location` TEXT NOT NULL COMMENT 'Event location' ,
-    `Committee_ID` TEXT NOT NULL COMMENT 'Committee in charge of the event' ,
-    `Type` TEXT NOT NULL COMMENT 'Event Type' ,
-    `Objective` TEXT NOT NULL COMMENT 'Event objective' ,
-    `Created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation timestamp' ,
-    `Creator` TEXT NOT NULL COMMENT 'Event Creator' ,
-    `Person_Code` TEXT NOT NULL COMMENT 'Code to give people that attend in person' ,
-    `Remote_Code` TEXT NOT NULL COMMENT 'Code to give people that attend remotely' ,
-    `Approved` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'If the Event was approved' ,
-    `Deleted` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'If the Event was marked for deletion' ,
-    PRIMARY KEY (`ID`))
-    ENGINE  = InnoDB
-    CHARSET = utf8
-    COLLATE utf8_general_ci
-    COMMENT = 'Contains all the event information'");
-}
-
-/*
-  Description:
-    This function creates the Leads table
-  @PARAM:
-    NONE
-  @RETURN:
-    [Boolean] - False for failure
-    [Array]   - Array if successful
-*/
-Function setup_LeadsTable()
-{
-  return query_DB("CREATE TABLE `Event_Manager`.`Leads` (
-    `ID` BIGINT NOT NULL COMMENT 'Enterprise ID' ,
-    `Committee_ID` TEXT NOT NULL COMMENT 'Committee ID' ,
-    PRIMARY KEY (`ID`))
-    ENGINE  = InnoDB
-    CHARSET = utf8
-    COLLATE utf8_general_ci
-    COMMENT = 'Contains all the committee leads'");
-}
-
-/*
-  Description:
-    This function creates the Attendance table
-  @PARAM:
-    NONE
-  @RETURN:
-    [Boolean] - False for failure
-    [Array]   - Array if successful
-*/
-Function setup_AttendanceTable()
-{
-  return query_DB("CREATE TABLE `Event_Manager`.`Attendance` (
-    `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
-    `EnterpriseID` TEXT NOT NULL COMMENT 'Enterprise ID' ,
-    `Type` BOOLEAN NOT NULL COMMENT 'Type of Attendee' ,
-    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time attendance was taken' )
-    ENGINE  = InnoDB
-    CHARSET = utf8
-    COLLATE utf8_general_ci
-    COMMENT = 'Contains all event attendance history'");
-}
-
-/*
-  Description:
-    This function creates the Users table
-  @PARAM:
-    NONE
-  @RETURN:
-    [Boolean] - False for failure
-    [Array]   - Array if successful
-*/
-Function setup_UsersTable()
-{
-  return query_DB("CREATE TABLE `Event_Manager`.`Users` (
-    `Username` VARCHAR(200) NOT NULL COMMENT 'Username' ,
-    `Password` TEXT NOT NULL COMMENT 'Password' ,
-    `Role` BIGINT NOT NULL COMMENT 'User Role'  ,
-    PRIMARY KEY (`Username`))
-    ENGINE  = InnoDB
-    CHARSET = utf8
-    COLLATE utf8_general_ci
-    COMMENT = 'Contains all accounts'");
-}
-
-/*
-  Description:
-    This function creates the RSVP table
-  @PARAM:
-    NONE
-  @RETURN:
-    [Boolean] - False for failure
-    [Array]   - Array if successful
-*/
-Function setup_EventChangeLogTable()
-{
-  return query_DB("CREATE TABLE `Event_Manager`.`Event Change Log` (
-    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Entry ID' ,
-    `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
-    `Type` TEXT NOT NULL COMMENT 'Action type' ,
-    `Reason` TEXT NOT NULL COMMENT 'Reason for the change' ,
-    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person made the change' ,
-    PRIMARY KEY (`ID`) )
-    ENGINE  = InnoDB
-    CHARSET = utf8
-    COLLATE utf8_general_ci
-    COMMENT = 'Contains all event change history'");
-}
-
-/*
-  Description:
-    This function creates the RSVP table
-  @PARAM:
-    NONE
-  @RETURN:
-    [Boolean] - False for failure
-    [Array]   - Array if successful
-*/
-Function setup_RSVPTable()
-{
-  return query_DB("CREATE TABLE `Event_Manager`.`RSVP` (
-    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Entry ID' ,
-    `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
-    `EnterpriseID` TEXT NOT NULL COMMENT 'Enterprise ID' ,
-    `Cancel` BOOLEAN NOT NULL COMMENT 'Was it cancelled' ,
-    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person registered',
-    PRIMARY KEY (`ID`) )
-    ENGINE  = InnoDB
-    CHARSET = utf8
-    COLLATE utf8_general_ci
-    COMMENT = 'Contains all event registration history'");
 }
 
 /*
@@ -426,28 +315,161 @@ Function setup_DIMEventObjectiveTable()
 
 /*
   Description:
-    This function adds an admin user to the Users Table
+    This function creates the RSVP table
   @PARAM:
     NONE
   @RETURN:
     [Boolean] - False for failure
-    [Boolean] - True  for successful
+    [Array]   - Array if successful
 */
-Function create_adminUser()
+Function setup_EventChangeLogTable()
 {
-  $pass = hash( 'sha256', SHA1( MD5("password") ) );
-  $create = query_DB("INSERT INTO `Users`
-                      (`Username`, `Password`, `Role`)
-                      VALUES ('administrator','" . $pass . "','3')");
+  return query_DB("CREATE TABLE `Event_Manager`.`Event Change Log` (
+    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Entry ID' ,
+    `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
+    `Type` TEXT NOT NULL COMMENT 'Action type' ,
+    `Reason` TEXT NOT NULL COMMENT 'Reason for the change' ,
+    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person made the change' ,
+    PRIMARY KEY (`ID`) )
+    ENGINE  = InnoDB
+    CHARSET = utf8
+    COLLATE utf8_general_ci
+    COMMENT = 'Contains all event change history'");
+}
 
-  if( $create['Result'] )
-  {
-    return True;
-  }
-  else
-  {
-    return False;
-  }
+/*
+  Description:
+    This function creates the Events table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Array]   - Array if successful
+*/
+Function setup_EventsTable()
+{
+  return query_DB("CREATE TABLE `Event_Manager`.`Events` (
+    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Event ID' ,
+    `Name` TEXT NOT NULL COMMENT 'Event name' ,
+    `Date` DATE NOT NULL COMMENT 'Event date' ,
+    `Start` TIME NOT NULL COMMENT 'Event start time' ,
+    `End` TIME NOT NULL COMMENT 'Event end time' ,
+    `Estimated_Budget` DOUBLE NOT NULL COMMENT 'Event estimated eudget' ,
+    `Actual_Budget` DOUBLE NULL COMMENT 'Event actual budget' ,
+    `Location` TEXT NOT NULL COMMENT 'Event location' ,
+    `Committee_ID` TEXT NOT NULL COMMENT 'Committee in charge of the event' ,
+    `Type` TEXT NOT NULL COMMENT 'Event Type' ,
+    `Objective` TEXT NOT NULL COMMENT 'Event objective' ,
+    `Created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation timestamp' ,
+    `Creator` TEXT NOT NULL COMMENT 'Event Creator' ,
+    `Person_Code` TEXT NOT NULL COMMENT 'Code to give people that attend in person' ,
+    `Remote_Code` TEXT NOT NULL COMMENT 'Code to give people that attend remotely' ,
+    `Approved` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'If the Event was approved' ,
+    `Deleted` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'If the Event was marked for deletion' ,
+    PRIMARY KEY (`ID`))
+    ENGINE  = InnoDB
+    CHARSET = utf8
+    COLLATE utf8_general_ci
+    COMMENT = 'Contains all the event information'");
+}
+
+/*
+  Description:
+    This function creates the Leads table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Array]   - Array if successful
+*/
+Function setup_LeadsTable()
+{
+  return query_DB("CREATE TABLE `Event_Manager`.`Leads` (
+    `ID` BIGINT NOT NULL COMMENT 'Enterprise ID' ,
+    `Committee_ID` TEXT NOT NULL COMMENT 'Committee ID' ,
+    PRIMARY KEY (`ID`))
+    ENGINE  = InnoDB
+    CHARSET = utf8
+    COLLATE utf8_general_ci
+    COMMENT = 'Contains all the committee leads'");
+}
+
+/*
+  Description:
+    This function creates the Members table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Array]   - Array if successful
+*/
+Function setup_MembersTable()
+{
+  return query_DB("CREATE TABLE `Event_Manager`.`Members` (
+    `ID` BIGINT NOT NULL COMMENT 'Member enterprise ID' ,
+    `FName` TEXT NOT NULL COMMENT 'Member first name' ,
+    `Initials` TEXT NULL COMMENT 'Member initials' ,
+    `LName` TEXT NOT NULL COMMENT 'Member last name' ,
+    `Level` INT NOT NULL COMMENT 'Member level' ,
+    `Title` TEXT NULL COMMENT 'Member title' ,
+    `Segment` TEXT NOT NULL COMMENT 'Company Segment (Commercial, Federal)' ,
+    `Email` TEXT NOT NULL COMMENT 'Member e-mail' ,
+    `Newsletter` BOOLEAN NOT NULL COMMENT 'Wants to receive newsletter' ,
+    `Volunteer` BOOLEAN NOT NULL COMMENT 'Wants to be a volunteer' ,
+    `Active` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'Is an active member' ,
+    `Lead` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'Is a lead' ,
+    `Role` INT NOT NULL DEFAULT '0' COMMENT 'Member role in the portal' ,
+    PRIMARY KEY (`ID`))
+    ENGINE  = InnoDB
+    CHARSET = utf8
+    COLLATE utf8_general_ci
+    COMMENT = 'Contains all the member information'");
+}
+
+/*
+  Description:
+    This function creates the RSVP table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Array]   - Array if successful
+*/
+Function setup_RSVPTable()
+{
+  return query_DB("CREATE TABLE `Event_Manager`.`RSVP` (
+    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Entry ID' ,
+    `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
+    `EnterpriseID` TEXT NOT NULL COMMENT 'Enterprise ID' ,
+    `Cancel` BOOLEAN NOT NULL COMMENT 'Was it cancelled' ,
+    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person registered',
+    PRIMARY KEY (`ID`) )
+    ENGINE  = InnoDB
+    CHARSET = utf8
+    COLLATE utf8_general_ci
+    COMMENT = 'Contains all event registration history'");
+}
+
+/*
+  Description:
+    This function creates the Users table
+  @PARAM:
+    NONE
+  @RETURN:
+    [Boolean] - False for failure
+    [Array]   - Array if successful
+*/
+Function setup_UsersTable()
+{
+  return query_DB("CREATE TABLE `Event_Manager`.`Users` (
+    `Username` VARCHAR(200) NOT NULL COMMENT 'Username' ,
+    `Password` TEXT NOT NULL COMMENT 'Password' ,
+    `Role` BIGINT NOT NULL COMMENT 'User Role'  ,
+    PRIMARY KEY (`Username`))
+    ENGINE  = InnoDB
+    CHARSET = utf8
+    COLLATE utf8_general_ci
+    COMMENT = 'Contains all accounts'");
 }
 
 /*
@@ -455,7 +477,6 @@ Function create_adminUser()
 Region Start - Regular Use MySQL DB Setup Functions
 *****************************
 */
-
 
 /*
   Description:
@@ -666,6 +687,34 @@ Function get_AllEvents()
                              `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
                       FROM `Events`
                       ORDER BY `Date`,`Start`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the announcements in the DB.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_Announcements()
+{
+  $date = date('Y-m-d');
+
+  $result = query_DB("SELECT *
+                      FROM `Announcements`
+                      WHERE `Expires` >= '$date'
+                      ORDER BY `Expires`");
 
   if( $result['Result'] )
   {
