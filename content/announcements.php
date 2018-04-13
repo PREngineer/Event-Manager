@@ -53,10 +53,10 @@ echo '</script>';
     foreach ($announcements as $name => $value)
     {
       echo '
-        <div class="thumbnail">
+        <div class="col-lg-11 container thumbnail">
               <table class="table">
                 <tr>
-                  <td class="table text-center" colspan="2"><h4>' . $value[1] . '</h4></td>
+                  <td class="table text-center"><h4>' . $value[1] . '</h4></td>
                 </tr>
                 <tr>
                   <td>' . $value[2] . '</td>
