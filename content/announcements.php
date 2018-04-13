@@ -9,7 +9,6 @@ $announcements = get_Announcements();
 echo '
 <!-- Handle NavBar Highlights -->
 <script>
-  document.getElementById("announcementsLink").classList.add("active");
   document.getElementById("currentLink").classList.remove("active");
   document.getElementById("futureLink").classList.remove("active");
   document.getElementById("createMemberLink").classList.remove("active");
@@ -40,12 +39,26 @@ echo '</script>';
 
   <?php
 
-  if( sizeof($announcements) == 0 )
+  if( empty($_GET['action']) && sizeof($announcements) == 0 )
+  {
+    echo'
+      <script>
+        document.getElementById("announcementsLink").classList.remove("active");
+
+        $("#Content").load("future.php");
+      </script>
+    ';
+  }
+  else if( $_GET['action'] == 'announcements' && sizeof($announcements) == 0 )
   {
     echo '
-    <div class="container">
-      <h3>There are no Announcements to show.</h3>
-    </div>
+      <script>
+        document.getElementById("announcementsLink").classList.add("active");
+        </script>
+
+      <div class="container">
+        <h3>There are no Announcements to show.</h3>
+        </div>
     ';
   }
   else
@@ -53,6 +66,10 @@ echo '</script>';
     foreach ($announcements as $name => $value)
     {
       echo '
+        <script>
+          document.getElementById("announcementsLink").classList.add("active");
+        </script>
+
         <div class="col-lg-11 container thumbnail">
               <table class="table">
                 <tr>

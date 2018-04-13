@@ -12,7 +12,7 @@ if( $_POST['action'] == 'announcements' || $_GET['action'] == 'announcements' )
 {
   echo'
     <script>
-      $("#Content").load("announcements.php");
+      $("#Content").load("announcements.php?action=announcements");
     </script>
   ';
 }
