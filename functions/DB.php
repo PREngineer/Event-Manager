@@ -871,7 +871,7 @@ Function get_AllRSVP()
 Function get_AllRoles()
 {
   $result = query_DB("SELECT *
-                      FROM `RSVP`");
+                      FROM `Users`");
 
   if( $result['Result'] )
   {
