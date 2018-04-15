@@ -6,230 +6,282 @@ This contains the form submission handlers as well as the get submission handler
 This is used to determine which element will be loaded into the center of the page.
 */
 
-// Handle Form Submissions
-
-// Show Admins page
-if( $_GET['action'] == 'Admin' )
+/*
+* Roles Specific Handling
+*/
 {
-  echo'
-    <script>
-      $("#Content").load("admin.php");
-    </script>
-  ';
-}
-
-// Show Announcements
-if( $_POST['action'] == 'Announcements' || $_GET['action'] == 'Announcements' )
-{
-  echo'
-    <script>
-      $("#Content").load("announcements.php?action=Announcements");
-    </script>
-  ';
-}
-
-// Show Announcements Menu (admin)
-if( $_POST['action'] == 'AnnouncementsMenu' || $_GET['action'] == 'AnnouncementsMenu' )
-{
-  echo'
-    <script>
-      $("#Content").load("announcementsMenu.php?action=AnnouncementsMenu");
-    </script>
-  ';
-}
-
-// Show cancellation confirmation
-if( $_POST['action'] == 'cancelRSVP' || $_GET['action'] == 'cancelRSVP' )
-{
-  echo'
-    <script>
-      $("#Content").load("cancelRSVP.php?id=' . $_GET['id'] . '&eid=' . $_GET['eid'] . '");
-    </script>
-  ';
-}
-
-// Checkin
-if( $_POST['action'] == 'checkin' || $_GET['action'] == 'checkin' )
-{
-  echo'
-    <script>
-      $("#Content").load("checkinForm.php");
-    </script>
-  ';
-}
-
-// Create Announcement (admin)
-if( $_POST['action'] == 'createAnnouncement' || $_GET['action'] == 'createAnnouncement' )
-{
-  echo'
-    <script>
-      $("#Content").load("createAnnouncement.php?action=createAnnouncement");
-    </script>
-  ';
-}
-
-// Create Event
-if( $_POST['action'] == 'createEvent' || $_GET['action'] == 'createEvent' )
-{
-  echo'
-    <script>
-      $("#Content").load("createEvent.php");
-    </script>
-  ';
-}
-
-// Show Create Member Form
-if( $_POST['action'] == 'createMember' || $_GET['action'] == 'createMember' )
-{
-  echo'
-    <script>
-      $("#Content").load("createMember.php");
-    </script>
-  ';
-}
-
-// Show Current Events
-if( $_POST['action'] == 'current' || $_GET['action'] == 'current' )
-{
-  echo'
-    <script>
-      $("#Content").load("current.php");
-    </script>
-  ';
-}
-
-// Edit Announcement (admin)
-if( $_POST['action'] == 'editAnnouncement' || $_GET['action'] == 'editAnnouncement' )
-{
-  echo'
-    <script>
-      $("#Content").load("editAnnouncement.php?action=editAnnouncement&id=' . $_GET['id'] . '");
-    </script>
-  ';
-}
-
-// Edit Events (Admins)
-if( $_POST['action'] == 'editEvent' || $_GET['action'] == 'editEvent' )
-{
-  echo'
-  <script>
-    $("#Content").load("editEvent.php?id=' . $_GET['id'] . '");
-  </script>
-  ';
-}
-
-// Show All Events (Admins)
-if( $_POST['action'] == 'Events' || $_GET['action'] == 'Events' )
-{
-  echo'
-    <script>
-      $("#Content").load("events.php");
-    </script>
-  ';
-}
-
-// Show Future Events
-if( $_POST['action'] == 'future' || $_GET['action'] == 'future' )
-{
-  echo'
-    <script>
-      $("#Content").load("future.php");
-    </script>
-  ';
-}
-
-// Approver's Menu
-if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'approve' )
-{
-  echo'
-    <script>
-      $("#Content").load("approvers.php");
-    </script>
-  ';
-}
-
-// Login
-if( $_POST['action'] == 'login')
-{
-  echo'
-    <script>
-      $("#Content").load("login.php");
-    </script>
-  ';
-
-  $user = $_POST['username'];
-  $pass = $_POST['password'];
-
-  $res = login($user, $pass);
-
-  if( $res['Result'] )
+  // Show POC page
+  if( $_GET['action'] == 'Poc' )
   {
-    $userdata = mysqli_fetch_all( $res['Data'] )[0];
+    echo'
+      <script>
+        $("#Content").load("pocs.php");
+      </script>
+    ';
+  }
 
-    $_SESSION['userID'] = $userdata[0];
-    $_SESSION['userRole'] = $userdata[1];
-
-    echo '
-    <script>
-      window.location = "index.php";
-    </script>
+  // Show Admins page
+  if( $_GET['action'] == 'Admin' )
+  {
+    echo'
+      <script>
+        $("#Content").load("admin.php");
+      </script>
     ';
   }
 }
 
-// Logout
-if( $_GET['action'] == 'logout' )
+/*
+* Announcement Handling
+*/
 {
-  unset($_SESSION);
-  session_destroy();
+  // Show Announcements
+  if( $_POST['action'] == 'Announcements' || $_GET['action'] == 'Announcements' )
+  {
+    echo'
+      <script>
+        $("#Content").load("announcements.php?action=Announcements");
+      </script>
+    ';
+  }
 
-  echo '
-    <script>
-      window.location = "index.php";
-    </script>
-  ';
+  // Show Announcements Menu (admin)
+  if( $_POST['action'] == 'AnnouncementsMenu' || $_GET['action'] == 'AnnouncementsMenu' )
+  {
+    echo'
+      <script>
+        $("#Content").load("announcementsMenu.php?action=AnnouncementsMenu");
+      </script>
+    ';
+  }
+
+  // Create Announcement (admin)
+  if( $_POST['action'] == 'createAnnouncement' || $_GET['action'] == 'createAnnouncement' )
+  {
+    echo'
+      <script>
+        $("#Content").load("createAnnouncement.php?action=createAnnouncement");
+      </script>
+    ';
+  }
+
+  // Edit Announcement (admin)
+  if( $_POST['action'] == 'editAnnouncement' || $_GET['action'] == 'editAnnouncement' )
+  {
+    echo'
+      <script>
+        $("#Content").load("editAnnouncement.php?action=editAnnouncement&id=' . $_GET['id'] . '");
+      </script>
+    ';
+  }
 }
 
-// My Events
-if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'myEvents' )
+/*
+* Event Handling
+*/
 {
-  echo'
+  // Checkin
+  if( $_POST['action'] == 'checkin' || $_GET['action'] == 'checkin' )
+  {
+    echo'
+      <script>
+        $("#Content").load("checkinForm.php");
+      </script>
+    ';
+  }
+
+  // Create Event
+  if( $_POST['action'] == 'createEvent' || $_GET['action'] == 'createEvent' )
+  {
+    echo'
+      <script>
+        $("#Content").load("createEvent.php");
+      </script>
+    ';
+  }
+
+  // Show Current Events
+  if( $_POST['action'] == 'current' || $_GET['action'] == 'current' )
+  {
+    echo'
+      <script>
+        $("#Content").load("current.php");
+      </script>
+    ';
+  }
+
+  // Edit Events (Admins)
+  if( $_POST['action'] == 'editEvent' || $_GET['action'] == 'editEvent' )
+  {
+    echo'
     <script>
-      $("#Content").load("myEvents.php");
+      $("#Content").load("editEvent.php?id=' . $_GET['id'] . '");
     </script>
-  ';
+    ';
+  }
+
+  // Show All Events (Admins)
+  if( $_POST['action'] == 'Events' || $_GET['action'] == 'Events' )
+  {
+    echo'
+      <script>
+        $("#Content").load("events.php");
+      </script>
+    ';
+  }
+
+  // Show Future Events
+  if( $_POST['action'] == 'future' || $_GET['action'] == 'future' )
+  {
+    echo'
+      <script>
+        $("#Content").load("future.php");
+      </script>
+    ';
+  }
+
+  // Approver's Menu
+  if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'approve' )
+  {
+    echo'
+      <script>
+        $("#Content").load("approvers.php");
+      </script>
+    ';
+  }
+
+  // My Events
+  if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'myEvents' )
+  {
+    echo'
+      <script>
+        $("#Content").load("myEvents.php");
+      </script>
+    ';
+  }
 }
 
-// Show My RSVPs
-if( $_POST['action'] == 'myRSVP' || $_GET['action'] == 'myRSVP' )
+/*
+* RSVP Handling
+*/
 {
-  echo'
-    <script>
-      $("#Content").load("myRSVP.php?action=myRSVP&enterpriseID=' . $_POST['enterpriseID'] . '");
-    </script>
-  ';
+  // Show cancellation confirmation
+  if( $_POST['action'] == 'cancelRSVP' || $_GET['action'] == 'cancelRSVP' )
+  {
+    echo'
+      <script>
+        $("#Content").load("cancelRSVP.php?id=' . $_GET['id'] . '&eid=' . $_GET['eid'] . '");
+      </script>
+    ';
+  }
+
+  // Show My RSVPs
+  if( $_POST['action'] == 'myRSVP' || $_GET['action'] == 'myRSVP' )
+  {
+    echo'
+      <script>
+        $("#Content").load("myRSVP.php?action=myRSVP&enterpriseID=' . $_POST['enterpriseID'] . '");
+      </script>
+    ';
+  }
+
+  // RSVP Form
+  if( $_POST['action'] == 'RSVP' || $_GET['action'] == 'RSVP' )
+  {
+    echo'
+      <script>
+        $("#Content").load("RSVPForm.php");
+      </script>
+    ';
+  }
 }
 
-// Show POC page
-if( $_GET['action'] == 'Poc' )
+/*
+* RSVP Handling
+*/
 {
-  echo'
-    <script>
-      $("#Content").load("pocs.php");
-    </script>
-  ';
+  // Show Create Member Form
+  if( $_POST['action'] == 'createMember' || $_GET['action'] == 'createMember' )
+  {
+    echo'
+      <script>
+        $("#Content").load("createMember.php");
+      </script>
+    ';
+  }
 }
 
-// RSVP Form
-if( $_POST['action'] == 'RSVP' || $_GET['action'] == 'RSVP' )
+/*
+* Session Handling
+*/
 {
-  echo'
-    <script>
-      $("#Content").load("RSVPForm.php");
-    </script>
-  ';
+  // Login
+  if( $_POST['action'] == 'login')
+  {
+    echo'
+      <script>
+        $("#Content").load("login.php");
+      </script>
+    ';
+
+    $user = $_POST['username'];
+    $pass = $_POST['password'];
+
+    $res = login($user, $pass);
+
+    if( $res['Result'] )
+    {
+      $userdata = mysqli_fetch_all( $res['Data'] )[0];
+
+      $_SESSION['userID'] = $userdata[0];
+      $_SESSION['userRole'] = $userdata[1];
+
+      echo '
+      <script>
+        window.location = "index.php";
+      </script>
+      ';
+    }
+  }
+
+  // Logout
+  if( $_GET['action'] == 'logout' )
+  {
+    unset($_SESSION);
+    session_destroy();
+
+    echo '
+      <script>
+        window.location = "index.php";
+      </script>
+    ';
+  }
 }
 
-//print_r($_POST);
+/*
+* Report Handling
+*/
+{
+  // Show Reports Menu (admin)
+  if( $_POST['action'] == 'Reports' || $_GET['action'] == 'Reports' )
+  {
+    echo'
+      <script>
+        $("#Content").load("reports.php");
+      </script>
+    ';
+  }
+
+  // Show Member Report (admin)
+  if( $_GET['action'] == 'MembersReport' )
+  {
+    echo'
+      <script>
+        $("#Content").load("memberReport.php");
+      </script>
+    ';
+  }
+
+}
 
 ?>

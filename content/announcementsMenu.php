@@ -27,7 +27,7 @@ echo '
 
 echo '</script>';
 
-$events = get_Announcements();
+$announcements = get_Announcements();
 
 ?>
 
@@ -56,7 +56,7 @@ $events = get_Announcements();
 
 <?php
 
-  foreach ($events as $key => $value)
+  foreach ($announcements as $key => $value)
   {
     echo '
       <div class="thumbnail">

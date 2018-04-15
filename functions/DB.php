@@ -409,24 +409,25 @@ Function setup_LeadsTable()
 Function setup_MembersTable()
 {
   return query_DB("CREATE TABLE `Members` (
-    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Unique value for each entry',
-    `EID` TEXT NOT NULL COMMENT 'Member enterprise ID',
-    `FName` text NOT NULL COMMENT 'Member first name',
-    `Initials` text COMMENT 'Member initials',
-    `LName` text NOT NULL COMMENT 'Member last name',
-    `Level` int(11) NOT NULL COMMENT 'Member level',
-    `Title` text COMMENT 'Member title',
-    `Segment` text NOT NULL COMMENT 'Company Segment (Commercial, Federal)',
-    `Email` text NOT NULL COMMENT 'Member e-mail',
-    `Newsletter` tinyint(1) NOT NULL COMMENT 'Wants to receive newsletter',
-    `Volunteer` tinyint(1) NOT NULL COMMENT 'Wants to be a volunteer',
-    `Active` tinyint(1) DEFAULT NULL COMMENT 'Is an active member',
-    `Lead` tinyint(1) DEFAULT NULL COMMENT 'Is a lead',
-    `Role` int(11) DEFAULT '1' COMMENT 'Member role in the portal',
-    PRIMARY KEY (`ID`)
-  ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT
-    CHARSET=utf8
-    COMMENT='Contains all the member information'");
+                    `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Unique value for each entry',
+                    `EID` text NOT NULL COMMENT 'Member enterprise ID',
+                    `FName` text NOT NULL COMMENT 'Member first name',
+                    `Initials` text COMMENT 'Member initials',
+                    `LName` text NOT NULL COMMENT 'Member last name',
+                    `Level` int(11) NOT NULL COMMENT 'Member level',
+                    `Title` text COMMENT 'Member title',
+                    `Segment` text NOT NULL COMMENT 'Company Segment (Commercial, Federal)',
+                    `Email` text NOT NULL COMMENT 'Member e-mail',
+                    `Newsletter` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Wants to receive newsletter',
+                    `Volunteer` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Wants to be a volunteer',
+                    `Active` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Is an active member',
+                    `Lead` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Is a lead',
+                    `Role` int(11) NOT NULL DEFAULT '0' COMMENT 'Member role in the portal',
+                    PRIMARY KEY (`ID`)
+                  )
+                  ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT
+                  CHARSET=utf8
+                  COMMENT='Contains all the member information'");
 }
 
 /*
@@ -703,6 +704,31 @@ Function get_AllEvents()
 
 /*
   Description:
+    This function executes a query to get all the members in the DB.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllMembers()
+{
+  $result = query_DB("SELECT *
+                      FROM `Members`
+                      ORDER BY `LName`,`FName`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
     This function executes a query to get all the announcements in the DB.
   @PARAM:
 
@@ -838,6 +864,31 @@ Function get_CurrentEvents()
   else
   {
     return $result['Errors'];
+  }
+}
+
+/*
+  Function that retrieves the event codes
+  @Param  - NONE
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+function get_eventCodes($id)
+{
+  // Insert into the Events Table
+  $result = query_DB( "SELECT `Person_Code`,`Remote_Code`
+                       FROM `Events`
+                       WHERE `id` = $id" );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return (mysqli_fetch_all( $result['Data'] ) )[0];
+  }
+  else
+  {
+    return False;
   }
 }
 
@@ -1141,7 +1192,7 @@ Function insert_newMember($data)
   if( $exists == 0 )
   {
     $insert = query_DB("INSERT INTO `Members`
-                      (`ID`, `FName`, `Initials`,`LName`,`Email`,`Segment`,`Level`,`Newsletter`,`Volunteer`,`Role`)
+                      (`EID`, `FName`, `Initials`,`LName`,`Email`,`Segment`,`Level`,`Newsletter`,`Volunteer`,`Role`)
                       VALUES ('" . $data['enterpriseID'] . "',
                               '" . $data['firstName'] . "',
                               '" . $data['initials'] . "',
@@ -1436,31 +1487,6 @@ function expireAnnouncement($id)
   if( $result['Result'] )
   {
     return True;
-  }
-  else
-  {
-    return False;
-  }
-}
-
-/*
-  Function that retrieves the event codes
-  @Param  - NONE
-  @RETURN:
-    [Array]   - Data
-    [Boolean] - False
-*/
-function get_eventCodes($id)
-{
-  // Insert into the Events Table
-  $result = query_DB( "SELECT `Person_Code`,`Remote_Code`
-                       FROM `Events`
-                       WHERE `id` = $id" );
-
-  // If successful
-  if( $result['Result'] )
-  {
-    return (mysqli_fetch_all( $result['Data'] ) )[0];
   }
   else
   {
