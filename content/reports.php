@@ -61,6 +61,13 @@ echo '</script>';
     </thead>
 
     <tr>
+      <td><a href="?action=AttendanceReport">Attendance</a></td>
+      <td>
+        Provides details about the attendance to events.
+      </td>
+    </tr>
+
+    <tr>
       <td><a href="?action=MembersReport">Members</a></td>
       <td>
         Provides details about the ERG members.
@@ -71,13 +78,6 @@ echo '</script>';
       <td><a href="?action=RolesReport">Roles</a></td>
       <td>
         Provides details about members that special roles in the portal.
-      </td>
-    </tr>
-
-    <tr>
-      <td><a href="?action=AttendanceReport">Attendance</a></td>
-      <td>
-        Provides details about the attendance to events.
       </td>
     </tr>
 
