@@ -282,6 +282,26 @@ This is used to determine which element will be loaded into the center of the pa
     ';
   }
 
+  // Show Attendance Report (admin)
+  if( $_GET['action'] == 'AttendanceReport' )
+  {
+    echo'
+      <script>
+        $("#Content").load("attendanceReport.php");
+      </script>
+    ';
+  }
+
+  // Show Roles Report (admin)
+  if( $_GET['action'] == 'RolesReport' )
+  {
+    echo'
+      <script>
+        $("#Content").load("rolesReport.php");
+      </script>
+    ';
+  }
+
 }
 
 ?>
