@@ -4,6 +4,15 @@ session_start();
 
 include '../functions/DB.php';
 
+if( $_SESSION['userRole'] == 2 )
+{
+  echo '<script>document.getElementById("pocLink").classList.add("active");</script>';
+}
+else
+{
+  echo '<script>document.getElementById("adminLink").classList.add("active");</script>';
+}
+
 $committees = get_Committees();
 
 $types = get_EventTypes();
@@ -50,15 +59,40 @@ echo '</script>';
 ?>
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Edit Existing Event</h1>
+
 <?php
+
 if( $_SESSION['userRole'] == 2 )
 {
-  echo '<p><a href="?action=myEvents"><- Go Back</a></p>';
+  echo '<ol class="breadcrumb">
+          <li>
+            <a href="?action=Poc">
+              <i class="glyphicon glyphicon-arrow-left"></i> POC Menu
+            </a>
+          </li>
+          <li>
+            <a href="?action=myEvents">
+              My Events
+            </a>
+          </li>
+        </ol>';
 }
 else
 {
-  echo '<p><a href="?action=Events"><- Go Back</a></p>';
+  echo '<ol class="breadcrumb">
+          <li>
+            <a href="?action=Admin">
+              <i class="glyphicon glyphicon-arrow-left"></i> Admin
+            </a>
+          </li>
+          <li>
+            <a href="?action=Events">
+              All Events
+            </a>
+          </li>
+        </ol>';
 }
+
 ?>
 <!-- Form STARTS here -->
 

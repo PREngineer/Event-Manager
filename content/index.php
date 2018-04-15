@@ -12,9 +12,9 @@
   if( !file_exists('../functions/settings.php') )
   {
     echo '
-<script type="text/javascript">
-    window.location.href = "../setup.php"
-</script>
+      <script type="text/javascript">
+        window.location.href = "../setup.php"
+      </script>
     ';
   }
 
@@ -65,8 +65,9 @@
 
     <!-- ******************* NavBar Section ******************* -->
     <a class="skip-navigation sr-only sr-only-focusable" href="#page-title">Skip Navigation</a>
+
 	<div class="container">
-      <nav class="navbar navbar-inverse">
+      <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
           <!-- Brand and toggle (hamburger) get grouped for better mobile display -->
           <div class="navbar-header">
@@ -87,7 +88,7 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li id="announcementsLink">
-                <a href="?action=announcements" style="cursor: pointer;">Announcements</a>
+                <a href="?action=Announcements" style="cursor: pointer;">Announcements</a>
               </li>
               <li id="currentLink">
                 <a href="?action=current" style="cursor: pointer;">Current Events</a>
@@ -160,10 +161,11 @@ else if( $_SESSION['userRole'] == 3 )
     include '../functions/actions.php';
     ?>
 
-    <div class="container" id="Content" name="Content">
+    <div class="container" id="Content" name="Content" style="padding-top:40px;padding-bottom:30px;">
     </div>
 
 <?php
+
     $events = get_CurrentEvents();
 
     if( sizeof($events) == 0 && empty($_GET) && empty($_POST) )
@@ -190,7 +192,7 @@ else if( $_SESSION['userRole'] == 3 )
 
     <!-- ******************* Footer Section ******************* -->
     <div class="container">
-      <div class="nav navbar-inverse">
+      <div class="nav navbar-inverse navbar-fixed-bottom">
         <p class="text-center text-muted">2017-<?php echo DATE("Y"); ?> My Company</p>
       </div>
     </div>

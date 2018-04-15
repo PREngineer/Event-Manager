@@ -33,6 +33,14 @@ $events = get_AllEvents();
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">All Events</h1>
 
+<ol class="breadcrumb">
+  <li>
+    <a href="?action=Admin">
+      <i class="glyphicon glyphicon-arrow-left"></i> Admin
+    </a>
+  </li>
+</ol>
+
 <div class="panel panel-default">
 
   <!-- Default panel contents -->

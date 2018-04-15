@@ -111,9 +111,11 @@ Function setup_AnnouncementsTable()
     `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Announcement ID',
     `Title` text NOT NULL COMMENT 'Announcement Title',
     `Content` text NOT NULL COMMENT 'Announcement Content',
+    `Posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'When the announcement was posted',
     `Expires` date NOT NULL COMMENT 'When the Announcement should be removed',
-    PRIMARY KEY (`ID`))
-    ENGINE=InnoDB DEFAULT
+    PRIMARY KEY (`ID`)
+    )
+    ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT
     CHARSET=utf8
     COMMENT='Contains all the announcements that will be displayed'");
 }
@@ -129,15 +131,16 @@ Function setup_AnnouncementsTable()
 */
 Function setup_AttendanceTable()
 {
-  return query_DB("CREATE TABLE `Event_Manager`.`Attendance` (
-    `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
-    `EnterpriseID` TEXT NOT NULL COMMENT 'Enterprise ID' ,
-    `Type` BOOLEAN NOT NULL COMMENT 'Type of Attendee' ,
-    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time attendance was taken' )
-    ENGINE  = InnoDB
-    CHARSET = utf8
-    COLLATE utf8_general_ci
-    COMMENT = 'Contains all event attendance history'");
+  return query_DB("CREATE TABLE `Attendance` (
+    `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Unique id for entry',
+    `EventID` bigint(20) NOT NULL COMMENT 'Event ID',
+    `EnterpriseID` text NOT NULL COMMENT 'Enterprise ID',
+    `Type` tinyint(1) NOT NULL COMMENT 'Type of Attendee',
+    `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time attendance was taken',
+    PRIMARY KEY (`ID`) )
+    ENGINE=InnoDB AUTO_INCREMENT=401 DEFAULT
+    CHARSET=utf8
+    COMMENT='Contains all event attendance history'");
 }
 
 /*
@@ -348,29 +351,29 @@ Function setup_EventChangeLogTable()
 */
 Function setup_EventsTable()
 {
-  return query_DB("CREATE TABLE `Event_Manager`.`Events` (
-    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Event ID' ,
-    `Name` TEXT NOT NULL COMMENT 'Event name' ,
-    `Date` DATE NOT NULL COMMENT 'Event date' ,
-    `Start` TIME NOT NULL COMMENT 'Event start time' ,
-    `End` TIME NOT NULL COMMENT 'Event end time' ,
-    `Estimated_Budget` DOUBLE NOT NULL COMMENT 'Event estimated eudget' ,
-    `Actual_Budget` DOUBLE NULL COMMENT 'Event actual budget' ,
-    `Location` TEXT NOT NULL COMMENT 'Event location' ,
-    `Committee_ID` TEXT NOT NULL COMMENT 'Committee in charge of the event' ,
-    `Type` TEXT NOT NULL COMMENT 'Event Type' ,
-    `Objective` TEXT NOT NULL COMMENT 'Event objective' ,
-    `Created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation timestamp' ,
-    `Creator` TEXT NOT NULL COMMENT 'Event Creator' ,
-    `Person_Code` TEXT NOT NULL COMMENT 'Code to give people that attend in person' ,
-    `Remote_Code` TEXT NOT NULL COMMENT 'Code to give people that attend remotely' ,
-    `Approved` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'If the Event was approved' ,
-    `Deleted` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'If the Event was marked for deletion' ,
-    PRIMARY KEY (`ID`))
-    ENGINE  = InnoDB
-    CHARSET = utf8
-    COLLATE utf8_general_ci
-    COMMENT = 'Contains all the event information'");
+  return query_DB("CREATE TABLE `Events` (
+                  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Event ID',
+                  `Name` text NOT NULL COMMENT 'Event name',
+                  `Date` date NOT NULL COMMENT 'Event date',
+                  `Start` time NOT NULL COMMENT 'Event start time',
+                  `End` time NOT NULL COMMENT 'Event end time',
+                  `Estimated_Budget` double NOT NULL COMMENT 'Event estimated eudget',
+                  `Actual_Budget` double NOT NULL DEFAULT '0' COMMENT 'Event actual budget',
+                  `Location` text NOT NULL COMMENT 'Event location',
+                  `Committee_ID` text NOT NULL COMMENT 'Committee in charge of the event',
+                  `Type` text NOT NULL COMMENT 'Event Type',
+                  `Objective` text NOT NULL COMMENT 'Event objective',
+                  `Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation timestamp',
+                  `Creator` text NOT NULL COMMENT 'Event Creator',
+                  `Person_Code` text NOT NULL COMMENT 'Code to give people that attend in person',
+                  `Remote_Code` text NOT NULL COMMENT 'Code to give people that attend remotely',
+                  `Approved` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'If the Event was approved',
+                  `Deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'If the Event was marked for deletion',
+                  PRIMARY KEY (`ID`)
+                  )
+                  ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT
+                  CHARSET=utf8
+                  COMMENT='Contains all the event information'");
 }
 
 /*
@@ -405,25 +408,25 @@ Function setup_LeadsTable()
 */
 Function setup_MembersTable()
 {
-  return query_DB("CREATE TABLE `Event_Manager`.`Members` (
-    `ID` BIGINT NOT NULL COMMENT 'Member enterprise ID' ,
-    `FName` TEXT NOT NULL COMMENT 'Member first name' ,
-    `Initials` TEXT NULL COMMENT 'Member initials' ,
-    `LName` TEXT NOT NULL COMMENT 'Member last name' ,
-    `Level` INT NOT NULL COMMENT 'Member level' ,
-    `Title` TEXT NULL COMMENT 'Member title' ,
-    `Segment` TEXT NOT NULL COMMENT 'Company Segment (Commercial, Federal)' ,
-    `Email` TEXT NOT NULL COMMENT 'Member e-mail' ,
-    `Newsletter` BOOLEAN NOT NULL COMMENT 'Wants to receive newsletter' ,
-    `Volunteer` BOOLEAN NOT NULL COMMENT 'Wants to be a volunteer' ,
-    `Active` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'Is an active member' ,
-    `Lead` BOOLEAN NOT NULL DEFAULT '0' COMMENT 'Is a lead' ,
-    `Role` INT NOT NULL DEFAULT '0' COMMENT 'Member role in the portal' ,
-    PRIMARY KEY (`ID`))
-    ENGINE  = InnoDB
-    CHARSET = utf8
-    COLLATE utf8_general_ci
-    COMMENT = 'Contains all the member information'");
+  return query_DB("CREATE TABLE `Members` (
+    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Unique value for each entry',
+    `EID` TEXT NOT NULL COMMENT 'Member enterprise ID',
+    `FName` text NOT NULL COMMENT 'Member first name',
+    `Initials` text COMMENT 'Member initials',
+    `LName` text NOT NULL COMMENT 'Member last name',
+    `Level` int(11) NOT NULL COMMENT 'Member level',
+    `Title` text COMMENT 'Member title',
+    `Segment` text NOT NULL COMMENT 'Company Segment (Commercial, Federal)',
+    `Email` text NOT NULL COMMENT 'Member e-mail',
+    `Newsletter` tinyint(1) NOT NULL COMMENT 'Wants to receive newsletter',
+    `Volunteer` tinyint(1) NOT NULL COMMENT 'Wants to be a volunteer',
+    `Active` tinyint(1) DEFAULT NULL COMMENT 'Is an active member',
+    `Lead` tinyint(1) DEFAULT NULL COMMENT 'Is a lead',
+    `Role` int(11) DEFAULT '1' COMMENT 'Member role in the portal',
+    PRIMARY KEY (`ID`)
+  ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT
+    CHARSET=utf8
+    COMMENT='Contains all the member information'");
 }
 
 /*
@@ -728,6 +731,31 @@ Function get_Announcements()
 
 /*
   Description:
+    This function executes a query to get a specific announcement details from the DB.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_Announcement($id)
+{
+  $result = query_DB("SELECT *
+                      FROM `Announcements`
+                      WHERE `ID` = '$id'");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
     This function executes a query to get all the unapproved events in the DB.
   @PARAM:
 
@@ -990,6 +1018,39 @@ Function get_myRSVPs($id)
 Region Start - Regular Use MySQL DB Insert Functions
 *****************************
 */
+
+/*
+  Description:
+    This function executes a query to insert a new Announcement.
+  @PARAM:
+
+  @RETURN:
+    [Boolean] - True
+    [Array]   - Errors
+*/
+Function insert_newAnnouncement($data)
+{
+  $text = nl2br($data['Text']);
+
+  // Insert into the Events Table
+  $result = query_DB( "INSERT INTO `Announcements`
+              (`Title`,`Content`,`Expires`)
+              VALUES (
+                '" . sanitize($data['Title']) . "',
+                '" . sanitize($text)          . "',
+                '" . sanitize($data['Date'])  . "')"
+            );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
 
 /*
   Description:
@@ -1292,16 +1353,15 @@ function approveEvent($id)
 }
 
 /*
-  Function that disapproves the event
-  @Param  - Int - The EventID.
+  Function that deletes the announcement
+  @Param  - Int - The AnnouncementID.
   @Return - Boolean (T or F) if correct
 */
-function disapproveEvent($id)
+function deleteAnnouncement($id)
 {
   // Insert into the Events Table
-  $result = query_DB( "UPDATE `Events`
-                       SET `Approved` = '0'
-                       WHERE `id` = $id" );
+  $result = query_DB( "DELETE FROM `Announcements`
+                       WHERE `ID` = $id" );
 
   // If successful
   if( $result['Result'] )
@@ -1325,6 +1385,52 @@ function deleteEvent($id)
   $result = query_DB( "UPDATE `Events`
                        SET `Deleted` = '1'
                        WHERE `id` = $id" );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Function that disapproves the event
+  @Param  - Int - The EventID.
+  @Return - Boolean (T or F) if correct
+*/
+function disapproveEvent($id)
+{
+  // Insert into the Events Table
+  $result = query_DB( "UPDATE `Events`
+                       SET `Approved` = '0'
+                       WHERE `id` = $id" );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Function that expires the announcement
+  @Param  - Int - The AnnouncementID.
+  @Return - Boolean (T or F) if correct
+*/
+function expireAnnouncement($id)
+{
+  // Insert into the Events Table
+  $result = query_DB( "UPDATE `Announcements`
+                       SET `Expires` = '0'
+                       WHERE `ID` = $id" );
 
   // If successful
   if( $result['Result'] )
@@ -1410,7 +1516,7 @@ Function update_Event($data, $id)
                            `Type`             = '" . sanitize($data['eventType'])        . "',
                            `Objective`        = '" . sanitize($data['eventObjective'])   . "',
                            `Creator`          = '" . sanitize($data['creator'])          . "'
-                       WHERE `ID` = " . $id
+                       WHERE `ID` = " . sanitize($id)
                     );
 
   // If successful
@@ -1424,5 +1530,36 @@ Function update_Event($data, $id)
   }
 }
 
+/*
+  Description:
+    This function executes a query to update an Announcement.
+  @PARAM:
+    [Array]   - The event data
+  @RETURN:
+    [Boolean] - True
+    [Array]   - Errors
+*/
+Function update_Announcement($data)
+{
+  $text = nl2br($data['Text']);
+
+  // Update the Events Table
+  $result = query_DB( "UPDATE `Announcements`
+                       SET `Title`   = '" . sanitize($data['Title']) . "',
+                           `Content` = '" . sanitize($text)          . "',
+                           `Expires` = '" . sanitize($data['Date'])  . "'
+                       WHERE `ID` = '" . sanitize($data['id']) . "'"
+                    );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
 
 ?>

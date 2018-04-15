@@ -55,7 +55,7 @@ echo '</script>';
     </thead>
 
     <tr>
-      <td><a href="?action=Announcements">Announcements</a></td>
+      <td><a href="?action=AnnouncementsMenu">Announcements</a></td>
       <td>
         Use this option to manage the announcements:<br>
         * Create<br>

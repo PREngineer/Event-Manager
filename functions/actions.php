@@ -8,7 +8,7 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
 
 <!-- Close the alerts after 5 seconds -->
 <script>
-window.setTimeout(function() {
+  window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function(){
         $(this).remove();
     });
@@ -16,6 +16,93 @@ window.setTimeout(function() {
 </script>
 
 <?php
+/*
+* Announcement Actions
+*/
+
+// Message upon Creation of Announcements
+if( !empty($_POST) && ($_POST['action'] == 'createAnnouncement') )
+{
+  $res = insert_newAnnouncement($_POST);
+
+  if( $res == True)
+  {
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+            Your announcement has been created!
+          </div>';
+  }
+  else
+  {
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] ' . count($res) . ' Error(s) occurred while creating the announcement!<br><br>' .
+            $res .
+          '</div>';
+  }
+}
+
+// Message upon Deletion of Announcement
+if( ( ($_GET['action'] == 'announcementsMenu') || isset($_GET['deleted']) ) )
+{
+  if( $_GET['deleted'] == 1)
+  {
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+            The announcement has been deleted.
+          </div>';
+  }
+  else
+  {
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] An error occurred while deleting the announcement!  Please, try again.<br><br>' .
+            $res .
+          '</div>';
+  }
+}
+
+// Message upon Edition of Announcements
+if( !empty($_POST) && ($_POST['action'] == 'editAnnouncement') )
+{
+  $res = update_Announcement($_POST);
+
+  if( $res == True)
+  {
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+            Your announcement has been updated!
+          </div>';
+  }
+  else
+  {
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] ' . count($res) . ' Error(s) occurred while updating the announcement!<br><br>' .
+            $res .
+          '</div>';
+  }
+}
+
+// Message upon Expiration of Announcement
+if( ( ($_GET['action'] == 'announcementsMenu') || isset($_GET['expired']) ) )
+{
+  if( $_GET['expired'] == 1)
+  {
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+            The announcement has been expired.
+          </div>';
+  }
+  else
+  {
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] An error occurred while expiring the announcement!  Please, try again.<br><br>' .
+            $res .
+          '</div>';
+  }
+}
 
 // Message upon Creation of Events
 if( !empty($_POST) && ($_POST['action'] == 'createEvent') )
@@ -24,14 +111,14 @@ if( !empty($_POST) && ($_POST['action'] == 'createEvent') )
 
   if( $res == True)
   {
-    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
             Your event has been created!
           </div>';
   }
   else
   {
-    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] ' . count($res) . ' Error(s) occurred while creating the event!<br><br>' .
             $res .
@@ -46,14 +133,14 @@ if( !empty($_POST) && ($_POST['action'] == 'editEvent') )
 
   if( $res == True)
   {
-    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
             Your event has been updated!
           </div>';
   }
   else
   {
-    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] ' . count($res) . ' Error(s) occurred while updating the event!<br><br>' .
             $res .
@@ -66,14 +153,14 @@ if( isset($_GET['approval']) && ( ($_GET['action'] == 'Events') || ($_GET['actio
 {
   if( $_GET['approval'] == 1)
   {
-    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
             The event has been approved!
           </div>';
   }
   else
   {
-    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] An error occurred while approving the event!  Please, try again.<br><br>' .
             $res .
@@ -86,14 +173,14 @@ if( isset($_GET['disapproval']) && ( ($_GET['action'] == 'Events') || ($_GET['ac
 {
   if( $_GET['disapproval'] == 1)
   {
-    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
             The event has been disapproved!
           </div>';
   }
   else
   {
-    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] An error occurred while disapproving the event!  Please, try again.<br><br>' .
             $res .
@@ -106,14 +193,14 @@ if( isset($_GET['delete']) && ( ($_GET['action'] == 'Events') || ($_GET['action'
 {
   if( $_GET['delete'] == 1)
   {
-    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
             The event has been deleted!
           </div>';
   }
   else
   {
-    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] An error occurred while deleting the event!  Please, try again.<br><br>' .
             $res .
@@ -126,14 +213,14 @@ if( isset($_GET['recover']) && ( ($_GET['action'] == 'Events') || ($_GET['action
 {
   if( $_GET['recover'] == 1)
   {
-    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
             The event has been recovered!
           </div>';
   }
   else
   {
-    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] An error occurred while recovering the event!  Please, try again.<br><br>' .
             $res .
@@ -168,20 +255,20 @@ if( !empty($_POST) && ($_POST['action'] == 'checkin') )
 
   if( $res == 1)
   {
-    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
             Your attendace has been taken!
           </div>';
   }
   else if( $res == 0)
   {
-    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] The code that was provided is invalid.  Please, try again.</div>';
   }
   else
   {
-    echo '<div class="container alert alert-warning alert-dismissible" role="alert">
+    echo '<div class="container alert alert-warning alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] You attendance was already taken for this event.</div>';
   }
@@ -195,26 +282,26 @@ if( !empty($_POST) && ($_POST['action'] == 'RSVP') )
 
   if( $res == 1)
   {
-    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
             Your reservation has been recorded!
           </div>';
   }
   else if( $res == 0)
   {
-    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] Something went wrong while reserving your space.  Please, try again.</div>';
   }
   else if( $res == 2)
   {
-    echo '<div class="container alert alert-warning alert-dismissible" role="alert">
+    echo '<div class="container alert alert-warning alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] You have already registered.</div>';
   }
   else
   {
-    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] You cancellation was rolled back.</div>';
   }
@@ -223,7 +310,7 @@ if( !empty($_POST) && ($_POST['action'] == 'RSVP') )
 // Message upon RSVP Cancellation Request
 if( !empty($_GET) && ($_GET['action'] == 'cancelRSVP') )
 {
-  echo '<div class="container alert alert-success alert-dismissible" role="alert">
+  echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
             You will receive an e-mail.<br><br>
             Confirm this action to process the cancellation.
@@ -238,20 +325,20 @@ if( !empty($_POST) && ($_POST['action'] == 'createMember') )
 
   if( $res == 1)
   {
-    echo '<div class="container alert alert-success alert-dismissible" role="alert">
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
             New Member has been recorded!
           </div>';
   }
   else if( $res == 0)
   {
-    echo '<div class="container alert alert-danger alert-dismissible" role="alert">
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] Something went wrong while recording New Member.  Please, try again.</div>';
   }
   else
   {
-    echo '<div class="container alert alert-warning alert-dismissible" role="alert">
+    echo '<div class="container alert alert-warning alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] This Member already exists.</div>';
   }

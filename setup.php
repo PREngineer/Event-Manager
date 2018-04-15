@@ -190,6 +190,25 @@
                   '</div>';
           }
 
+          // Create Announcements Table
+          $result = setup_AnnouncementsTable();
+
+          if($result['Result'])
+          {
+            echo '<div class="alert alert-success alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    --> Successfully created table "Announcements".
+                  </div>';
+          }
+          else
+          {
+            echo '<div class="alert alert-danger alert-dismissible" role="alert">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating table!<br><br>' .
+                    $result['Errors'] .
+                  '</div>';
+          }
+
           // Create Dimensional Committee Table
           $result = setup_DIMCommitteeTable();
 

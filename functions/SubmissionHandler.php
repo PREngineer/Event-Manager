@@ -1,4 +1,5 @@
 <?php
+
 /*
 This contains the form submission handlers as well as the get submission handlers.
 
@@ -7,62 +8,42 @@ This is used to determine which element will be loaded into the center of the pa
 
 // Handle Form Submissions
 
-// Show Current Events
-if( $_POST['action'] == 'announcements' || $_GET['action'] == 'announcements' )
+// Show Admins page
+if( $_GET['action'] == 'Admin' )
 {
   echo'
     <script>
-      $("#Content").load("announcements.php?action=announcements");
+      $("#Content").load("admin.php");
     </script>
   ';
 }
 
-// Show Current Events
-if( $_POST['action'] == 'current' || $_GET['action'] == 'current' )
+// Show Announcements
+if( $_POST['action'] == 'Announcements' || $_GET['action'] == 'Announcements' )
 {
   echo'
     <script>
-      $("#Content").load("current.php");
+      $("#Content").load("announcements.php?action=Announcements");
     </script>
   ';
 }
 
-// Show Future Events
-if( $_POST['action'] == 'future' || $_GET['action'] == 'future' )
+// Show Announcements Menu (admin)
+if( $_POST['action'] == 'AnnouncementsMenu' || $_GET['action'] == 'AnnouncementsMenu' )
 {
   echo'
     <script>
-      $("#Content").load("future.php");
+      $("#Content").load("announcementsMenu.php?action=AnnouncementsMenu");
     </script>
   ';
 }
 
-// Show Create Member Form
-if( $_POST['action'] == 'createMember' || $_GET['action'] == 'createMember' )
+// Show cancellation confirmation
+if( $_POST['action'] == 'cancelRSVP' || $_GET['action'] == 'cancelRSVP' )
 {
   echo'
     <script>
-      $("#Content").load("createMember.php");
-    </script>
-  ';
-}
-
-// All Events (Admins)
-if( $_POST['action'] == 'Events' || $_GET['action'] == 'Events' )
-{
-  echo'
-    <script>
-      $("#Content").load("events.php");
-    </script>
-  ';
-}
-
-// Approver's Menu
-if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'approve' )
-{
-  echo'
-    <script>
-      $("#Content").load("approvers.php");
+      $("#Content").load("cancelRSVP.php?id=' . $_GET['id'] . '&eid=' . $_GET['eid'] . '");
     </script>
   ';
 }
@@ -77,6 +58,16 @@ if( $_POST['action'] == 'checkin' || $_GET['action'] == 'checkin' )
   ';
 }
 
+// Create Announcement (admin)
+if( $_POST['action'] == 'createAnnouncement' || $_GET['action'] == 'createAnnouncement' )
+{
+  echo'
+    <script>
+      $("#Content").load("createAnnouncement.php?action=createAnnouncement");
+    </script>
+  ';
+}
+
 // Create Event
 if( $_POST['action'] == 'createEvent' || $_GET['action'] == 'createEvent' )
 {
@@ -87,12 +78,32 @@ if( $_POST['action'] == 'createEvent' || $_GET['action'] == 'createEvent' )
   ';
 }
 
-// Create Member
+// Show Create Member Form
 if( $_POST['action'] == 'createMember' || $_GET['action'] == 'createMember' )
 {
   echo'
     <script>
-      $("#Content").load("createMember.html");
+      $("#Content").load("createMember.php");
+    </script>
+  ';
+}
+
+// Show Current Events
+if( $_POST['action'] == 'current' || $_GET['action'] == 'current' )
+{
+  echo'
+    <script>
+      $("#Content").load("current.php");
+    </script>
+  ';
+}
+
+// Edit Announcement (admin)
+if( $_POST['action'] == 'editAnnouncement' || $_GET['action'] == 'editAnnouncement' )
+{
+  echo'
+    <script>
+      $("#Content").load("editAnnouncement.php?action=editAnnouncement&id=' . $_GET['id'] . '");
     </script>
   ';
 }
@@ -104,6 +115,36 @@ if( $_POST['action'] == 'editEvent' || $_GET['action'] == 'editEvent' )
   <script>
     $("#Content").load("editEvent.php?id=' . $_GET['id'] . '");
   </script>
+  ';
+}
+
+// Show All Events (Admins)
+if( $_POST['action'] == 'Events' || $_GET['action'] == 'Events' )
+{
+  echo'
+    <script>
+      $("#Content").load("events.php");
+    </script>
+  ';
+}
+
+// Show Future Events
+if( $_POST['action'] == 'future' || $_GET['action'] == 'future' )
+{
+  echo'
+    <script>
+      $("#Content").load("future.php");
+    </script>
+  ';
+}
+
+// Approver's Menu
+if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'approve' )
+{
+  echo'
+    <script>
+      $("#Content").load("approvers.php");
+    </script>
   ';
 }
 
@@ -159,16 +200,6 @@ if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'myEvents' )
   ';
 }
 
-// RSVP Form
-if( $_POST['action'] == 'RSVP' || $_GET['action'] == 'RSVP' )
-{
-  echo'
-    <script>
-      $("#Content").load("RSVPForm.php");
-    </script>
-  ';
-}
-
 // Show My RSVPs
 if( $_POST['action'] == 'myRSVP' || $_GET['action'] == 'myRSVP' )
 {
@@ -179,12 +210,22 @@ if( $_POST['action'] == 'myRSVP' || $_GET['action'] == 'myRSVP' )
   ';
 }
 
-// Show cancellation notification
-if( $_POST['action'] == 'cancelRSVP' || $_GET['action'] == 'cancelRSVP' )
+// Show POC page
+if( $_GET['action'] == 'Poc' )
 {
   echo'
     <script>
-      $("#Content").load("cancelRSVP.php?id=' . $_GET['id'] . '&eid=' . $_GET['eid'] . '");
+      $("#Content").load("pocs.php");
+    </script>
+  ';
+}
+
+// RSVP Form
+if( $_POST['action'] == 'RSVP' || $_GET['action'] == 'RSVP' )
+{
+  echo'
+    <script>
+      $("#Content").load("RSVPForm.php");
     </script>
   ';
 }

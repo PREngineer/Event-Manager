@@ -73,7 +73,10 @@ echo '</script>';
         <div class="col-lg-11 container thumbnail">
               <table class="table">
                 <tr>
-                  <td class="table text-center"><h4>' . $value[1] . '</h4></td>
+                  <td class="table text-center">
+                    <h6 class="text-muted text-right">Posted: ' . $value[3] . '</h6>
+                    <h4><b>' . $value[1] . '</b></h4>
+                  </td>
                 </tr>
                 <tr>
                   <td>' . $value[2] . '</td>

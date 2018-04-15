@@ -33,6 +33,14 @@ $events = get_MyEvents($_SESSION['userID']);
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">My Events</h1>
 
+<ol class="breadcrumb">
+  <li>
+    <a href="?action=Poc">
+      <i class="glyphicon glyphicon-arrow-left"></i> POC Menu
+    </a>
+  </li>
+</ol>
+
 <div class="panel panel-default">
 
   <!-- Default panel contents -->
