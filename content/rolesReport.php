@@ -1,12 +1,4 @@
-<?php
-
-  // Include DB functions
-  include '../functions/DB.php';
-
-  session_start();
-
-echo '
-  <!-- Handle NavBar Highlights -->
+<!-- Handle NavBar Highlights -->
   <script>
     document.getElementById("announcementsLink").classList.remove("active");
     document.getElementById("currentLink").classList.remove("active");
@@ -16,13 +8,8 @@ echo '
     document.getElementById("myRSVP").classList.remove("active");
     document.getElementById("adminLink").classList.add("active");
   </script>
-';
 
-//$attendance = get_AllAttendanceReport();
-
-?>
-
-<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Roles Report</h1>
+<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Roles Reports</h1>
 
 <ol class="breadcrumb">
   <li>
@@ -41,61 +28,79 @@ echo '
 
   <!-- Default panel contents -->
   <div class="panel-heading">
-    <p>Welcome to your platform roles report!</p>
+    <p>Use the following drop down to select the report that you want to view.</p>
   </div>
 
   <div class="panel-body">
-    <p>
-      Filters
-    </p>
-    <p>
-
-    </p>
+    <div class="input-group">
+      <select onchange="changeReport(this.value)" class="form-control" id="reportOptions">
+  	    <option
+        <?php
+          // Choose the right option to be selected
+          if( $_GET['report'] == 0 )
+          {
+            echo 'selected';
+          }
+        ?>
+        >-All Data-</option>
+        <!--<option-->
+        <?php
+          // Choose the right option to be selected
+          if( $_GET['report'] == 1 )
+          {
+            echo 'selected';
+          }
+        ?>
+        <!-->Roles by Event</option>
+        <option-->
+        <?php
+          // Choose the right option to be selected
+          if( $_GET['report'] == 2 )
+          {
+            echo 'selected';
+          }
+        ?>
+        <!-->Roles by Career Level</option>-->
+      </select>
+    </div>
   </div>
 
 </div>
 
-<?php include "../widgets/exportReport.html"; ?>
-
-<!-- Table -->
-
 <?php
 
-$report = '<table id="reportTable" class="container table">
-  <thead>
-    <tr>
-    <th>User ID</th>
-    <th>Role</th>
-    <tr>
-  </thead>';
+  include "../widgets/exportReport.html";
 
-if( sizeof($attendance) == 0 )
-{
-  echo '
-  <div class="container">
-    <h3>There are no attendance entries in the platform at the moment.</h3>
-  </div>
-  ';
-}
-else
-{
-  foreach ($attendance as $name => $value)
+  if($_GET['report'] == 0)
   {
-    $report .= '<tr>
-        <td>
-          ' . $value[0] . '
-        </td>
-        <td>
-          ' . $value[1] . '
-        </td>
-      </tr>
-    ';
+    include "reports/rolesDump.php";
   }
-}
-
-$report .= '</table>';
-
-// Print the report to the webpage
-echo $report;
+  if($_GET['report'] == 1)
+  {
+    include "reports/rolesByEvent.php";
+  }
+  if($_GET['report'] == 2)
+  {
+    include "reports/rolesByCareerLevel.php";
+  }
 
 ?>
+
+<script>
+  // Do the actual loading.
+  function changeReport(value)
+  {
+    if(value == "-All Data-")
+    {
+      window.location = "index.php?action=RolesReport&report=0";
+    }
+    if(value == "Roles by Event")
+    {
+      window.location = "index.php?action=RolesReport&report=1";
+    }
+    if(value == "Roles by Career Level")
+    {
+      window.location = "index.php?action=RolesReport&report=2";
+    }
+  }
+</script>

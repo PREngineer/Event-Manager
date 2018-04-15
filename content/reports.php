@@ -68,7 +68,7 @@ echo '</script>';
     </tr>
 
     <tr>
-      <td><a href="?action=MembersReport">Members</a></td>
+      <td><a href="?action=MembersReport&report=0">Membership</a></td>
       <td>
         Provides details about the ERG members.
       </td>

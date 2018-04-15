@@ -9,7 +9,7 @@
     document.getElementById("adminLink").classList.add("active");
   </script>
 
-<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Membership Reports</h1>
+<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">RSVP Reports</h1>
 
 <ol class="breadcrumb">
   <li>
@@ -43,7 +43,7 @@
           }
         ?>
         >-All Data-</option>
-        <option
+        <!--<option-->
         <?php
           // Choose the right option to be selected
           if( $_GET['report'] == 1 )
@@ -51,8 +51,8 @@
             echo 'selected';
           }
         ?>
-        >Membership by Career Level</option>
-        <option
+        <!-->RSVP by Event</option>
+        <option-->
         <?php
           // Choose the right option to be selected
           if( $_GET['report'] == 2 )
@@ -60,7 +60,7 @@
             echo 'selected';
           }
         ?>
-        >Membership by Company Segment</option>
+        <!-->RSVP by Career Level</option>-->
       </select>
     </div>
   </div>
@@ -73,15 +73,15 @@
 
   if($_GET['report'] == 0)
   {
-    include "reports/membersDump.php";
+    include "reports/rsvpDump.php";
   }
   if($_GET['report'] == 1)
   {
-    include "reports/membersByCareerLevel.php";
+    include "reports/rsvpByEvent.php";
   }
   if($_GET['report'] == 2)
   {
-    include "reports/membersByCompanySegment.php";
+    include "reports/rsvpByCareerLevel.php";
   }
 
 ?>
@@ -92,15 +92,15 @@
   {
     if(value == "-All Data-")
     {
-      window.location = "index.php?action=MembersReport&report=0";
+      window.location = "index.php?action=RSVPReport&report=0";
     }
-    if(value == "Membership by Career Level")
+    if(value == "rsvp by Event")
     {
-      window.location = "index.php?action=MembersReport&report=1";
+      window.location = "index.php?action=RSVPReport&report=1";
     }
-    if(value == "Membership by Company Segment")
+    if(value == "rsvp by Career Level")
     {
-      window.location = "index.php?action=MembersReport&report=2";
+      window.location = "index.php?action=RSVPReport&report=2";
     }
   }
 </script>

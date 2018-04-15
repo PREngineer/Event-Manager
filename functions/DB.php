@@ -704,7 +704,7 @@ Function get_AllEvents()
 
 /*
   Description:
-    This function executes a query to get all the members in the DB.
+    This function executes a query to get all the members in the DB (Default Report).
   @PARAM:
 
   @RETURN:
@@ -800,6 +800,78 @@ Function get_approverEvents()
                       WHERE `Date` > '$date'
                       AND `Deleted` = '0'
                       ORDER BY `Date`,`Start`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all attendance data (Report 0).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllAttendance()
+{
+  $result = query_DB("SELECT *
+                      FROM `Attendance`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all roles data (Report 0).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllRSVP()
+{
+  $result = query_DB("SELECT *
+                      FROM `RSVP`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all RSVP data (Report 0).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllRoles()
+{
+  $result = query_DB("SELECT *
+                      FROM `RSVP`");
 
   if( $result['Result'] )
   {
@@ -982,6 +1054,140 @@ Function get_FutureEvents()
                       AND `Approved` = 1
                       AND `Deleted` = 0
                       ORDER BY `Date`,`Start`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the membership report #1.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_MembersByCareerLevelReport()
+{
+  $result = query_DB("SELECT
+                      	COUNT(`EID`) AS TotalMembership,
+                      	SUM(CASE
+                              	WHEN Level = 'Leadership' THEN 1
+                              	ELSE 0
+                              END)
+                          AS Leadership,
+                          SUM(CASE WHEN Level = 'Leadership' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                          AS LeadershipP,
+                          SUM(CASE
+                              	WHEN Level = '6' THEN 1
+                              	ELSE 0
+                              END)
+                          AS L6,
+                          SUM(CASE WHEN Level = '6' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                          AS L6P,
+                          SUM(CASE
+                              	WHEN Level = '7' THEN 1
+                              	ELSE 0
+                              END)
+                          AS L7,
+                          SUM(CASE WHEN Level = '7' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                          AS L7P,
+                          SUM(CASE
+                              	WHEN Level = '8' THEN 1
+                              	ELSE 0
+                              END)
+                          AS L8,
+                          SUM(CASE WHEN Level = '8' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                          AS L8P,
+                          SUM(CASE
+                              	WHEN Level = '9' THEN 1
+                              	ELSE 0
+                              END)
+                          AS L9,
+                          SUM(CASE WHEN Level = '9' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                          AS L9P,
+                          SUM(CASE
+                              	WHEN Level = '10' THEN 1
+                              	ELSE 0
+                              END)
+                          AS L10,
+                          SUM(CASE WHEN Level = '10' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                          AS L10P,
+                          SUM(CASE
+                              	WHEN Level = '11' THEN 1
+                              	ELSE 0
+                              END)
+                          AS L11,
+                          SUM(CASE WHEN Level = '11' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                          AS L11P,
+                          SUM(CASE
+                              	WHEN Level = '12' THEN 1
+                              	ELSE 0
+                              END)
+                          AS L12,
+                          SUM(CASE WHEN Level = '12' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                          AS L12P,
+                          SUM(CASE
+                              	WHEN Level = '13' THEN 1
+                              	ELSE 0
+                              END)
+                          AS L13,
+                          SUM(CASE WHEN Level = '13' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                          AS L13P,
+                          SUM(CASE
+                              	WHEN Level = '14' THEN 1
+                              	ELSE 0
+                              END)
+                          AS L14,
+                          SUM(CASE WHEN Level = '14' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                          AS L14P
+                      FROM Members");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the membership report #2.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_MembersByCompanySegmentReport()
+{
+  $result = query_DB("SELECT
+                    	COUNT(`EID`) AS TotalMembership,
+                    	SUM(CASE
+                            	WHEN Segment = 'Federal' THEN 1
+                            	ELSE 0
+                            END)
+                        AS Federal,
+                        SUM(CASE WHEN Segment = 'Federal' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                        AS FederalP,
+                    	SUM(CASE
+                            	WHEN Segment = 'LLP' THEN 1
+                            	ELSE 0
+                            END)
+                        AS LLP,
+                        SUM(CASE WHEN Segment = 'LLP' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
+                        AS LLPP
+                    FROM Members");
 
   if( $result['Result'] )
   {

@@ -259,7 +259,7 @@ This is used to determine which element will be loaded into the center of the pa
 }
 
 /*
-* Report Handling
+* Membership Report Handling
 */
 {
   // Show Reports Menu (admin)
@@ -272,16 +272,41 @@ This is used to determine which element will be loaded into the center of the pa
     ';
   }
 
-  // Show Member Report (admin)
-  if( $_GET['action'] == 'MembersReport' )
+  // Show Member Default Report (admin)
+  if( ($_GET['action'] == 'MembersReport') && ($_GET['report'] == 0) )
   {
     echo'
       <script>
-        $("#Content").load("memberReport.php");
+        $("#Content").load("memberReport.php?report=0");
       </script>
     ';
   }
 
+  // Show Members Report (admin)
+  if( $_GET['action'] == 'MembersReport' && $_GET['report'] == 1 )
+  {
+    echo'
+      <script>
+        $("#Content").load("memberReport.php?report=1");
+      </script>
+    ';
+  }
+
+  // Show Members Report (admin)
+  if( $_GET['action'] == 'MembersReport' && $_GET['report'] == 2 )
+  {
+    echo'
+      <script>
+        $("#Content").load("memberReport.php?report=2");
+      </script>
+    ';
+  }
+}
+
+/*
+* Attendance Report Handling
+*/
+{
   // Show Attendance Report (admin)
   if( $_GET['action'] == 'AttendanceReport' )
   {
@@ -292,12 +317,92 @@ This is used to determine which element will be loaded into the center of the pa
     ';
   }
 
+  // Show Member Default Report (admin)
+  if( ($_GET['action'] == 'AttendanceReport') && ($_GET['report'] == 0) )
+  {
+    echo'
+      <script>
+        $("#Content").load("attendaceReport.php?report=0");
+      </script>
+    ';
+  }
+
+  // Show Member Default Report (admin)
+  if( ($_GET['action'] == 'AttendanceReport') && ($_GET['report'] == 1) )
+  {
+    echo'
+      <script>
+        $("#Content").load("attendaceReport.php?report=1");
+      </script>
+    ';
+  }
+
+  // Show Member Default Report (admin)
+  if( ($_GET['action'] == 'AttendanceReport') && ($_GET['report'] == 2) )
+  {
+    echo'
+      <script>
+        $("#Content").load("attendaceReport.php?report=2");
+      </script>
+    ';
+  }
+}
+
+/*
+* Roles Report Handling
+*/
+{
   // Show Roles Report (admin)
   if( $_GET['action'] == 'RolesReport' )
   {
     echo'
       <script>
         $("#Content").load("rolesReport.php");
+      </script>
+    ';
+  }
+
+  // Show Roles Default Report (admin)
+  if( ($_GET['action'] == 'RolesReport') && ($_GET['report'] == 0) )
+  {
+    echo'
+      <script>
+        $("#Content").load("rolesReport.php?report=0");
+      </script>
+    ';
+  }
+
+  // Show Roles Report 1 (admin)
+  if( ($_GET['action'] == 'RolesReport') && ($_GET['report'] == 1) )
+  {
+    echo'
+      <script>
+        $("#Content").load("rolesReport.php?report=1");
+      </script>
+    ';
+  }
+
+  // Show Roles Report 2 (admin)
+  if( ($_GET['action'] == 'RolesReport') && ($_GET['report'] == 2) )
+  {
+    echo'
+      <script>
+        $("#Content").load("rolesReport.php?report=2");
+      </script>
+    ';
+  }
+}
+
+/*
+* RSVP Report Handling
+*/
+{
+  // Show RSVP Report (admin)
+  if( $_GET['action'] == 'RSVPReport' )
+  {
+    echo'
+      <script>
+        $("#Content").load("rsvpReport.php");
       </script>
     ';
   }
