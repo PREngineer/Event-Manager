@@ -49,6 +49,7 @@ echo '</script>';
       Here's the core of the portal.  You will find highlights as well as detailed information.
     </p>
   </div>
+</div>
 
   <!-- Table -->
   <table class="table">
@@ -89,4 +90,3 @@ echo '</script>';
     </tr>
 
   </table>
-</div>

@@ -43,6 +43,7 @@ echo '</script>';
       have available.
     </p>
   </div>
+</div>
 
   <!-- Table -->
   <table class="table">
@@ -69,4 +70,3 @@ echo '</script>';
       </td>
     </tr>
   </table>
-</div>

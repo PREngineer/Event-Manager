@@ -31,6 +31,26 @@ echo '<script>document.getElementById("adminLink").classList.add("active");</scr
   <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
 
   <div class="form-group">
+    <label for="Title"> <label class="text-danger">*</label> Title:</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </span>
+      <input name="Title" type="text" class="form-control" id="Title" placeholder="Announcement title goes here." aria-required="true">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="Text"> <label class="text-danger">*</label> Text:</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </span>
+      <textarea name="Text" class="form-control" id="Text" placeholder="The message goes here." aria-required="true" rows="10"></textarea>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label for="Date"> <label class="text-danger">*</label> Expiration Date:</label>
     <div class="input-group">
       <span class="input-group-addon">
@@ -54,26 +74,6 @@ echo '<script>document.getElementById("adminLink").classList.add("active");</scr
         $(this).focus();
     });
   </script>
-
-  <div class="form-group">
-    <label for="Title"> <label class="text-danger">*</label> Title:</label>
-    <div class="input-group">
-      <span class="input-group-addon">
-        <i class="glyphicon glyphicon-pencil"></i>
-      </span>
-      <input name="Title" type="text" class="form-control" id="Title" placeholder="Announcement title goes here." aria-required="true">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="Text"> <label class="text-danger">*</label> Text:</label>
-    <div class="input-group">
-      <span class="input-group-addon">
-        <i class="glyphicon glyphicon-pencil"></i>
-      </span>
-      <textarea name="Text" class="form-control" id="Text" placeholder="The message goes here." aria-required="true" rows="10"></textarea>
-    </div>
-  </div>
 
 <hr>
 

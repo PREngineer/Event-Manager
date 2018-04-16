@@ -44,6 +44,7 @@ $events = get_approverEvents();
     <i class="glyphicon glyphicon-ok" title="Approve" style="color:green; padding-left:2em"></i> = Approve
     <i class="glyphicon glyphicon-remove" title="Disapprove" style="color:red; padding-left:2em"></i> = Disapprove
   </div>
+</div>
 
   <!-- Table -->
   <table class="table">
@@ -179,5 +180,3 @@ $events = get_approverEvents();
   }
 ?>
   </table>
-
-</div>

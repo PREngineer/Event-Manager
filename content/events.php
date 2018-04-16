@@ -53,6 +53,7 @@ $events = get_AllEvents();
     <i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i> = Delete
     <i class="glyphicon glyphicon-magnet" title="Recover" style="color:green; padding-left:2em"></i> = Recover
   </div>
+</div>
 
   <!-- Table -->
   <table class="table">
@@ -222,5 +223,3 @@ $events = get_AllEvents();
   }
 ?>
   </table>
-
-</div>

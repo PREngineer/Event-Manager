@@ -43,6 +43,7 @@ echo '</script>';
       options available to you if this is your first time.
     </p>
   </div>
+</div>
 
   <!-- Table -->
   <table class="table">
@@ -120,4 +121,3 @@ echo '</script>';
       </td>
     </tr>
   </table>
-</div>
