@@ -29,6 +29,16 @@ This is used to determine which element will be loaded into the center of the pa
       </script>
     ';
   }
+
+  // Approver's Menu
+  if( $_GET['action'] == 'Approver' )
+  {
+    echo'
+      <script>
+        $("#Content").load("approvers.php");
+      </script>
+    ';
+  }
 }
 
 /*
@@ -136,16 +146,6 @@ This is used to determine which element will be loaded into the center of the pa
     echo'
       <script>
         $("#Content").load("future.php");
-      </script>
-    ';
-  }
-
-  // Approver's Menu
-  if( $_POST['action'] == 'myEvents' || $_GET['action'] == 'approve' )
-  {
-    echo'
-      <script>
-        $("#Content").load("approvers.php");
       </script>
     ';
   }

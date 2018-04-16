@@ -5,6 +5,7 @@ session_start();
 echo '
 <!-- Handle NavBar Highlights -->
 <script>
+  document.getElementById("announcementsLink").classList.remove("active");
   document.getElementById("currentLink").classList.remove("active");
   document.getElementById("futureLink").classList.remove("active");
   document.getElementById("createMemberLink").classList.add("active");

@@ -105,6 +105,7 @@
           var url = $(this).attr("link");
           //window.alert(url.substr(url.lastIndexOf('/') + 1));
           $("#Content").load(url);
+          $("#collapsibleNavbar").collapse('hide');
         });
     });
     </script>
@@ -118,7 +119,7 @@
           <!-- Brand and toggle (hamburger) get grouped for better mobile display -->
           <div class="navbar-header">
             <!-- Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsibleNavbar" aria-expanded="false">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
@@ -131,25 +132,24 @@
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="nav navbar-nav">
               <li id="announcementsLink">
-                <a href="?action=Announcements" style="cursor: pointer;">Announcements</a>
+                <a link="announcements.php?action=Announcements" style="cursor: pointer;">Announcements</a>
               </li>
               <li id="currentLink">
-                <a href="?action=current" style="cursor: pointer;">Current Events</a>
+                <a link="current.php?action=current" style="cursor: pointer;">Current Events</a>
               </li>
               <li id="futureLink">
-                <a href="?action=future" style="cursor: pointer;">Future Events</a>
+                <a link="future.php?action=future" style="cursor: pointer;">Future Events</a>
               </li>
               <li id="createMemberLink">
-                <a href="?action=createMember" style="cursor: pointer;">New Member</a>
+                <a link="createMember.php?action=createMember" style="cursor: pointer;">New Member</a>
               </li>
               <li id="myRSVP">
-                <a href="?action=myRSVP" style="cursor: pointer;">My RSVPs</a>
+                <a link="myRSVP.php?action=myRSVP" style="cursor: pointer;">My RSVPs</a>
               </li>
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
 <?php
 
@@ -165,10 +165,10 @@ else if( $_SESSION['userRole'] == 1 )
 {
   echo'
               <li id="approversLink">
-                <a href="?action=approve" style="cursor: pointer;">Approvers</a>
+                <a link="approvers.php?action=Approver" style="cursor: pointer;">Approvers</a>
               </li>
               <li id="loginLink">
-                <a href="?action=logout" style="cursor: pointer;">Logout</a>
+                <a link="index.php?action=logout" style="cursor: pointer;">Logout</a>
               </li>
   ';
 }
@@ -176,10 +176,10 @@ else if( $_SESSION['userRole'] == 2 )
 {
   echo'
               <li id="pocLink">
-                <a link="pocs.php" style="cursor: pointer;">POCs</a>
+                <a link="pocs.php?action=Poc" style="cursor: pointer;">POCs</a>
               </li>
               <li id="loginLink">
-                <a href="?action=logout" style="cursor: pointer;">Logout</a>
+                <a link="index.php?action=logout" style="cursor: pointer;">Logout</a>
               </li>
   ';
 }
@@ -187,10 +187,10 @@ else if( $_SESSION['userRole'] == 3 )
 {
   echo'
               <li id="adminLink" class="dropdown">
-                <a link="admin.php" style="cursor: pointer;">Administrators</a>
+                <a link="admin.php?action=Admin" style="cursor: pointer;">Administrators</a>
               </li>
               <li id="loginLink">
-                <a href="?action=logout" style="cursor: pointer;">Logout</a>
+                <a link="index.php?action=logout" style="cursor: pointer;">Logout</a>
               </li>
   ';
 }
