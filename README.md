@@ -215,7 +215,7 @@ Libraries/Frameworks used:
 
 # Important Considerations:
 
-  * Links do not work like they do normally!
+  * Not all links work like they do normally!
     The links' "href" property has been removed and replaced by a "link" property that is read by
     the JavaScript link handler function.
     This is done because we do not want a complete reload of a new page.  We just care about
