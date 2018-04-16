@@ -8,6 +8,8 @@ This project is being developed during my spare time.  I would appreciate a dona
 
 All rights are reserved by Jorge L. Pabon Cruz.  Use of this application without a license is not authorized.  For licensing costs contact Jorge L. Pabon Cruz at pianistapr@hotmail.com.
 
+
+
 # Events Manager
 
 This platform is used to create, manage, and track events and assistance.
