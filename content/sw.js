@@ -14,15 +14,15 @@ var filesToCache = [
   "manifest.json",
   "sw.js",
   "sw-reg.js",
-  "index.html",
+  "index.php",
   "offline.html",
-  "theme/css/bootstrap.css",
-  "theme/css/bootstrap-theme.css",
-  "images/Logo.png",
-  "images/TLogo.png",
-  "images/Offline.png",
-  "theme/js/bootstrap.js",
-  "theme/js/jquery.min.js"
+  "../theme/css/bootstrap.css",
+  "../theme/css/bootstrap-theme.css",
+  "../images/Logo.png",
+  "../images/TLogo.png",
+  "../images/Offline.png",
+  "../theme/js/bootstrap.js",
+  "../theme/js/jquery.min.js"
 ];
 
 /*
