@@ -28,7 +28,7 @@
 
   <!-- Default panel contents -->
   <div class="panel-heading">
-    <p>Use the following drop down to select the report that you want to view.</p>
+    <p>Which report would you like to see?</p>
   </div>
 
   <div class="panel-body">
