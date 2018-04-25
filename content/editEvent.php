@@ -76,8 +76,8 @@ else
 {
   echo '<ol class="breadcrumb">
           <li>
-            <a link="index.php?display=Admin">
-              <i class="glyphicon glyphicon-arrow-left"></i style="cursor:pointer;"> Admin
+            <a link="index.php?display=Admin" style="cursor:pointer;">
+              <i class="glyphicon glyphicon-arrow-left"></i> Admin
             </a>
           </li>
           <li>

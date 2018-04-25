@@ -1,21 +1,25 @@
 <!-- Table -->
+<title>Event Manager - Attendance Reports - Roles Dump</title>
 
 <?php
 
-  // Include DB functions
-  include '../functions/DB.php';
+  include '../../functions/Init.php';
+  include '../../functions/DB.php';
+  //include '../layout/LinkHandler.php';
 
   session_start();
 
   $members = get_AllRoles();
 
-  $report = '<table id="reportTable" class="container table">
+  $report = '
+  <table id="reportTable" class="container table">
     <thead>
       <tr style="background: lightgray;">
         <th>User</th>
         <th>Role</th>
-      <tr>
-    </thead>';
+      </tr>
+    </thead>
+    <tbody>';
 
   if( sizeof($members) == 0 )
   {

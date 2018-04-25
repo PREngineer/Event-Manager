@@ -359,7 +359,7 @@ This is used to determine which element will be loaded into the center of the pa
     ';
   }
 
-  // Show Attendance Report 1+ (admin)
+  // Show Membership Report 1+ (admin)
   if( ($_GET['display'] == 'MembershipReport') && isset($_GET['report']) )
   {
     echo'
@@ -399,42 +399,22 @@ This is used to determine which element will be loaded into the center of the pa
 * Roles Report Handling
 */
 {
-  // Show Roles Report (admin)
-  if( $_GET['display'] == 'RolesReport' )
+  // Show Roles Report 0 (admin)
+  if( $_GET['display'] == 'RolesReport' && ( !isset($_GET['report']) ) )
   {
     echo'
       <script>
-        $("#Content").load("rolesReport.php");
+        $("#Content").load("rolesReport.php?report=0");
       </script>
     ';
   }
 
-  // Show Roles Default Report (admin)
-  if( ($_GET['display'] == 'RolesReport') && ($_GET['report'] == 0) )
+  // Show Roles Report 1+ (admin)
+  if( ($_GET['display'] == 'RolesReport') && isset($_GET['report']) )
   {
     echo'
       <script>
-        $("#Content").load("index.php?report=0");
-      </script>
-    ';
-  }
-
-  // Show Roles Report 1 (admin)
-  if( ($_GET['display'] == 'RolesReport') && ($_GET['report'] == 1) )
-  {
-    echo'
-      <script>
-        $("#Content").load("index.php?report=1");
-      </script>
-    ';
-  }
-
-  // Show Roles Report 2 (admin)
-  if( ($_GET['display'] == 'RolesReport') && ($_GET['report'] == 2) )
-  {
-    echo'
-      <script>
-        $("#Content").load("index.php?report=2");
+        $("#Content").load("rolesReport.php?report=' . $_GET['report'] . '");
       </script>
     ';
   }
@@ -444,16 +424,25 @@ This is used to determine which element will be loaded into the center of the pa
 * RSVP Report Handling
 */
 {
-  // Show RSVP Report (admin)
-  if( $_GET['display'] == 'RSVPReport' )
+  // Show RSVP Report 0 (admin)
+  if( $_GET['display'] == 'RSVPReport' && ( !isset($_GET['report']) ) )
   {
     echo'
       <script>
-        $("#Content").load("rsvpReport.php");
+        $("#Content").load("rsvpReport.php?report=0");
       </script>
     ';
   }
 
+  // Show RSVP Report 1+ (admin)
+  if( ($_GET['display'] == 'RSVPReport') && isset($_GET['report']) )
+  {
+    echo'
+      <script>
+        $("#Content").load("rsvpReport.php?report=' . $_GET['report'] . '");
+      </script>
+    ';
+  }
 }
 
 ?>

@@ -56,7 +56,6 @@
 </ol>
 
 <div class="panel panel-default">
-
   <!-- Default panel contents -->
   <div class="panel-heading">
     <p>Which report would you like to see?</p>
@@ -65,7 +64,7 @@
   <div class="panel-body">
     <table role="presentation">
       <tr>
-        <td style="padding:5px;">
+        <td style="padding: 5px;">
           <div class="input-group">
             <select onchange="changeReport(this.value)" class="form-control" id="reportOptions">
         	    <option <?php if($_GET['report'] == 0){echo 'selected';} ?> value="All Data">-All Data-</option>
@@ -78,8 +77,8 @@
         </td>
 
   <!-- START NOTES -->
-        <td class="col-sm-8 text-right" style="padding:5px;">
-          <label style="color:red;font-size:15px;">Notes about exports:</label>
+        <td class="col-sm-8 text-right" style="padding: 5px;">
+          <label style="color: red;font-size: 15px;">Notes about exports:</label>
 
           <!-- Trigger the modal with a button -->
           <span data-toggle="tooltip" data-placement="bottom" title="About iOS progressive web app">
