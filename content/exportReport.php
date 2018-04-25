@@ -1,6 +1,6 @@
 <!-- START Download button -->
 <script type="text/javascript" src="../lib/HTMLToX/tableExport.js"></script>
-<script type="text/javascript" src="../lib/HTMLToX/html2cavas.js"></script>
+<script type="text/javascript" src="../lib/HTMLToX/html2canvas.js"></script>
 <script type="text/javascript" src="../lib/HTMLToX/jquery.base64.js"></script>
 <script type="text/javascript" src="../lib/HTMLToX/base64.js"></script>
 <script type="text/javascript" src="../lib/HTMLToX/sprintf.js"></script>

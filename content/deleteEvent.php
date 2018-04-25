@@ -1,39 +1,42 @@
 <?php
 
+include '../functions/Init.php';
 include '../functions/DB.php';
 
 $result = deleteEvent( $_GET['id'] );
 
-if($result && $_GET['return'] != "myEvents")
+if( $result && ($_GET['display'] == 'Poc') )
 {
   echo'
     <script>
-      window.location = "index.php?action=Events&delete=1";
+      window.location = "index.php?display=MyEvents&EventDeletion=1";
     </script>
   ';
 }
-else if($result)
+if( !$result && ($_GET['display'] == 'Poc') )
 {
   echo'
     <script>
-      window.location = "index.php?action=myEvents&delete=1";
+      window.location = "index.php?display=MyEvents&EventDeletion=0");
     </script>
   ';
 }
-else if(!$result && $_GET['return'] != "myEvents")
+
+if( $result && ($_GET['display'] == "Admin") )
 {
   echo'
     <script>
-      window.location = "index.php?action=Events&delete=0";
+      window.location = "index.php?display=Events&EventDeletion=1";
     </script>
   ';
 }
-else if(!$result)
+if( !$result && ($_GET['display'] == "Admin") )
 {
   echo'
     <script>
-      window.location = "index.php?action=myEvents&delete=0";
+      window.location = "index.php?display=Events&EventDeletion=0";
     </script>
   ';
 }
+
 ?>

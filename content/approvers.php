@@ -1,45 +1,26 @@
+<title>Event Manager - Approvers</title>
+
 <?php
 
-  // Include DB functions
-  include '../functions/DB.php';
-  session_start();
-
-echo '
-<!-- Handle NavBar Highlights -->
-<script>
-  document.getElementById("announcementsLink").classList.remove("active");
-  document.getElementById("currentLink").classList.remove("active");
-  document.getElementById("futureLink").classList.remove("active");
-  document.getElementById("createMemberLink").classList.remove("active");
-  document.getElementById("loginLink").classList.remove("active");
-  document.getElementById("myRSVP").classList.remove("active");
-';
-
-  if( $_SESSION['userRole'] == 1 )
-  {
-    echo 'document.getElementById("approversLink").classList.add("active");';
-  }
-  if( $_SESSION['userRole'] == 2 )
-  {
-    echo 'document.getElementById("pocLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 3 )
-  {
-    echo 'document.getElementById("adminLink").classList.remove("active");';
-  }
-
-echo '</script>';
+include '../functions/Init.php';
+include '../functions/DB.php';
+include 'layout/LinkHandler.php';
 
 $events = get_approverEvents();
 
 ?>
 
-<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">All Future Events</h1>
+<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Approver</h1>
+
+<hr>
 
 <div class="panel panel-default">
 
   <!-- Default panel contents -->
-  <div class="panel-heading">Here are all the events that need approval/disapproval.</div>
+  <div class="panel-heading">
+    <p>Welcome <?php echo $_SESSION['userID']; ?>!</p>
+    <p>Here are all the future events that need to be evaluated.</p>
+  </div>
   <div class="panel-body">
     <i class="glyphicon glyphicon-ok" title="Approve" style="color:green; padding-left:2em"></i> = Approve
     <i class="glyphicon glyphicon-remove" title="Disapprove" style="color:red; padding-left:2em"></i> = Disapprove
@@ -104,13 +85,13 @@ $events = get_approverEvents();
   if( $value[7] == 0 )
   {
     echo '
-        <a href="approveEvent.php?id=' . $value[0] . '&return=approver"><i class="glyphicon glyphicon-ok" title="Approve" style="color: green"></i></a>
+        <a link="approveEvent.php?display=Approver&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-ok" title="Approve" style="color: green"></i></a>
     ';
   }
   else
   {
     echo '
-        <a href="disapproveEvent.php?id=' . $value[0] . '&return=approver"><i class="glyphicon glyphicon-remove" title="Disapprove" style="color: red"></i></a>
+        <a link="disapproveEvent.php?display=Approver&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-remove" title="Disapprove" style="color: red"></i></a>
     ';
   }
     echo '

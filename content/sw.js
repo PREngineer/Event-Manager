@@ -14,8 +14,8 @@ var filesToCache = [
   "manifest.json",
   "sw.js",
   "sw-reg.js",
-  "index.php",
   "offline.html",
+  "Offline.png",
   "../theme/css/bootstrap.css",
   "../theme/css/bootstrap-theme.css",
   "../images/Logo.png",
@@ -34,8 +34,10 @@ self.addEventListener('install', function(event)
 {
   var offlinePage = new Request('offline.html');
   event.waitUntil(
-  fetch(offlinePage).then(function(response) {
-    return caches.open(cacheName).then(function(cache) {
+  fetch(offlinePage).then(function(response)
+  {
+    return caches.open(cacheName).then(function(cache)
+    {
       console.log('[ServiceWorker] Cached offline page during Install. '+ response.url);
       return cache.put(offlinePage, response);
     });
@@ -49,9 +51,11 @@ self.addEventListener('install', function(event)
 self.addEventListener('fetch', function(event)
 {
   event.respondWith(
-    fetch(event.request).catch(function(error) {
+    fetch(event.request).catch(function(error)
+    {
         console.error( '[ServiceWorker] Network request Failed. Serving offline page. ' + error );
-        return caches.open(cacheName).then(function(cache) {
+        return caches.open(cacheName).then(function(cache)
+        {
           return cache.match('offline.html');
       });
     }));
@@ -62,7 +66,8 @@ self.addEventListener('fetch', function(event)
 */
 self.addEventListener('refreshOffline', function(response)
 {
-  return caches.open(cacheName).then(function(cache) {
+  return caches.open(cacheName).then(function(cache)
+  {
     console.log('[ServiceWorker] Offline page updated from refreshOffline event: '+ response.url);
     return cache.put(offlinePage, response);
   });

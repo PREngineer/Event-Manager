@@ -1,32 +1,10 @@
+<title>Event Manager - New Member Registration</title>
+
 <?php
 
-session_start();
-
-echo '
-<!-- Handle NavBar Highlights -->
-<script>
-  document.getElementById("announcementsLink").classList.remove("active");
-  document.getElementById("currentLink").classList.remove("active");
-  document.getElementById("futureLink").classList.remove("active");
-  document.getElementById("createMemberLink").classList.add("active");
-  document.getElementById("loginLink").classList.remove("active");
-  document.getElementById("myRSVP").classList.remove("active");
-';
-
-  if( $_SESSION['userRole'] == 1 )
-  {
-    echo 'document.getElementById("approversLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 2 )
-  {
-    echo 'document.getElementById("pocLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 3 )
-  {
-    echo 'document.getElementById("adminLink").classList.remove("active");';
-  }
-
-echo '</script>';
+include '../functions/Init.php';
+include '../functions/DB.php';
+include 'layout/LinkHandler.php';
 
 ?>
 
@@ -35,11 +13,28 @@ echo '</script>';
 
 <h1 id="page_title" tabindex="-1" role="heading" aria-level="1">New Member Registration</h1>
 
+<hr>
+
+<?php
+
+if( $_SESSION['userRole'] == 3 )
+{
+  echo '
+  <ol class="breadcrumb">
+    <li>
+      <a link="index.php?display=Admin" style="cursor:pointer;">
+        <i class="glyphicon glyphicon-arrow-left"></i> Admin Menu
+      </a>
+    </li>
+  </ol>
+  ';
+}
+
+?>
 <!-- Form STARTS here -->
 
 <form class="container" method="POST" id="createMemberForm">
-  <input name="action" type="hidden" value="createMember">
-  <hr>
+  <input name="display" type="hidden" value="CreateMember">
 
   <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required. </strong></p>
 
@@ -164,58 +159,80 @@ echo '</script>';
 
 <script type="text/javascript">
 
-   $(document).ready(function() {
-    $('#createMemberForm').bootstrapValidator({
+   $(document).ready(function()
+   {
+    $('#createMemberForm').bootstrapValidator(
+      {
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-        feedbackIcons: {
+        feedbackIcons:
+        {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
-        fields: {
-            enterpriseID: {
-                validators: {
-                    notEmpty: {
+        fields:
+        {
+            enterpriseID:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter your enterprise ID.'
                     }
                 }
             },
 
-            firstName: {
-                validators: {
-                    notEmpty: {
+            firstName:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter your first name.'
                     }
                 }
             },
 
-            lastName: {
-                validators: {
-                    notEmpty: {
+            lastName:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter your last name.'
                     }
                 }
             },
 
-            email: {
-                validators: {
-                    notEmpty: {
+            email:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter your e-mail.'
                    }
                 }
             },
 
-            segment: {
-                validators: {
-                    notEmpty: {
+            segment:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter your company segment.'
                     }
                 }
             },
 
-            level: {
-                validators: {
-                    notEmpty: {
+            level:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter your level.'
                     }
                 }
@@ -223,7 +240,8 @@ echo '</script>';
         }
       })
 
-        .on('success.form.bv', function(e) {
+        .on('success.form.bv', function(e)
+        {
             $('#success_message').slideDown({ opacity: "show" }, "slow")
                 $('#createMemberForm').data('bootstrapValidator').resetForm();
 
@@ -237,7 +255,8 @@ echo '</script>';
             var bv = $form.data('bootstrapValidator');
 
             // Use Ajax to submit form data
-            $.post($form.attr('action'), $form.serialize(), function(result) {
+            $.post($form.attr('display'), $form.serialize(), function(result)
+            {
                 console.log(result);
             }, 'json');
         });

@@ -32,7 +32,7 @@
 
       <h1>Event Manager - Database Setup</h1>
 
-      <form class="container" method="POST" id="createEventForm">
+      <form class="container" method="POST" id="setupDBForm">
         <hr>
 
         <p>
@@ -45,6 +45,19 @@
           It will create a database and tables and it will set itself to work only on this Database
           in the future.
         </p>
+
+        <div class="form-group">
+          <label for="username">
+            ERG's Name:
+          </label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-book"></i>
+            </span>
+            <input name="dbname" type="text" class="form-control" placeholder="DCHAERG" aria-describedby="dbnameHelp" required>
+          </div>
+      	   <small id="dbnameHelp" class="form-text text-muted">This is the ERG's identifier (name).  [Location][Identifier][ERG]  Ex: DCHAERG, DCAAERG</small>
+        </div>
 
         <div class="form-group">
           <label for="username">
@@ -65,7 +78,7 @@
           </label>
           <div class="input-group">
             <span class="input-group-addon">
-              <i class="glyphicon glyphicon-user"></i>
+              <i class="glyphicon glyphicon-lock"></i>
             </span>
             <input name="password" type="password" class="form-control" placeholder="password" aria-describedby="passwordHelp" required>
           </div>
@@ -78,7 +91,7 @@
           </label>
           <div class="input-group">
             <span class="input-group-addon">
-              <i class="glyphicon glyphicon-user"></i>
+              <i class="glyphicon glyphicon-globe"></i>
             </span>
             <input name="ip" type="text" class="form-control" placeholder="localhost or sub.domain.com or 10.0.0.25" aria-describedby="ipHelp" required>
           </div>
@@ -91,7 +104,7 @@
           </label>
           <div class="input-group">
             <span class="input-group-addon">
-              <i class="glyphicon glyphicon-user"></i>
+              <i class="glyphicon glyphicon-asterisk"></i>
             </span>
             <input name="port" type="text" class="form-control" placeholder="3306" aria-describedby="portHelp" required>
           </div>
@@ -108,8 +121,10 @@
 
       <!-- Close the alerts after 15 seconds -->
       <script>
-      window.setTimeout(function() {
-          $(".alert").fadeTo(500, 0).slideUp(500, function(){
+      window.setTimeout(function()
+      {
+          $(".alert").fadeTo(500, 0).slideUp(500, function()
+          {
               $(this).remove();
           });
       }, 15000);
@@ -124,12 +139,13 @@
       if( !empty($_POST) )
       {
         // Gather the information provided
-        $user = $_POST['username'];
-        $pass = $_POST['password'];
-        $host = $_POST['ip'];
-        $port = $_POST['port'];
+        $dbname = $_POST['dbname'];
+        $user   = $_POST['username'];
+        $pass   = $_POST['password'];
+        $host   = $_POST['ip'];
+        $port   = $_POST['port'];
 
-        $check = test_MySQL( $user, $pass, $host, $port );
+        $check = test_MySQL( $dbname, $user, $pass, $host, $port );
 
         // If the information is incorrect
         if($check !== True)
@@ -153,20 +169,20 @@
                 </div>';
 
           // Create Database
-          $result = setup_DB( $user, $pass, $host, $port );
+          $result = setup_DB( $dbname, $user, $pass, $host, $port );
 
           if($result == 1)
           {
             echo '<div class="alert alert-success alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    --> Successfully created database "Event_Manager".
+                    --> Successfully created the database "' . $_POST['dbname'] . '".
                   </div>';
           }
           else
           {
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
-                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating database!<br><br>' .
+                    [!] ' . count($result['Errors']) . ' Error(s) occurred while creating the database: ' . $_POST['dbname'] . '!<br><br>' .
                     $result .
                   '</div>';
           }
@@ -427,3 +443,97 @@
   </body>
 
 </html>
+
+<!-- Begin Scripts for Inline Error Messages -->
+<script type="text/javascript">
+
+   $(document).ready(function()
+   {
+    $('#setupDBForm').bootstrapValidator(
+    {
+        container: '#messages',
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons:
+        {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields:
+        {
+			      dbname:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
+                        message: 'ERROR: Please enter the ERG\'s identifier.'
+                    }
+                }
+            },
+            username:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
+                        message: 'ERROR: Please enter the database server username.'
+                    }
+                }
+            },
+            password:
+            {
+                // The hidden input will not be ignored
+                excluded: false,
+                validators:
+                {
+                    notEmpty:
+                    {
+                        message: 'ERROR: Please enter the database server password.'
+                    }
+                }
+            },
+			      ip:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
+                        message: 'ERROR: Please enter database server ip.'
+                    }
+                }
+            },
+            port:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
+                        message: 'ERROR: Please enter the databaser server port.'
+                    }
+                }
+            }
+        }
+    })
+
+    // POST if everything is OK
+    .on('success.form.bv', function(e)
+    {
+          // Prevent form submission
+          e.preventDefault();
+
+          // Get the form instance
+          var $form = $(e.target);
+
+          // Get the BootstrapValidator instance
+          var bv = $form.data('bootstrapValidator');
+
+          // Use Ajax to submit form data
+          $.post($form.attr('display'), $form.serialize(), function(result)
+          {
+              console.log(result);
+          }, 'json');
+    });
+});
+
+</script>

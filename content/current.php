@@ -1,44 +1,20 @@
+<title>Event Manager - Current Events</title>
+
 <?php
 
-session_start();
-
+include '../functions/Init.php';
 include '../functions/DB.php';
+include 'layout/LinkHandler.php';
 
 $events = get_CurrentEvents();
-
-//print_r($events);
-
-echo '
-<!-- Handle NavBar Highlights -->
-<script>
-  document.getElementById("announcementsLink").classList.remove("active");
-  document.getElementById("currentLink").classList.add("active");
-  document.getElementById("futureLink").classList.remove("active");
-  document.getElementById("createMemberLink").classList.remove("active");
-  document.getElementById("loginLink").classList.remove("active");
-  document.getElementById("myRSVP").classList.remove("active");
-';
-
-  if( $_SESSION['userRole'] == 1 )
-  {
-    echo 'document.getElementById("approversLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 2 )
-  {
-    echo 'document.getElementById("pocLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 3 )
-  {
-    echo 'document.getElementById("adminLink").classList.remove("active");';
-  }
-
-echo '</script>';
 
 ?>
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Current Events</h1>
 
-<div class="container">
+<hr>
+
+<div id="PageContents" class="container">
 
 <?php
 
@@ -46,7 +22,7 @@ if( sizeof($events) == 0 )
 {
   echo '
   <div class="container">
-    <h3>There are no events scheduled for today.</h3>
+    <h2>There are no events scheduled for today.</h2>
   </div>
   ';
 }
@@ -54,16 +30,14 @@ else
 {
   foreach ($events as $name => $value)
   {
-    $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?action=RSVP?id=' . $value[0];
-
     echo '
     <div class="col-sm-3">
       <div class="thumbnail" style="height: 500px;">
         <img src="../images/event.png" alt="Event image" width="150" height="150">
         <div class="caption">
-            <table class="table">
+            <table role="presentation" class="table">
               <tr>
-                <td class="text-center" colspan="2"><h4>' . $value[1] . '</h4></td>
+                <td class="text-center" colspan="2"><strong>' . $value[1] . '</strong></td>
               </tr>
               <tr>
                 <td>Date:</td>
@@ -83,7 +57,7 @@ else
               </tr>
               <tr>
                 <td class="text-center" colspan="2">
-                  <a href="?action=checkin&id=' . $value[0] . '" class="btn btn-primary" role="button">Check In</a>
+                  <a link="index.php?display=Checkin&id=' . $value[0] . '" class="btn btn-primary" role="button">Check In</a>
                 </td>
               </tr>
             </table>

@@ -1,25 +1,26 @@
 <!-- Table -->
+<title>Event Manager - Attendance Reports - Attendance Dump</title>
 
 <?php
 
-  // Include DB functions
-  include '../functions/DB.php';
+  include '../../functions/Init.php';
+  include '../../functions/DB.php';
+  //include '../layout/LinkHandler.php';
 
-  session_start();
+  $attendance = get_AllAttendance();
 
-  $members = get_AllAttendance();
-
-  $report = '<table id="reportTable" class="container table">
+  echo '<table id="reportTable" class="container table">
     <thead>
       <tr style="background: lightgray;">
         <th>Event ID</th>
         <th>Enterprise ID</th>
         <th>Type</th>
         <th>Registered</th>
-      <tr>
-    </thead>';
+      </tr>
+    </thead>
+    <tbody>';
 
-  if( sizeof($members) == 0 )
+  if( sizeof($attendance) == 0 )
   {
     echo '
     <div class="container">
@@ -29,28 +30,27 @@
   }
   else
   {
-    foreach ($members as $name => $value)
+    foreach ($attendance as $name => $value)
     {
-      $report .= '<tr>
+      echo '
+        <tr>
           <td>
             ' . $value[1] . '
           </td>
           <td>
             ' . $value[2] . '
           </td>
-          <td>
             ';
 
             if( $value[3] == 0)
             {
-              $report .= '<i class="glyphicon glyphicon-user" title="No" style="color:blue;">In Person</i>';
+              echo '<td style="color: blue;"><i class="glyphicon glyphicon-user" title="In Person"></i> In Person';
             }
             else if( $value[3] == 1)
             {
-              $report .= '<i class="glyphicon glyphicon-headphones" title="Yes" style="color:gray;">Remote</i>';
+              echo '<td style="color: gray;"><i class="glyphicon glyphicon-headphones" title="Remote"></i> Remote';
             }
-            $report .= '
-          </td>
+    echo '</td>
           <td>
             ' . $value[4] . '
           </td>
@@ -59,9 +59,6 @@
     }
   }
 
-  $report .= '</table>';
-
-  // Print the report to the webpage
-  echo $report;
-
+  echo '</tbody>
+      </table>';
 ?>

@@ -1,33 +1,17 @@
 <?php
 
-  session_start();
-
-  // Include DB functions
-  include '../functions/DB.php';
-
   // Include Session Init
   include '../functions/Init.php';
-
-  // Redirect if settings was not found
-  if( !file_exists('../functions/settings.php') )
-  {
-    echo '
-      <script type="text/javascript">
-        window.location.href = "../setup.php"
-      </script>
-    ';
-  }
+  // Include DB functions
+  include '../functions/DB.php';
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-  <!-- ******************* Head Section ******************* -->
+<!-- ******************* Head Section ******************* -->
   <head>
-    <!-- Application Name -->
-    <title>Event Manager</title>
-
     <!-- Encoding and Mobile First -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -65,7 +49,7 @@
   	<meta name="author" content="Jorge Pabon">
 
   	<!-- Basic Mobile Information -->
-  	<link rel="icon" sizes="192x192" href="img/TLogo.png">
+  	<link rel="icon" sizes="192x192" href="../images/TLogo.png">
   	<meta name="mobile-web-app-capable" content="yes">
   	<meta name="theme-color" content="#2196F3">
 
@@ -74,16 +58,16 @@
   	<meta name="application-name" content="EM">
   	<meta name="apple-mobile-web-app-status-bar-style" content="black">
   	<meta name="apple-mobile-web-app-title" content="EM">
-  	<link rel="apple-touch-icon" href="img/Logo.png">
+  	<link rel="apple-touch-icon" href="../images/Logo.png">
 
   	<!-- For Microsoft Devices -->
-  	<meta name="msapplication-TileImage" content="img/TLogo.png">
+  	<meta name="msapplication-TileImage" content="../images/TLogo.png">
   	<meta name="msapplication-TileColor" content="#2196F3">
 
   	<!-- ... -->
   	<meta property="og:title" content="EM">
   	<meta property="og:type" content="website">
-  	<meta property="og:image" content="img/TLogo.png">
+  	<meta property="og:image" content="../images/TLogo.png">
   	<meta property="og:url" content="https://pwa.eastus.cloudapp.azure.com/MELT/">
   	<meta property="og:description" content="A Progressive Web App">
 
@@ -92,156 +76,57 @@
   	<meta name="twitter:url" content="https://pwa.eastus.cloudapp.azure.com/MELT/">
   	<meta name="twitter:title" content="EM">
   	<meta name="twitter:description" content="Event Manager. No install, just use it right away in your browser!">
-  	<meta name="twitter:image" content="img/TLogo.png">
+  	<meta name="twitter:image" content="../images/TLogo.png">
   	<meta name="twitter:creator" content=@PianistaPR>
   </head>
 
   <body>
 
-    <!-- ******************* NavBar Handler Section ******************* -->
-    <script>
-    $(document).ready(function(){
-        $("a").click(function(){
-          var url = $(this).attr("link");
-          //window.alert(url.substr(url.lastIndexOf('/') + 1));
-          $("#Content").load(url);
-          $("#collapsibleNavbar").collapse('hide');
-        });
-    });
-    </script>
-
-    <!-- ******************* NavBar Section ******************* -->
     <a class="skip-navigation sr-only sr-only-focusable" href="#page-title">Skip Navigation</a>
 
-	<div class="container">
-      <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-          <!-- Brand and toggle (hamburger) get grouped for better mobile display -->
-          <div class="navbar-header">
-            <!-- Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsibleNavbar" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <!-- Brand icon -->
-            <a class="navbar-brand" href="index.php">
-              <img src="../images/logo.svg" width="30" height="30" alt="Logo">
-            </a>
-          </div>
+<!-- ******************* NavBar Section ******************* -->
+<?php include 'layout/NavBar.php'; ?>
 
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="nav navbar-nav">
-              <li id="announcementsLink">
-                <a link="announcements.php?action=Announcements" style="cursor: pointer;">Announcements</a>
-              </li>
-              <li id="currentLink">
-                <a link="current.php?action=current" style="cursor: pointer;">Current Events</a>
-              </li>
-              <li id="futureLink">
-                <a link="future.php?action=future" style="cursor: pointer;">Future Events</a>
-              </li>
-              <li id="createMemberLink">
-                <a link="createMember.php?action=createMember" style="cursor: pointer;">New Member</a>
-              </li>
-              <li id="myRSVP">
-                <a link="myRSVP.php?action=myRSVP" style="cursor: pointer;">My RSVPs</a>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-<?php
+<!-- ******************* Content Section ******************* -->
+<?php include '../functions/DismissableAlerts.php'; ?>
 
-if( !isset($_SESSION['userRole']) )
-{
-  echo'
-              <li id="loginLink">
-                <a link="login.php" style="cursor: pointer;">Login</a>
-              </li>
-  ';
-}
-else if( $_SESSION['userRole'] == 1 )
-{
-  echo'
-              <li id="approversLink">
-                <a link="approvers.php?action=Approver" style="cursor: pointer;">Approvers</a>
-              </li>
-              <li id="loginLink">
-                <a link="index.php?action=logout" style="cursor: pointer;">Logout</a>
-              </li>
-  ';
-}
-else if( $_SESSION['userRole'] == 2 )
-{
-  echo'
-              <li id="pocLink">
-                <a link="pocs.php?action=Poc" style="cursor: pointer;">POCs</a>
-              </li>
-              <li id="loginLink">
-                <a link="index.php?action=logout" style="cursor: pointer;">Logout</a>
-              </li>
-  ';
-}
-else if( $_SESSION['userRole'] == 3 )
-{
-  echo'
-              <li id="adminLink" class="dropdown">
-                <a link="admin.php?action=Admin" style="cursor: pointer;">Administrators</a>
-              </li>
-              <li id="loginLink">
-                <a link="index.php?action=logout" style="cursor: pointer;">Logout</a>
-              </li>
-  ';
-}
-
-?>
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav>
-    </div>
-
-    <!-- ******************* Actual Content Section ******************* -->
-    <?php
-    include '../functions/actions.php';
-    ?>
-
-    <div class="container" id="Content" name="Content" style="padding-top:40px;padding-bottom:30px;">
-    </div>
+    <div class="container" id="Content" name="Content" style="padding-top:40px;padding-bottom:30px;"></div>
 
 <?php
 
     $events = get_CurrentEvents();
 
-    if( sizeof($events) == 0 && empty($_GET) && empty($_POST) )
+    //*** Decide what to load on fresh start ***//
+    // If there is no get passed and there are no events:
+    // Redirect to the Announcements
+    if( sizeof($events) == 0 && empty($_GET) )
     {
       echo'
       <script>
-      $(document).ready(function(){
-          $("#Content").load("announcements.php");
+      $(document).ready(function()
+      {
+          window.location.href = "index.php?display=Announcements";
       });
       </script>
       ';
     }
+    // If there are Events and there is no get:
+    // Redirect to the Current Events
     else if( sizeof($events) >= 1 && empty($_GET) )
     {
       echo'
       <script>
-      $(document).ready(function(){
-          $("#Content").load("current.php");
+      $(document).ready(function()
+      {
+          window.location.href = "index.php?display=Current";
       });
       </script>
       ';
     }
-?>
 
-    <!-- ******************* Footer Section ******************* -->
-    <div class="container">
-      <div class="nav navbar-inverse navbar-fixed-bottom">
-        <p class="text-center text-muted">2017-<?php echo DATE("Y"); ?> My Company</p>
-      </div>
-    </div>
+    // The Footer section
+    include 'layout/Footer.php';
+?>
 
   </body>
 
@@ -249,7 +134,7 @@ else if( $_SESSION['userRole'] == 3 )
 
 <?php
 
-// Include Form Submission Handler
-include '../functions/SubmissionHandler.php';
+  // Include Form Submission Handler
+  include '../functions/Displayer.php';
 
 ?>

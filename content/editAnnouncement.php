@@ -1,8 +1,10 @@
+<title>Event Manager - Edit Announcement</title>
+
 <?php
 
+include '../functions/Init.php';
 include '../functions/DB.php';
-
-echo '<script>document.getElementById("adminLink").classList.add("active");</script>';
+include 'layout/LinkHandler.php';
 
 $details = get_Announcement($_GET['id'])[0];
 
@@ -15,12 +17,12 @@ $text = str_replace("<br />",PHP_EOL,$details['2']);
 
 <ol class="breadcrumb">
   <li>
-    <a href="?action=Admin">
+    <a link="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin Menu
     </a>
   </li>
   <li>
-    <a href="?action=AnnouncementsMenu">
+    <a link="index.php?display=AnnouncementsMenu" style="cursor:pointer;">
       All Announcements
     </a>
   </li>
@@ -29,7 +31,8 @@ $text = str_replace("<br />",PHP_EOL,$details['2']);
 <!-- Form STARTS here -->
 
 <form class="container" method="POST" id="editAnnouncementForm">
-  <input name="action" type="hidden" value="editAnnouncement">
+  <input name="display" type="hidden" value="AnnouncementsMenu">
+  <input name="edited" type="hidden" value="1">
   <input name="id" type="hidden" value="<?php echo $_GET['id']; ?>">
 
   <hr>
@@ -148,7 +151,7 @@ $text = str_replace("<br />",PHP_EOL,$details['2']);
           var bv = $form.data('bootstrapValidator');
 
           // Use Ajax to submit form data
-          $.post($form.attr('action'), $form.serialize(), function(result) {
+          $.post($form.attr('display'), $form.serialize(), function(result) {
               console.log(result);
           }, 'json');
     });

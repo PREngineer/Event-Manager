@@ -1,46 +1,19 @@
+<title>Event Manager - My RSVPs</title>
+
 <?php
 
-session_start();
-
+include '../functions/Init.php';
 include '../functions/DB.php';
-
-echo '
-<!-- Handle NavBar Highlights -->
-<script>
-  document.getElementById("announcementsLink").classList.remove("active");
-  document.getElementById("currentLink").classList.remove("active");
-  document.getElementById("futureLink").classList.remove("active");
-  document.getElementById("createMemberLink").classList.remove("active");
-  document.getElementById("loginLink").classList.remove("active");
-  document.getElementById("myRSVP").classList.add("active");
-';
-
-  if( $_SESSION['userRole'] == 1 )
-  {
-    echo 'document.getElementById("approversLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 2 )
-  {
-    echo 'document.getElementById("pocLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 3 )
-  {
-    echo 'document.getElementById("adminLink").classList.remove("active");';
-  }
-
-echo '</script>';
+include 'layout/LinkHandler.php';
 
 ?>
-
-<!--Skip Navigation Link-->
-<a class="skip-navigation sr-only sr-only-focusable" href="#page_title">Skip Navigation</a>
 
 <h1 id="page_title" tabindex="-1" role="heading" aria-level="1">My RSVPs</h1>
 
 <!-- Form STARTS here -->
 
 <form class="container" method="POST" id="myRSVPForm">
-  <input name="action" type="hidden" value="myRSVP">
+  <input name="display" type="hidden" value="MyRSVP">
   <hr>
 
   <p><strong>Please provide your enterprise ID to look for your event reservations.</strong></p>
@@ -70,11 +43,9 @@ echo '</script>';
 
 <!-- ******************* Display results ******************* -->
 <?php
-if( !empty($_GET) && ($_GET['action'] == 'myRSVP') )
+if( !empty($_GET) && ($_GET['display'] == 'MyRSVP') )
 {
   $rsvps = get_myRSVPs( $_GET['enterpriseID'] );
-
-  //print_r($rsvps);
 
   if( sizeof($rsvps) == 0 && !empty($_POST) )
   {
@@ -95,7 +66,7 @@ if( !empty($_GET) && ($_GET['action'] == 'myRSVP') )
           <div class="caption">
               <table class="table">
                 <tr>
-                  <td class="text-center" colspan="2"><h4>' . $value[1] . '</h4></td>
+                  <td class="text-center" colspan="2"><strong>' . $value[1] . '</strong></td>
                 </tr>
                 <tr>
                   <td>Date:</td>
@@ -111,7 +82,7 @@ if( !empty($_GET) && ($_GET['action'] == 'myRSVP') )
                 </tr>
                 <tr>
                   <td colspan="2" class="text-center">
-                    <a href="?action=cancelRSVP&id=' . $value[0] . '&eid=' . $value[4] . '" class="btn btn-danger" role="button">Cancel my RSVP</a>
+                    <a link="index.php?display=CancelRSVP&id=' . $value[0] . '&eid=' . $value[4] . '" class="btn btn-danger" role="button">Cancel my RSVP</a>
                   </td>
                 </tr>
               </table>
@@ -127,18 +98,25 @@ if( !empty($_GET) && ($_GET['action'] == 'myRSVP') )
 
 <script type="text/javascript">
 
-   $(document).ready(function() {
-    $('#myRSVPForm').bootstrapValidator({
+   $(document).ready(function()
+   {
+    $('#myRSVPForm').bootstrapValidator(
+      {
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-        feedbackIcons: {
+        feedbackIcons:
+        {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
-        fields: {
-            enterpriseID: {
-                validators: {
-                    notEmpty: {
+        fields:
+        {
+            enterpriseID:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter your enterprise ID.'
                     }
                 }
@@ -146,7 +124,8 @@ if( !empty($_GET) && ($_GET['action'] == 'myRSVP') )
         }
       })
 
-        .on('success.form.bv', function(e) {
+        .on('success.form.bv', function(e)
+        {
             $('#success_message').slideDown({ opacity: "show" }, "slow")
                 $('#myRSVPForm').data('bootstrapValidator').resetForm();
 
@@ -160,7 +139,8 @@ if( !empty($_GET) && ($_GET['action'] == 'myRSVP') )
             var bv = $form.data('bootstrapValidator');
 
             // Use Ajax to submit form data
-            $.post($form.attr('action'), $form.serialize(), function(result) {
+            $.post($form.attr('display'), $form.serialize(), function(result)
+            {
                 console.log(result);
             }, 'json');
         });

@@ -1,5 +1,6 @@
+<title>Event Manager - Event Check-In</title>
 <form class="container" method="POST" id="checkinForm">
-  <input name="action" type="hidden" value="checkin">
+  <input name="display" type="hidden" value="Checkin">
 
   <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Event Check-In</h1>
 
@@ -34,27 +35,34 @@
 </form>
 
 <script type="text/javascript">
-
-     $(document).ready(function() {
+     $(document).ready(function()
+     {
       $('#checkinForm').bootstrapValidator({
           // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-          feedbackIcons: {
+          feedbackIcons:
+          {
               valid: 'glyphicon glyphicon-ok',
               invalid: 'glyphicon glyphicon-remove',
               validating: 'glyphicon glyphicon-refresh'
           },
-          fields: {
-              enterpriseID: {
-                  validators: {
-                      notEmpty: {
+          fields:
+          {
+              enterpriseID:
+              {
+                  validators:
+                  {
+                      notEmpty:
+                      {
                           message: 'ERROR: Please enter your Enterprise ID.'
                       }
                   }
               },
-
-              code: {
-                  validators: {
-                      notEmpty: {
+              code:
+              {
+                  validators:
+                  {
+                      notEmpty:
+                      {
                           message: 'ERROR: Please enter a valid passcode.  This code is provided during the event.'
                       }
                   }
@@ -62,7 +70,8 @@
           }
         })
 
-          .on('success.form.bv', function(e) {
+          .on('success.form.bv', function(e)
+          {
               $('#success_message').slideDown({ opacity: "show" }, "slow")
                   $('#loginPage').data('bootstrapValidator').resetForm();
 
@@ -76,10 +85,10 @@
               var bv = $form.data('bootstrapValidator');
 
               // Use Ajax to submit form data
-              $.post($form.attr('action'), $form.serialize(), function(result) {
+              $.post($form.attr('display'), $form.serialize(), function(result)
+              {
                   console.log(result);
               }, 'json');
           });
   });
-
   </script>

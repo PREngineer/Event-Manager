@@ -1,6 +1,7 @@
+<title>Event Manager - Event RSVP</title>
 <!-- ******************* START FORM ******************* -->
 <form class="container" method="POST" id="rsvpForm">
-  <input name="action" type="hidden" value="RSVP">
+  <input name="display" type="hidden" value="RSVP">
 
   <!-- Heading -->
   <header role="banner">
@@ -35,19 +36,24 @@
     <!-- ******************* END FORM ******************* -->
 
 <script type="text/javascript">
-
-   $(document).ready(function() {
+   $(document).ready(function()
+   {
     $('#rsvpForm').bootstrapValidator({
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-        feedbackIcons: {
+        feedbackIcons:
+        {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
-        fields: {
-            EID: {
-                validators: {
-                    notEmpty: {
+        fields:
+        {
+            EID:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter your Enterprise ID.'
                     }
                 }
@@ -55,7 +61,8 @@
         }
       })
 
-        .on('success.form.bv', function(e) {
+        .on('success.form.bv', function(e)
+        {
             $('#success_message').slideDown({ opacity: "show" }, "slow")
                 $('#rsvpPage').data('bootstrapValidator').resetForm();
 
@@ -69,10 +76,10 @@
             var bv = $form.data('bootstrapValidator');
 
             // Use Ajax to submit form data
-            $.post($form.attr('action'), $form.serialize(), function(result) {
+            $.post($form.attr('display'), $form.serialize(), function(result)
+            {
                 console.log(result);
             }, 'json');
         });
   });
-
 </script>

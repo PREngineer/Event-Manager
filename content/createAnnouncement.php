@@ -1,8 +1,10 @@
+<title>Event Manager - Create New Announcement</title>
+
 <?php
 
+include '../functions/Init.php';
 include '../functions/DB.php';
-
-echo '<script>document.getElementById("adminLink").classList.add("active");</script>';
+include 'layout/LinkHandler.php';
 
 ?>
 
@@ -10,12 +12,12 @@ echo '<script>document.getElementById("adminLink").classList.add("active");</scr
 
 <ol class="breadcrumb">
   <li>
-    <a href="?action=Admin">
+    <a link="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin Menu
     </a>
   </li>
   <li>
-    <a href="?action=AnnouncementsMenu">
+    <a link="index.php?display=AnnouncementsMenu" style="cursor:pointer;">
       All Announcements
     </a>
   </li>
@@ -24,7 +26,8 @@ echo '<script>document.getElementById("adminLink").classList.add("active");</scr
 <!-- Form STARTS here -->
 
 <form class="container" method="POST" id="createAnnouncementForm">
-  <input name="action" type="hidden" value="createAnnouncement">
+  <input name="display" type="hidden" value="AnnouncementsMenu">
+  <input name="created" type="hidden" value="1">
 
   <hr>
 
@@ -61,7 +64,8 @@ echo '<script>document.getElementById("adminLink").classList.add("active");</scr
   </div>
 
   <script type="text/javascript">
-    $('#Date').datepicker({
+    $('#Date').datepicker(
+    {
       format: "yyyy-mm-dd",
       startDate: '+0d',
       toggleActive: true,
@@ -70,7 +74,8 @@ echo '<script>document.getElementById("adminLink").classList.add("active");</scr
       autoclose: true,
       daysOfWeekHighlighted: "1,2,3,4,5",
       todayHighlight: true
-      }).on('changeDate', function (e) {
+      }).on('changeDate', function (e)
+      {
         $(this).focus();
     });
   </script>
@@ -87,39 +92,53 @@ echo '<script>document.getElementById("adminLink").classList.add("active");</scr
 <!-- Begin Scripts for Inline Error Messages -->
 <script type="text/javascript">
 
-   $(document).ready(function() {
-    $('#createAnnouncementForm').bootstrapValidator({
+   $(document).ready(function()
+   {
+    $('#createAnnouncementForm').bootstrapValidator(
+      {
         container: '#messages',
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-        feedbackIcons: {
+        feedbackIcons:
+        {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
-        fields: {
-			      Title: {
-                validators: {
-                    notEmpty: {
+        fields:
+        {
+			      Title:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter the Title.'
                     }
                 }
             },
-            Date: {
+            Date:
+            {
                 // The hidden input will not be ignored
                 excluded: false,
-                validators: {
-                    notEmpty: {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter the Expiration Date.'
                     },
-                    date: {
+                    date:
+                    {
                         format: 'yyyy-mm-dd',
                         message: 'ERROR: The date format is not a valid. It should be YYY-mm-dd.'
                     }
                 }
             },
-            Text: {
-                validators: {
-                    notEmpty: {
+            Text:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter the Text.'
                     }
                 }
@@ -128,7 +147,8 @@ echo '<script>document.getElementById("adminLink").classList.add("active");</scr
     })
 
     // POST if everything is OK
-    .on('success.form.bv', function(e) {
+    .on('success.form.bv', function(e)
+    {
 
           // Prevent form submission
           e.preventDefault();
@@ -140,7 +160,8 @@ echo '<script>document.getElementById("adminLink").classList.add("active");</scr
           var bv = $form.data('bootstrapValidator');
 
           // Use Ajax to submit form data
-          $.post($form.attr('action'), $form.serialize(), function(result) {
+          $.post($form.attr('display'), $form.serialize(), function(result)
+          {
               console.log(result);
           }, 'json');
     });

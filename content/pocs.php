@@ -1,41 +1,20 @@
+<title>Event Manager - Points of Contact</title>
+
 <?php
-  // Include DB functions
-  include '../functions/DB.php';
-  session_start();
 
-echo '
-<!-- Handle NavBar Highlights -->
-<script>
-  document.getElementById("announcementsLink").classList.remove("active");
-  document.getElementById("currentLink").classList.remove("active");
-  document.getElementById("futureLink").classList.remove("active");
-  document.getElementById("createMemberLink").classList.remove("active");
-  document.getElementById("loginLink").classList.remove("active");
-  document.getElementById("myRSVP").classList.remove("active");
-';
-
-  if( $_SESSION['userRole'] == 1 )
-  {
-    echo 'document.getElementById("approversLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 2 )
-  {
-    echo 'document.getElementById("pocLink").classList.add("active");';
-  }
-  if( $_SESSION['userRole'] == 3 )
-  {
-    echo 'document.getElementById("adminLink").classList.remove("active");';
-  }
-
-echo '</script>';
+include '../functions/Init.php';
+include '../functions/DB.php';
+include 'layout/LinkHandler.php';
 
 ?>
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Point Of Contact</h1>
 
+<hr>
+
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Welcome to your menu!</div>
+  <div class="panel-heading"><p>Welcome <?php echo $_SESSION['userID']; ?>!</p></div>
   <div class="panel-body">
     <p>
       As a Point Of Contact, you have the options to create and manage events
@@ -54,19 +33,25 @@ echo '</script>';
       <tr>
     </thead>
     <tr>
-      <td><a href="?action=createEvent">Create Event</a></td>
+      <td><a link="index.php?display=CreateEvent" style="cursor:pointer;">Create Event</a></td>
       <td>
         Use this option to create a New Event.
       </td>
     </tr>
     <tr>
-      <td><a href="?action=myEvents">My Events</a></td>
+      <td><a link="index.php?display=MyEvents" style="cursor:pointer;">My Events</a></td>
       <td>
         Use this option to view and manage your events.  You can perform the
         following actions on your existing events:<br>
         * Edit its details before the event occurs<br>
         * Delete an event before it occurs<br>
         * View all the events that you have created
+      </td>
+    </tr>
+    <tr>
+      <td><a link="index.php?display=POCAction" style="cursor:pointer;">Action Pending</a></td>
+      <td>
+        Use this option to add the actual budget and close past events.
       </td>
     </tr>
   </table>

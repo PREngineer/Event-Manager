@@ -1,17 +1,10 @@
+<title>Event Manager - Create New Event</title>
+
 <?php
 
+include '../functions/Init.php';
 include '../functions/DB.php';
-
-session_start();
-
-if( $_SESSION['userRole'] == 2 )
-{
-  echo '<script>document.getElementById("pocLink").classList.add("active");</script>';
-}
-else
-{
-  echo '<script>document.getElementById("adminLink").classList.add("active");</script>';
-}
+include 'layout/LinkHandler.php';
 
 $committees = get_Committees();
 
@@ -54,33 +47,36 @@ echo '</script>';
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Create New Event</h1>
 
+<hr>
+
 <?php
 
 if( $_SESSION['userRole'] == 2 )
 {
   echo '<ol class="breadcrumb">
           <li>
-            <a href="?action=Poc">
+            <a link="index.php?display=Poc" style="cursor:pointer;">
               <i class="glyphicon glyphicon-arrow-left"></i> POC Menu
             </a>
           </li>
           <li>
-            <a href="?action=myEvents">
+            <a link="index.php?display=MyEvents" style="cursor:pointer;">
               My Events
             </a>
           </li>
         </ol>';
 }
-else
+
+if( $_SESSION['userRole'] == 3 )
 {
   echo '<ol class="breadcrumb">
           <li>
-            <a href="?action=Admin">
+            <a link="index.php?display=Admin" style="cursor:pointer;">
               <i class="glyphicon glyphicon-arrow-left"></i> Admin
             </a>
           </li>
           <li>
-            <a href="?action=Events">
+            <a link="index.php?display=Events" style="cursor:pointer;">
               All Events
             </a>
           </li>
@@ -92,19 +88,38 @@ else
 <!-- Form STARTS here -->
 
 <form class="container" method="POST" id="createEventForm">
-  <input name="action" type="hidden" value="createEvent">
+
+<?php
+
+if( $_SESSION['userRole'] == 3 )
+{
+  echo '
+  <input name="display" type="hidden" value="Events">
+  <input name="created" type="hidden" value="1">
+  ';
+}
+
+if( $_SESSION['userRole'] == 2 )
+{
+  echo '
+  <input name="display" type="hidden" value="MyEvents">
+  <input name="created" type="hidden" value="1">
+  ';
+}
+?>
 
   <hr>
 
   <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
 
   <div class="form-group">
-    <label for="creator"> <label class="text-danger">*</label> Enterprise ID:</label>
+    <label for="creator"> <label class="text-danger">*</label> Event Owner's Enterprise ID:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-lock"></i>
       </span>
-      <input name="creator" type="text" class="form-control" id="creator" placeholder="john.p.doe" aria-describedby="enterpriseIDHelp" aria-required="true">
+      <input name="creator" type="text" class="form-control" id="creator"
+      placeholder="john.p.doe" aria-describedby="enterpriseIDHelp" aria-required="true" value="<?php echo $_SESSION['userID']; ?>">
     </div>
 	<small id="enterpriseIDHelp" class="form-text text-muted">Use your enterprise ID only, don't include "@company.com"</small>
   </div>
@@ -130,7 +145,8 @@ else
   </div>
 
   <script type="text/javascript">
-    $('#eventDate').datepicker({
+    $('#eventDate').datepicker(
+    {
       format: "yyyy-mm-dd",
       startDate: '+6d',
       toggleActive: true,
@@ -139,7 +155,8 @@ else
       autoclose: true,
       daysOfWeekHighlighted: "1,2,3,4,5",
       todayHighlight: true
-      }).on('changeDate', function (e) {
+      }).on('changeDate', function (e)
+      {
         $(this).focus();
     });
   </script>
@@ -150,13 +167,14 @@ else
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-time"></i>
       </span>
-      <input name="start" class="form-control" type="text" id="start" placeholder="12:00 pm" aria-required="true">
+      <input name="start" class="form-control" type="text" id="start" placeholder="12:00" aria-required="true">
     </div>
   </div>
 
   <script type="text/javascript">
-  $(function(){
-    $('#start').timepicker({ 'timeFormat': 'H:i:s' });
+  $(function()
+  {
+    $('#start').timepicker({ 'timeFormat': 'H:i' });
   });
   </script>
 
@@ -166,13 +184,14 @@ else
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-time"></i>
       </span>
-      <input name="end" class="form-control" type="text" id="end" placeholder="12:00 pm" aria-required="true">
+      <input name="end" class="form-control" type="text" id="end" placeholder="17:00" aria-required="true">
     </div>
   </div>
 
   <script type="text/javascript">
-  $(function(){
-    $('#end').timepicker({ 'timeFormat': 'H:i:s' });
+  $(function()
+  {
+    $('#end').timepicker({ 'timeFormat': 'H:i' });
   });
   </script>
 
@@ -255,7 +274,8 @@ else
     // Mark the Dropdown to update
     var obj = document.getElementById("eventObjective");
 
-    function changeObjectives(value){
+    function changeObjectives(value)
+    {
 
       // Remove all previous options
       while(obj.firstChild)
@@ -308,88 +328,123 @@ else
 <!-- Begin Scripts for Inline Error Messages -->
 <script type="text/javascript">
 
-   $(document).ready(function() {
-    $('#createEventForm').bootstrapValidator({
+   $(document).ready(function()
+   {
+    $('#createEventForm').bootstrapValidator(
+    {
         container: '#messages',
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-        feedbackIcons: {
+        feedbackIcons:
+        {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
-        fields: {
-			      creator: {
-                validators: {
-                    notEmpty: {
+        fields:
+        {
+			      creator:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter your Enterprise ID.'
                     }
                 }
             },
-            eventName: {
-                validators: {
-                    notEmpty: {
+            eventName:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter the Event Name.'
                     }
                 }
             },
-            eventDate: {
+            eventDate:
+            {
                 // The hidden input will not be ignored
                 excluded: false,
-                validators: {
-                    notEmpty: {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter the Event Date.'
                     },
-                    date: {
+                    date:
+                    {
                         format: 'yyyy-mm-dd',
                         message: 'ERROR: The date format is not a valid. It should be YYY-mm-dd.'
                     }
                 }
             },
-			      start: {
-                validators: {
-                    notEmpty: {
+			      start:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter the Event Start Time.'
                     }
                 }
             },
-            end: {
-                validators: {
-                    notEmpty: {
+            end:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter the Event End Time.'
                     }
                 }
             },
-			      location: {
-                validators: {
-                    notEmpty: {
+			      location:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please select the Event Location.'
                     }
                 }
             },
-            estimatedBudget: {
-                validators: {
-                    notEmpty: {
+            estimatedBudget:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please enter the Estimated Budget.'
                     }
                 }
             },
-            sponsorCommittee: {
-                validators: {
-                    notEmpty: {
+            sponsorCommittee:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please select the Sponsor Committee.'
                     }
                 }
             },
-            eventType: {
-                validators: {
-                    notEmpty: {
+            eventType:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please select the Event Type.'
                     }
                 }
             },
-            eventObjective: {
-                validators: {
-                    notEmpty: {
+            eventObjective:
+            {
+                validators:
+                {
+                    notEmpty:
+                    {
                         message: 'ERROR: Please select the Event Objective.'
                     }
                 }
@@ -398,8 +453,8 @@ else
     })
 
     // POST if everything is OK
-    .on('success.form.bv', function(e) {
-
+    .on('success.form.bv', function(e)
+    {
           // Prevent form submission
           e.preventDefault();
 
@@ -410,7 +465,8 @@ else
           var bv = $form.data('bootstrapValidator');
 
           // Use Ajax to submit form data
-          $.post($form.attr('action'), $form.serialize(), function(result) {
+          $.post($form.attr('display'), $form.serialize(), function(result)
+          {
               console.log(result);
           }, 'json');
     });

@@ -21,7 +21,7 @@ Region Start - Testing MySQL Setup
     [Boolean] - True  - for success
     [String]  - Error - for failure
 */
-Function test_MySQL($user, $pass, $host, $port)
+Function test_MySQL($dbname, $user, $pass, $host, $port)
 {
   // Open Connection
   $link = mysqli_init();
@@ -49,11 +49,11 @@ Function test_MySQL($user, $pass, $host, $port)
 
     $content = '
     <?php
-      $DBUSER = "' . $user . '";
-      $DBPASS = "' . $pass . '";
-      $DB     = "Event_Manager";
-      $DBHOST = "' . $host . '";
-      $DBPORT = "' . $port . '";
+      $DBUSER = "'  . $user   . '";
+      $DBPASS = "'  . $pass   . '";
+      $DB     = "'  . $dbname . '";
+      $DBHOST = "'  . $host   . '";
+      $DBPORT = "'  . $port   . '";
       $DBTYPE = "mysql";
     ?>';
 
@@ -155,7 +155,7 @@ Function setup_AttendanceTable()
     [Boolean] - True for success
     [Boolean] - False for failure
 */
-Function setup_DB($user, $pass, $host, $port)
+Function setup_DB($dbname, $user, $pass, $host, $port)
 {
   // Join Host + Port
   $url = $host.':'.$port;
@@ -171,7 +171,7 @@ Function setup_DB($user, $pass, $host, $port)
   }
 
   // Create the database
-  $sql = "CREATE DATABASE Event_Manager
+  $sql = "CREATE DATABASE `" . $dbname . "`
           DEFAULT CHARACTER SET = 'utf8'
           DEFAULT COLLATE = 'utf8_general_ci'";
 
@@ -199,7 +199,7 @@ Function setup_DB($user, $pass, $host, $port)
 */
 Function setup_DIMCommitteeTable()
 {
-  $create = query_DB("CREATE TABLE `Event_Manager`.`DIM Committee` (
+  $create = query_DB("CREATE TABLE `DIM Committee` (
             `Committee_ID` VARCHAR(255) NOT NULL COMMENT 'Committee ID' ,
             `Committee_Name` TEXT NOT NULL COMMENT 'Committe Name' ,
             PRIMARY KEY (`Committee_ID`))
@@ -239,7 +239,7 @@ Function setup_DIMCommitteeTable()
 */
 Function setup_DIMEventTypeTable()
 {
-  $create = query_DB("CREATE TABLE `Event_Manager`.`DIM Event Type` (
+  $create = query_DB("CREATE TABLE `DIM Event Type` (
             `ID` BIGINT NOT NULL COMMENT 'Type ID' ,
             `Name` TEXT NOT NULL COMMENT 'Type Name' ,
             PRIMARY KEY (`ID`))
@@ -279,7 +279,7 @@ Function setup_DIMEventTypeTable()
 */
 Function setup_DIMEventObjectiveTable()
 {
-  $create = query_DB("CREATE TABLE `Event_Manager`.`DIM Event Objective` (
+  $create = query_DB("CREATE TABLE `DIM Event Objective` (
             `ID` BIGINT NOT NULL COMMENT 'Type ID',
             `Name` TEXT NOT NULL COMMENT 'Objective Name')
             ENGINE  = InnoDB
@@ -327,17 +327,17 @@ Function setup_DIMEventObjectiveTable()
 */
 Function setup_EventChangeLogTable()
 {
-  return query_DB("CREATE TABLE `Event_Manager`.`Event Change Log` (
-    `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Entry ID' ,
-    `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
-    `Type` TEXT NOT NULL COMMENT 'Action type' ,
-    `Reason` TEXT NOT NULL COMMENT 'Reason for the change' ,
-    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person made the change' ,
-    PRIMARY KEY (`ID`) )
-    ENGINE  = InnoDB
-    CHARSET = utf8
-    COLLATE utf8_general_ci
-    COMMENT = 'Contains all event change history'");
+  return query_DB("CREATE TABLE `Event Change Log` (
+                     `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Entry ID',
+                     `EventID` bigint(20) NOT NULL COMMENT 'Event ID',
+                     `Type` text NOT NULL COMMENT 'Action type',
+                     `Reason` text NOT NULL COMMENT 'Reason for the change',
+                     `Actor` text NOT NULL COMMENT 'Who performed the action',
+                     `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person made the change',
+                   PRIMARY KEY (`ID`)
+                  ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT
+                  CHARSET=utf8
+                  COMMENT='Contains all event change history'");
 }
 
 /*
@@ -358,7 +358,7 @@ Function setup_EventsTable()
                   `Start` time NOT NULL COMMENT 'Event start time',
                   `End` time NOT NULL COMMENT 'Event end time',
                   `Estimated_Budget` double NOT NULL COMMENT 'Event estimated eudget',
-                  `Actual_Budget` double NOT NULL DEFAULT '0' COMMENT 'Event actual budget',
+                  `Actual_Budget` double DEFAULT NULL COMMENT 'Event actual budget',
                   `Location` text NOT NULL COMMENT 'Event location',
                   `Committee_ID` text NOT NULL COMMENT 'Committee in charge of the event',
                   `Type` text NOT NULL COMMENT 'Event Type',
@@ -387,7 +387,7 @@ Function setup_EventsTable()
 */
 Function setup_LeadsTable()
 {
-  return query_DB("CREATE TABLE `Event_Manager`.`Leads` (
+  return query_DB("CREATE TABLE `Leads` (
     `ID` BIGINT NOT NULL COMMENT 'Enterprise ID' ,
     `Committee_ID` TEXT NOT NULL COMMENT 'Committee ID' ,
     PRIMARY KEY (`ID`))
@@ -441,7 +441,7 @@ Function setup_MembersTable()
 */
 Function setup_RSVPTable()
 {
-  return query_DB("CREATE TABLE `Event_Manager`.`RSVP` (
+  return query_DB("CREATE TABLE `RSVP` (
     `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Entry ID' ,
     `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
     `EnterpriseID` TEXT NOT NULL COMMENT 'Enterprise ID' ,
@@ -465,7 +465,7 @@ Function setup_RSVPTable()
 */
 Function setup_UsersTable()
 {
-  return query_DB("CREATE TABLE `Event_Manager`.`Users` (
+  return query_DB("CREATE TABLE `Users` (
     `Username` VARCHAR(200) NOT NULL COMMENT 'Username' ,
     `Password` TEXT NOT NULL COMMENT 'Password' ,
     `Role` BIGINT NOT NULL COMMENT 'User Role'  ,
@@ -837,6 +837,96 @@ Function get_AllAttendance()
 
 /*
   Description:
+    This function executes a query to get all attendance data (Report 2).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllAttendanceByTypeOverview()
+{
+  $result = query_DB("SELECT COUNT(`Type`) as Total,
+		                        SUM(case when `Type` = 0 then 1 else 0 end) as 'InPerson',
+   		                      SUM(case when `Type` = 1 then 1 else 0 end) as 'Remote'
+                      FROM `Attendance`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get total attendance data by Event (Report 3).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllAttendanceTotalsByEvent()
+{
+  $result = query_DB("SELECT `Name`, `EventID`, COUNT(*) as Total,
+                    		SUM(case when A.`Type` = 0 then 1 else 0 end) as 'InPerson',
+                     		SUM(case when A.`Type` = 1 then 1 else 0 end) as 'Remote'
+                      FROM `Attendance` A, `Events` E
+                      WHERE `E`.`ID` = `A`.`EventID`
+                      GROUP BY `EventID`
+                      ORDER BY `EventID` ASC");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get total attendance data by Career Level (Report 1).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllAttendanceTotalsByCareerLevel()
+{
+  $result = query_DB("SELECT  SUM(case when `M`.`Level` = '5' then 1 else 0 end) as 'Leadership',
+                         		  SUM(case when `M`.`Level` = '6' then 1 else 0 end) as 'CL6',
+                              SUM(case when `M`.`Level` = '7' then 1 else 0 end) as 'CL7',
+                              SUM(case when `M`.`Level` = '8' then 1 else 0 end) as 'CL8',
+                              SUM(case when `M`.`Level` = '9' then 1 else 0 end) as 'CL9',
+                              SUM(case when `M`.`Level` = '10' then 1 else 0 end) as 'CL10',
+                              SUM(case when `M`.`Level` = '11' then 1 else 0 end) as 'CL11',
+                              SUM(case when `M`.`Level` = '12' then 1 else 0 end) as 'CL12',
+                              SUM(case when `M`.`Level` = '13' then 1 else 0 end) as 'CL13',
+                              SUM(case when `M`.`Level` = '14' then 1 else 0 end) as 'CL14'
+                      FROM Members M
+                      INNER JOIN Attendance A
+                      ON M.EID = A.EnterpriseID");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
     This function executes a query to get all roles data (Report 0).
   @PARAM:
 
@@ -1078,76 +1168,26 @@ Function get_MembersByCareerLevelReport()
 {
   $result = query_DB("SELECT
                       	COUNT(`EID`) AS TotalMembership,
-                      	SUM(CASE
-                              	WHEN Level = 'Leadership' THEN 1
-                              	ELSE 0
-                              END)
-                          AS Leadership,
-                          SUM(CASE WHEN Level = 'Leadership' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                          AS LeadershipP,
-                          SUM(CASE
-                              	WHEN Level = '6' THEN 1
-                              	ELSE 0
-                              END)
-                          AS L6,
-                          SUM(CASE WHEN Level = '6' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                          AS L6P,
-                          SUM(CASE
-                              	WHEN Level = '7' THEN 1
-                              	ELSE 0
-                              END)
-                          AS L7,
-                          SUM(CASE WHEN Level = '7' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                          AS L7P,
-                          SUM(CASE
-                              	WHEN Level = '8' THEN 1
-                              	ELSE 0
-                              END)
-                          AS L8,
-                          SUM(CASE WHEN Level = '8' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                          AS L8P,
-                          SUM(CASE
-                              	WHEN Level = '9' THEN 1
-                              	ELSE 0
-                              END)
-                          AS L9,
-                          SUM(CASE WHEN Level = '9' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                          AS L9P,
-                          SUM(CASE
-                              	WHEN Level = '10' THEN 1
-                              	ELSE 0
-                              END)
-                          AS L10,
-                          SUM(CASE WHEN Level = '10' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                          AS L10P,
-                          SUM(CASE
-                              	WHEN Level = '11' THEN 1
-                              	ELSE 0
-                              END)
-                          AS L11,
-                          SUM(CASE WHEN Level = '11' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                          AS L11P,
-                          SUM(CASE
-                              	WHEN Level = '12' THEN 1
-                              	ELSE 0
-                              END)
-                          AS L12,
-                          SUM(CASE WHEN Level = '12' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                          AS L12P,
-                          SUM(CASE
-                              	WHEN Level = '13' THEN 1
-                              	ELSE 0
-                              END)
-                          AS L13,
-                          SUM(CASE WHEN Level = '13' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                          AS L13P,
-                          SUM(CASE
-                              	WHEN Level = '14' THEN 1
-                              	ELSE 0
-                              END)
-                          AS L14,
-                          SUM(CASE WHEN Level = '14' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                          AS L14P
+                      	SUM(CASE WHEN Level = '5' THEN 1 ELSE 0 END) AS Leadership,
+                        SUM(CASE WHEN Level = '5' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS LeadershipP,
+                        SUM(CASE WHEN Level = '6' THEN 1 ELSE 0 END) AS L6,
+                        SUM(CASE WHEN Level = '6' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS L6P,
+                        SUM(CASE WHEN Level = '7' THEN 1 ELSE 0 END) AS L7,
+                        SUM(CASE WHEN Level = '7' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS L7P,
+                        SUM(CASE WHEN Level = '8' THEN 1 ELSE 0 END) AS L8,
+                        SUM(CASE WHEN Level = '8' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS L8P,
+                        SUM(CASE WHEN Level = '9' THEN 1 ELSE 0 END) AS L9,
+                        SUM(CASE WHEN Level = '9' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS L9P,
+                        SUM(CASE WHEN Level = '10' THEN 1 ELSE 0 END) AS L10,
+                        SUM(CASE WHEN Level = '10' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS L10P,
+                        SUM(CASE WHEN Level = '11' THEN 1 ELSE 0 END) AS L11,
+                        SUM(CASE WHEN Level = '11' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS L11P,
+                        SUM(CASE WHEN Level = '12' THEN 1 ELSE 0 END) AS L12,
+                        SUM(CASE WHEN Level = '12' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS L12P,
+                        SUM(CASE WHEN Level = '13' THEN 1 ELSE 0 END) AS L13,
+                        SUM(CASE WHEN Level = '13' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS L13P,
+                        SUM(CASE WHEN Level = '14' THEN 1 ELSE 0 END) AS L14,
+                        SUM(CASE WHEN Level = '14' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS L14P
                       FROM Members");
 
   if( $result['Result'] )
@@ -1173,20 +1213,10 @@ Function get_MembersByCompanySegmentReport()
 {
   $result = query_DB("SELECT
                     	COUNT(`EID`) AS TotalMembership,
-                    	SUM(CASE
-                            	WHEN Segment = 'Federal' THEN 1
-                            	ELSE 0
-                            END)
-                        AS Federal,
-                        SUM(CASE WHEN Segment = 'Federal' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                        AS FederalP,
-                    	SUM(CASE
-                            	WHEN Segment = 'LLP' THEN 1
-                            	ELSE 0
-                            END)
-                        AS LLP,
-                        SUM(CASE WHEN Segment = 'LLP' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`)
-                        AS LLPP
+                    	SUM(CASE WHEN Segment = 'Federal' THEN 1 ELSE 0 END) AS Federal,
+                      SUM(CASE WHEN Segment = 'Federal' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS FederalP,
+                    	SUM(CASE WHEN Segment = 'LLP' THEN 1 ELSE 0 END) AS LLP,
+                      SUM(CASE WHEN Segment = 'LLP' THEN 1 ELSE 0 END) * 100 / COUNT(`EID`) AS LLPP
                     FROM Members");
 
   if( $result['Result'] )
@@ -1216,9 +1246,43 @@ Function get_MyEvents($id)
   $result = query_DB("SELECT `ID`, `Name`, `Date`, `Created`, `Creator`, `Person_Code`, `Remote_Code`,
                              `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
                       FROM `Events`
-                      WHERE `Creator` LIKE '$id'
+                      WHERE `Creator` = '$id'
                       AND `Date` > '$date'
-                      ORDER BY `Date`,`Start`");
+                      ORDER BY `Date` DESC,`Start`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the POC's events that are missing the actual budget.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_MyEventsPendingAction($id)
+{
+  $date = date('Y-m-d');
+  $time = date('H:i:s');
+
+  $result = query_DB("SELECT `ID`, `Name`, `Date`, `Created`, `Creator`, `Person_Code`, `Remote_Code`,
+                             `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
+                      FROM `Events`
+                      WHERE `Creator` = '$id'
+                      AND `Date` <= '$date'
+                      AND `Approved` = '1'
+                      AND `Deleted` = '0'
+                      AND `Actual_Budget` IS NULL
+                      ORDER BY `Date` DESC");
 
   if( $result['Result'] )
   {
@@ -1278,6 +1342,32 @@ Region Start - Regular Use MySQL DB Insert Functions
 
 /*
   Description:
+    This function executes a query to insert a new event change log.
+  @PARAM:
+  - id :    The EventID
+  - type:   Type of action taken
+  - reason: Why this action was taken
+
+  @RETURN:
+    [Boolean] - True
+    [Array]   - False
+*/
+Function insert_eventChangeLog($id, $type, $reason)
+{
+  // Create the Log Entry
+  $result = query_DB( "INSERT INTO `Event Change Log`
+              (`EventID`, `Type`, `Reason`, `Actor`)
+              VALUES (
+                '" . $id . "',
+                '" . $type . "',
+                '" . $reason . "',
+                '" . $_SESSION['userID'] . "')" );
+
+  return $result['Result'];
+}
+
+/*
+  Description:
     This function executes a query to insert a new Announcement.
   @PARAM:
 
@@ -1320,53 +1410,63 @@ Function insert_newAnnouncement($data)
 */
 Function insert_newEvent($data)
 {
+  $exists = ( mysqli_fetch_all(
+                query_DB("SELECT COUNT(`ID`)
+                          FROM `Events`
+                          WHERE `Name` = '" . $data['eventName'] . "'
+                          AND `Date` = '" . $data['eventDate'] . "'"
+                        )[Data]
+                )[0]
+            )[0];
 
-  $code1 = substr( MD5( date('Y-m-d H:i:s') ), 0, 6 );
-  $code2 = substr( MD5( date('Y-m-d H-i-s') ), 0, 6 );
-
-  // Insert into the Events Table
-  $result = query_DB( "INSERT INTO `Events`
-            (`Name`, `Date`, `Start`, `End`, `Estimated_Budget`, `Location`, `Committee_ID`,
-              `Type`, `Objective`, `Creator`, `Person_Code`, `Remote_Code`)
-            VALUES (
-              '" . sanitize($data['eventName'])        . "', '" . sanitize($data['eventDate'])        . "',
-              '" . sanitize($data['start'])            . "', '" . sanitize($data['end'])              . "',
-              '" . sanitize($data['estimatedBudget'])  . "', '" . sanitize($data['location'])         . "',
-              '" . sanitize($data['sponsorCommittee']) . "', '" . sanitize($data['eventType'])        . "',
-              '" . sanitize($data['eventObjective'])   . "', '" . sanitize($data['creator'])          . "',
-              '" . $code1                              . "', '" . $code2 . "' )" );
-
-  // If successful
-  if( $result['Result'] )
+  // If the user does not exist
+  if( $exists == 0 )
   {
-    // Get the Event's ID
-    $result = query_DB( "SELECT `ID`
-                         FROM `Events`
-                         WHERE `Name` = '" . $data['eventName'] . "'");
+    $code1 = substr( MD5( date('Y-m-d H:i:s') ), 0, 6 );
+    $code2 = substr( MD5( date('Y-m-d H-i-s') ), 0, 6 );
 
-    // Grab the Event ID
-    $evID = ( ( mysqli_fetch_all( $result['Data'] ) )[0] )[0];
+    // Insert into the Events Table
+    $result = query_DB( "INSERT INTO `Events`
+                          (`Name`, `Date`, `Start`, `End`, `Estimated_Budget`, `Location`, `Committee_ID`,
+                            `Type`, `Objective`, `Creator`, `Person_Code`, `Remote_Code`)
+                        VALUES (
+                          '" . sanitize($data['eventName'])        . "', '" . sanitize($data['eventDate'])        . "',
+                          '" . sanitize($data['start'])         . ":00', '" . sanitize($data['end'])              . ":00',
+                          '" . sanitize($data['estimatedBudget'])  . "', '" . sanitize($data['location'])         . "',
+                          '" . sanitize($data['sponsorCommittee']) . "', '" . sanitize($data['eventType'])        . "',
+                          '" . sanitize($data['eventObjective'])   . "', '" . sanitize($data['creator'])          . "',
+                          '" . $code1                              . "', '" . $code2 . "' )" );
 
-    // If got it
+    // If successful
     if( $result['Result'] )
     {
-      // Create the Log Entry
-      $result = query_DB( "INSERT INTO `Event Change Log`
-                (`EventID`, `Type`, `Reason`)
-                VALUES (
-                  '" . $evID                     . "', 'Create',
-                  'New Event Creation Form')" );
+      // Get the Event's ID
+      $result = query_DB( "SELECT `ID`
+                           FROM `Events`
+                           WHERE `Name` = '" . $data['eventName'] . "'");
 
-      // If successful
+      // Grab the Event ID
+      $evID = ( ( mysqli_fetch_all( $result['Data'] ) )[0] )[0];
+
+      // If got it
       if( $result['Result'] )
       {
-        return True;
+        // Create the Log Entry
+        insert_eventChangeLog($evID, 'Create', 'New event created using the New Event form.');
+
+        return 1;
+      }
+      else
+      {
+        // If failed
+        return 0;
       }
     }
   }
   else
   {
-    return $result['Errors'];
+    // If event already exists
+    return 2;
   }
 }
 
@@ -1390,9 +1490,18 @@ Function insert_newEvent($data)
 */
 Function insert_newMember($data)
 {
-  $exists = ( mysqli_fetch_all( query_DB("SELECT COUNT(ID)
+  $exists = ( mysqli_fetch_all( query_DB("SELECT COUNT(`EID`)
                       FROM `Members`
-                      WHERE `ID`      = '" . $data['enterpriseID'] . "'")[Data] )[0] )[0];
+                      WHERE `EID` = '" . $data['enterpriseID'] . "'")[Data] )[0] )[0];
+
+  if($data['level'] == 'Leadership')
+  {
+    $level = 5;
+  }
+  else
+  {
+    $level = $data['level'];
+  }
 
   // If the user does not exist
   if( $exists == 0 )
@@ -1405,7 +1514,7 @@ Function insert_newMember($data)
                               '" . $data['lastName'] . "',
                               '" . $data['email'] . "',
                               '" . $data['segment'] . "',
-                              '" . $data['level'] . "',
+                              '" . $level . "',
                               '" . $data['newsletter'] . "',
                               '" . $data['volunteer'] . "',
                               '0')");
@@ -1724,6 +1833,29 @@ function recoverEvent($id)
 }
 
 /*
+  Function that sets the event actual budget
+  @Param  - Int - The EventID.
+  @Return - Boolean (T or F) if correct
+*/
+function set_ActualBudget($data)
+{
+  // Insert into the Events Table
+  $result = query_DB( "UPDATE `Events`
+                       SET `Actual_Budget` = '" . $data['actualBudget'] . "'
+                       WHERE `id` = " . $data['id']);
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
   Description:
     This function executes a query to update an Event.
   @PARAM:
@@ -1733,7 +1865,7 @@ function recoverEvent($id)
     [Boolean] - True
     [Array]   - Errors
 */
-Function update_Event($data, $id)
+Function update_Event($data)
 {
   // Update the Events Table
   $result = query_DB( "UPDATE `Events`
@@ -1748,7 +1880,7 @@ Function update_Event($data, $id)
                            `Type`             = '" . sanitize($data['eventType'])        . "',
                            `Objective`        = '" . sanitize($data['eventObjective'])   . "',
                            `Creator`          = '" . sanitize($data['creator'])          . "'
-                       WHERE `ID` = " . sanitize($id)
+                       WHERE `ID` = " . sanitize($data['id'])
                     );
 
   // If successful

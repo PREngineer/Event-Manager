@@ -1,39 +1,42 @@
 <?php
 
+include '../functions/Init.php';
 include '../functions/DB.php';
 
 $result = recoverEvent( $_GET['id'] );
 
-if($result && $_GET['return'] != "myEvents")
+if( $result && ($_GET['display'] == 'Poc') )
 {
   echo'
     <script>
-      window.location = "index.php?action=Events&recover=1";
+      window.location = "index.php?display=MyEvents&EventRecovery=1";
     </script>
   ';
 }
-else if($result)
+if( !$result && ($_GET['display'] == 'Poc') )
 {
   echo'
     <script>
-      window.location = "index.php?action=myEvents&recover=1";
+      window.location = "index.php?display=MyEvents&EventRecovery=0");
     </script>
   ';
 }
-else if(!$result && $_GET['return'] != "myEvents")
+
+if( $result && ($_GET['display'] == "Admin") )
 {
   echo'
     <script>
-      window.location = "index.php?action=Events&recover=0";
+      window.location = "index.php?display=Events&EventRecovery=1";
     </script>
   ';
 }
-else if(!$result)
+if( !$result && ($_GET['display'] == "Admin") )
 {
   echo'
     <script>
-      window.location = "index.php?action=myEvents&recover=0";
+      window.location = "index.php?display=Events&EventRecovery=0";
     </script>
   ';
 }
+
 ?>

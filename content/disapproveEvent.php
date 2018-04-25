@@ -1,39 +1,42 @@
 <?php
 
+include '../functions/Init.php';
 include '../functions/DB.php';
 
 $result = disapproveEvent( $_GET['id'] );
 
-if($result && $_GET['return'] != "approver")
+if( $result && ($_GET['display'] == 'Approver') )
 {
   echo'
     <script>
-      window.location = "index.php?action=Events&disapproval=1";
+      window.location = "index.php?display=Approver&EventDisapproval=1";
     </script>
   ';
 }
-else if($result)
+if( !$result && ($_GET['display'] == 'Approver') )
 {
   echo'
     <script>
-      window.location = "index.php?action=approve&disapproval=1";
+      window.location = "index.php?display=Approver&EventDisapproval=0");
     </script>
   ';
 }
-else if(!$result && $_GET['return'] != "approver")
+
+if( $result && ($_GET['display'] == "Admin") )
 {
   echo'
     <script>
-      window.location = "index.php?action=Events&disapproval=0";
+      window.location = "index.php?display=Events&EventDisapproval=1";
     </script>
   ';
 }
-else if(!$result)
+if( !$result && ($_GET['display'] == "Admin") )
 {
   echo'
     <script>
-      window.location = "index.php?action=approve&disapproval=0";
+      window.location = "index.php?display=Events&EventDisapproval=0";
     </script>
   ';
 }
+
 ?>

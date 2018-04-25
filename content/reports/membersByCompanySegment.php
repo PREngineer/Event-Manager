@@ -1,22 +1,24 @@
 <!-- Table -->
+<title>Event Manager - Membership Reports - Membership By Company Segment</title>
 
 <?php
 
-  // Include DB functions
-  include '../functions/DB.php';
-
-  session_start();
+  include '../../functions/Init.php';
+  include '../../functions/DB.php';
+  //include '../layout/LinkHandler.php';
 
   $members = get_MembersByCompanySegmentReport()[0];
 
-  $report = '<table id="reportTable" class="container table">
+  echo '
+  <table id="reportTable" class="container table">
     <thead>
       <tr style="background: lightgray;">
         <th>Company Segment</th>
         <th>Number of Members</th>
         <th>Percentage of Members</th>
-      <tr>
-    </thead>';
+      </tr>
+    </thead>
+    <tbody>';
 
   if( sizeof($members) == 0 )
   {
@@ -28,7 +30,8 @@
   }
   else
   {
-    $report .= '<tr>
+    echo '
+      <tr>
         <td>
           Federal
         </td>
@@ -64,9 +67,9 @@
     ';
   }
 
-  $report .= '</table>';
+  echo '
+    </tbody>
+  </table>';
 
-  // Print the report to the webpage
-  echo $report;
 
 ?>

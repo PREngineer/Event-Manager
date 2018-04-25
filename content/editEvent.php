@@ -1,17 +1,10 @@
+<title>Event Manager - Edit Event</title>
+
 <?php
 
-session_start();
-
+include '../functions/Init.php';
 include '../functions/DB.php';
-
-if( $_SESSION['userRole'] == 2 )
-{
-  echo '<script>document.getElementById("pocLink").classList.add("active");</script>';
-}
-else
-{
-  echo '<script>document.getElementById("adminLink").classList.add("active");</script>';
-}
+include 'layout/LinkHandler.php';
 
 $committees = get_Committees();
 
@@ -60,18 +53,20 @@ echo '</script>';
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Edit Existing Event</h1>
 
+<hr>
+
 <?php
 
 if( $_SESSION['userRole'] == 2 )
 {
   echo '<ol class="breadcrumb">
           <li>
-            <a href="?action=Poc">
+            <a link="index.php?display=Poc" style="cursor:pointer;">
               <i class="glyphicon glyphicon-arrow-left"></i> POC Menu
             </a>
           </li>
           <li>
-            <a href="?action=myEvents">
+            <a link="index.php?display=MyEvents" style="cursor:pointer;">
               My Events
             </a>
           </li>
@@ -81,12 +76,12 @@ else
 {
   echo '<ol class="breadcrumb">
           <li>
-            <a href="?action=Admin">
-              <i class="glyphicon glyphicon-arrow-left"></i> Admin
+            <a link="index.php?display=Admin">
+              <i class="glyphicon glyphicon-arrow-left"></i style="cursor:pointer;"> Admin
             </a>
           </li>
           <li>
-            <a href="?action=Events">
+            <a link="index.php?display=Events" style="cursor:pointer;">
               All Events
             </a>
           </li>
@@ -97,9 +92,23 @@ else
 <!-- Form STARTS here -->
 
 <form class="container" method="POST" id="createEventForm">
-  <input name="action" type="hidden" value="editEvent">
-
-  <hr>
+<?php
+if( $_SESSION['userRole'] == '2' )
+{
+  echo '
+    <input name="display" type="hidden" value="MyEvents">
+    <input name="edited" type="hidden" value="1">
+  ';
+}
+else
+{
+  echo '
+    <input name="display" type="hidden" value="Events">
+    <input name="edited" type="hidden" value="1">
+  ';
+}
+?>
+  <input name="id" type="hidden" value="<?php echo $_GET['id'];?>">
 
   <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
 
@@ -211,6 +220,11 @@ else
     <small id="estimatedBudgetHelp" class="form-text text-muted">Do not include commas.</small>
   </div>
 
+<?php
+
+if($_SESSION['userRole'] == 3)
+{
+  echo '
   <div class="form-group">
     <label for="actualBudget"> <label class="text-danger">*</label> Actual Budget:</label>
     <div class="input-group">
@@ -219,10 +233,18 @@ else
       </span>
       <input name="actualBudget" type="text" class="form-control" id="actualBudget"
       placeholder="1234.56" aria-describedby="actualBudgetHelp" aria-required="true"
-       value="<?php echo $eventData[6]; ?>">
+       value="' . $eventData[6] . '">
     </div>
     <small id="actualBudgetHelp" class="form-text text-muted">Do not include commas.</small>
   </div>
+  ';
+}
+else
+{
+  echo '<input name="actualBudget" type="hidden" value="0">';
+}
+
+?>
 
   <div class="form-group">
     <label for="sponsorCommittee"> <label class="text-danger">*</label> Sponsor Committee:</label>
@@ -457,7 +479,7 @@ else
           var bv = $form.data('bootstrapValidator');
 
           // Use Ajax to submit form data
-          $.post($form.attr('action'), $form.serialize(), function(result) {
+          $.post($form.attr('display'), $form.serialize(), function(result) {
               console.log(result);
           }, 'json');
     });

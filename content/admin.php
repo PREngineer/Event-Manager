@@ -1,41 +1,20 @@
+<title>Event Manager - Administrators</title>
+
 <?php
-  // Include DB functions
-  include '../functions/DB.php';
-  session_start();
 
-echo '
-<!-- Handle NavBar Highlights -->
-<script>
-  document.getElementById("announcementsLink").classList.remove("active");
-  document.getElementById("currentLink").classList.remove("active");
-  document.getElementById("futureLink").classList.remove("active");
-  document.getElementById("createMemberLink").classList.remove("active");
-  document.getElementById("loginLink").classList.remove("active");
-  document.getElementById("myRSVP").classList.remove("active");
-';
-
-  if( $_SESSION['userRole'] == 1 )
-  {
-    echo 'document.getElementById("approversLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 2 )
-  {
-    echo 'document.getElementById("pocLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 3 )
-  {
-    echo 'document.getElementById("adminLink").classList.add("active");';
-  }
-
-echo '</script>';
+include '../functions/Init.php';
+include '../functions/DB.php';
+include 'layout/LinkHandler.php';
 
 ?>
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Administrator</h1>
 
+<hr>
+
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Welcome to your administration menu!</div>
+  <div class="panel-heading"><p>Welcome <?php echo $_SESSION['userID']; ?>!</p></div>
   <div class="panel-body">
     <p>
       Being an administrator gives you plenty of control and power over the information
@@ -56,7 +35,7 @@ echo '</script>';
     </thead>
 
     <tr>
-      <td><a href="?action=AnnouncementsMenu">Announcements</a></td>
+      <td><a link="index.php?display=AnnouncementsMenu" style="cursor:pointer;">Announcements</a></td>
       <td>
         Use this option to manage the announcements:<br>
         * Create<br>
@@ -67,7 +46,7 @@ echo '</script>';
     </tr>
 
     <tr>
-      <td><a href="?action=Attendance">Attendance</a></td>
+      <td><a link="index.php?display=Attendance" style="cursor:pointer;">Attendance</a></td>
       <td>
         Use this option to manage attendance related information:<br>
         * Add (outside of the event date)<br>
@@ -77,7 +56,7 @@ echo '</script>';
     </tr>
 
     <tr>
-      <td><a href="?action=Events">Events</a></td>
+      <td><a link="index.php?display=Events" style="cursor:pointer;">Events</a></td>
       <td>
         Use this option to manage the information currently stored in the
         database:<br>
@@ -89,7 +68,7 @@ echo '</script>';
     </tr>
 
     <tr>
-      <td><a href="?action=Members">Members</a></td>
+      <td><a link="index.php?display=Members" style="cursor:pointer;">Members</a></td>
       <td>
         Use this option to manage the members of the Employee Resource Group:<br>
         * Add<br>
@@ -99,7 +78,7 @@ echo '</script>';
     </tr>
 
     <tr>
-      <td><a href="?action=Reports">Reports</a></td>
+      <td><a link="index.php?display=Reports" style="cursor:pointer;">Reports</a></td>
       <td>
         Use this option to view live or historical reports about the
         Employee Resource Group's:<br>
@@ -111,7 +90,7 @@ echo '</script>';
     </tr>
 
     <tr>
-      <td><a href="?action=UserRoles">User Roles</a></td>
+      <td><a link="index.php?display=UserRoles" style="cursor:pointer;">User Roles</a></td>
       <td>
         Use this option to determine which members of the Employee Resource
         Group can have the following roles:<br>

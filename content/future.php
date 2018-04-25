@@ -1,51 +1,27 @@
+<title>Event Manager - Future Events</title>
+
 <?php
 
-session_start();
-
+include '../functions/Init.php';
 include '../functions/DB.php';
+include 'layout/LinkHandler.php';
 
 $events = get_FutureEvents();
-
-//print_r($events);
-
-echo '
-<!-- Handle NavBar Highlights -->
-<script>
-  document.getElementById("announcementsLink").classList.remove("active");
-  document.getElementById("currentLink").classList.remove("active");
-  document.getElementById("futureLink").classList.add("active");
-  document.getElementById("createMemberLink").classList.remove("active");
-  document.getElementById("loginLink").classList.remove("active");
-  document.getElementById("myRSVP").classList.remove("active");
-';
-
-  if( $_SESSION['userRole'] == 1 )
-  {
-    echo 'document.getElementById("approversLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 2 )
-  {
-    echo 'document.getElementById("pocLink").classList.remove("active");';
-  }
-  if( $_SESSION['userRole'] == 3 )
-  {
-    echo 'document.getElementById("adminLink").classList.remove("active");';
-  }
-
-echo '</script>';
 
 ?>
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Future Events</h1>
 
-<div class="container">
+<hr>
+
+<div id="PageContents" class="container">
 
 <?php
 if( sizeof($events) == 0 )
 {
   echo '
   <div class="container">
-    <h3>There are no scheduled events in the future.</h3>
+    <h2>There are no scheduled events in the future.</h2>
   </div>
   ';
 }
@@ -53,16 +29,16 @@ else
 {
   foreach ($events as $name => $value)
   {
-    $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?action=rsvp%26id=' . $value[0];
+    $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?display=RSVP%26id=' . $value[0];
 
     echo '
     <div class="col-sm-3">
       <div class="thumbnail" style="height: 500px;">
         <img src="../images/event.png" alt="Event image" width="150" height="150">
         <div class="caption">
-            <table class="table">
+            <table role="presentation" class="table">
               <tr>
-                <td class="text-center" colspan="2"><h4>' . $value[1] . '</h4></td>
+                <td class="text-center" colspan="2"><strong>' . $value[1] . '</strong></td>
               </tr>
               <tr>
                 <td>Date:</td>
@@ -82,10 +58,12 @@ else
               </tr>
               <tr>
                 <td class="text-center">
-                  <a href="?action=RSVP&id=' . $value[0] . '" class="btn btn-primary" role="button">RSVP</a>
+                  <a link="index.php?display=RSVP&id=' . $value[0] . '" class="btn btn-primary" role="button">RSVP</a>
                 </td>
                 <td>
-                  <a href="mailto:?subject=Thought%20you%20would%20like%20to%20know&body=Check%20out%20this%20event.%0A%0A' . $url . '" class="btn btn-success" role="button">Share</a>
+                  <a link="mailto:?subject=Thought%20you%20would%20like%20to%20know&body=Check%20out%20this%20event.%0A%0AIt is named: ' . $value[1] .
+                  '%0A%0ALocation: ' . $value[5] . '%0A%0ADate: ' . $value[2] . '%0A%0AFrom: ' . $value[3] . '%20-%20' . $value[4] .
+                  '%0A%0ARSVP here: ' . $url . '" class="btn btn-success" role="button">Share</a>
                 </td class="text-center">
               </tr>
             </table>

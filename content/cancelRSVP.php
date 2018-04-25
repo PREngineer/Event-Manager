@@ -1,16 +1,15 @@
 <?php
 
-session_start();
-
+include '../functions/Init.php';
 include '../functions/DB.php';
-include '../functions/Mail.php';
+include 'layout/LinkHandler.php';
 
 ?>
 
 <!-- Heading -->
-<header role="banner">
-  <h1 id="page_title" tabindex="-1" role="heading" aria-level="1">Event Registration Cancellation</h1>
-</header>
+<h1 id="page_title" tabindex="-1" role="heading" aria-level="1">Event Registration Cancellation</h1>
+
+<hr>
 
 <?php
 
@@ -21,15 +20,17 @@ if( !empty($_GET) )
 
 ?>
 
-<h4>
+<h2>
 Your cancellation has been received.
-</h4>
+</h2>
+
+<br>
 
 <table style="width:50%">
 
 <tr>
   <td style="width:50%">
-    Event Name:
+    <strong>Event Name:</strong>
   </td>
   <td>
     <?php echo $data[1] ?>
@@ -38,7 +39,7 @@ Your cancellation has been received.
 
 <tr>
   <td>
-    Event Date:
+    <strong>Event Date:</strong>
   </td>
   <td>
     <?php echo $data[2] ?>
@@ -47,7 +48,7 @@ Your cancellation has been received.
 
 <tr>
   <td>
-    Event Location:
+    <strong>Event Location:</strong>
   </td>
   <td>
     <?php echo $data[7] ?>
@@ -56,7 +57,7 @@ Your cancellation has been received.
 
 <tr>
   <td>
-    Event Reservation:
+    <strong>Event Reservation:</strong>
   </td>
   <td>
     <?php echo $_GET['eid'] ?>
