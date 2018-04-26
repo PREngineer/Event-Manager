@@ -6,6 +6,8 @@ include '../functions/Init.php';
 include '../functions/DB.php';
 include 'layout/LinkHandler.php';
 
+protectAdmin();
+
 ?>
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Reports</h1>

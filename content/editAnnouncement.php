@@ -6,6 +6,8 @@ include '../functions/Init.php';
 include '../functions/DB.php';
 include 'layout/LinkHandler.php';
 
+protectAdmin();
+
 $details = get_Announcement($_GET['id'])[0];
 
 // Process the <br /> from the Database so that it shows up correctly in the textarea

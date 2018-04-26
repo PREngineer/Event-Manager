@@ -7,6 +7,8 @@
   include '../../functions/DB.php';
   //include '../layout/LinkHandler.php';
 
+  protectAdmin();
+
   $attendance = get_attendanceByCareerLevel();
 
   $oldid = NULL;

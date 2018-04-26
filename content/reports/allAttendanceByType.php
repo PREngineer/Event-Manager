@@ -7,6 +7,8 @@
   include '../../functions/DB.php';
   //include '../layout/LinkHandler.php';
 
+  protectAdmin();
+
   $attendance = get_AllAttendanceByTypeOverview()[0];
 
   if( sizeof($attendance) == 0 )

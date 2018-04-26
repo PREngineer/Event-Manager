@@ -7,6 +7,8 @@
   include '../../functions/DB.php';
   //include '../layout/LinkHandler.php';
 
+  protectAdmin();
+
   $roles = get_AllRolesDistribution();
 
   $admin    = 0;

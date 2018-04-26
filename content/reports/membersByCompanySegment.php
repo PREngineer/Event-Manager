@@ -7,6 +7,8 @@
   include '../../functions/DB.php';
   //include '../layout/LinkHandler.php';
 
+  protectAdmin();
+
   $members = get_MembersByCompanySegmentReport()[0];
 
   echo '

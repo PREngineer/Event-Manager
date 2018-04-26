@@ -4,6 +4,8 @@ include '../functions/DB.php';
 
 $result = deleteAnnouncement( $_GET['id'] );
 
+protectAdmin();
+
 if($result)
 {
   echo'

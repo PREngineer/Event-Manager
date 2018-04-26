@@ -7,6 +7,8 @@
   include '../../functions/DB.php';
   //include '../layout/LinkHandler.php';
 
+  protectAdmin();
+
   $attendance = get_AllAttendance();
 
   echo '<table id="reportTable" class="container table">

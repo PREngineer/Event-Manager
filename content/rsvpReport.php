@@ -4,6 +4,8 @@
   include '../functions/DB.php';
   include 'layout/LinkHandler.php';
 
+  protectAdmin();
+
 ?>
 
 <script>

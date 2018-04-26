@@ -1,6 +1,9 @@
 <?php
 
+include '../functions/Init.php';
 include '../functions/DB.php';
+
+protectAdmin();
 
 $result = expireAnnouncement( $_GET['id'] );
 

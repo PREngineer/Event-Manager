@@ -6,7 +6,7 @@ include '../functions/Init.php';
 include '../functions/DB.php';
 include 'layout/LinkHandler.php';
 
-//$announcements = get_Announcements();
+protectAdmin();
 
 ?>
 

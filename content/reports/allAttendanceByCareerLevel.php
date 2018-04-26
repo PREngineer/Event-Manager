@@ -7,6 +7,8 @@
   include '../../functions/DB.php';
   //include '../layout/LinkHandler.php';
 
+  protectAdmin();
+
   $attendance = get_AllAttendanceTotalsByCareerLevel()[0];
   $total = ($attendance[0] + $attendance[1] + $attendance[2] + $attendance[3] + $attendance[4] + $attendance[5] + $attendance[6] + $attendance[7] + $attendance[8] + $attendance[9]);
 

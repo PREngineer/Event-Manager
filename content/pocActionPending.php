@@ -6,6 +6,8 @@ include '../functions/Init.php';
 include '../functions/DB.php';
 include 'layout/LinkHandler.php';
 
+protectPoc();
+
 $events = get_MyEventsPendingAction($_SESSION['userID']);
 
 ?>

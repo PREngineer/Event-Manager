@@ -3,6 +3,8 @@
 include '../functions/Init.php';
 include '../functions/DB.php';
 
+protectApprover();
+
 $result = approveEvent( $_GET['id'] );
 
 if( $result && ($_GET['display'] == 'Approver') )

@@ -3,6 +3,8 @@
 include '../functions/Init.php';
 include '../functions/DB.php';
 
+protectPoc();
+
 $result = deleteEvent( $_GET['id'] );
 
 if( $result && ($_GET['display'] == 'Poc') )
