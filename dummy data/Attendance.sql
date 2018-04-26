@@ -399,4 +399,4 @@ INSERT INTO `Attendance` (`ID`, `EventID`, `EnterpriseID`, `Type`, `Timestamp`) 
 (798, 25, 'g.a.rodriguez.garcia', 0, '2018-02-01 20:00:18'),
 (799, 25, 'jennifer.b.heflin', 0, '2018-02-01 20:00:19'),
 (800, 25, 'salomon.s.salinas', 0, '2018-02-01 20:00:20'),
-(802, 28, 'john.p.doe', 1, '2018-04-18 03:19:47');
+(802, 25, 'john.p.doe', 1, '2018-04-18 03:19:47');

@@ -22,23 +22,28 @@
   <table id="reportTable" class="container table">
     <thead>
       <tr style="background: lightgray;">
-        <th>Events</th>
-        <th style="color: blue;"><i class="glyphicon glyphicon-user" title="In person"></i>In Person</th>
-        <th style="color: blue;"><i class="glyphicon glyphicon-user" title="In person percentage"></i>In Person%</th>
-        <th style="color: gray;"><i class="glyphicon glyphicon-headphones" title="Remote"></i>Remote</th>
-        <th style="color: gray;"><i class="glyphicon glyphicon-headphones" title="Remote percentage"></i>Remote%</th>
-        <th>Total</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>%</th>
       </tr>
     </thead>
+
     <tbody>
       <tr>
-        <td>' . $attendance[0] . '</td>
+        <td style="color: blue;"><i class="glyphicon glyphicon-user" title="In person"></i>In Person</td>
         <td>' . $attendance[1] . '</td>
-        <td>' . round( ($attendance[1]/$attendance[0])*100, 2) . '</td>
-        <td>' . $attendance[2] . '</td>
-        <td>' . round( ($attendance[2]/$attendance[0])*100, 2) . '</td>
-        <td>' . ( round( ($attendance[1]/$attendance[0])*100, 2) + round( ($attendance[2]/$attendance[0])*100, 2) ) . ' %</td>
+        <td>' . round( ($attendance[1]/$attendance[0])*100, 2 ) . '</td>
       </tr>
+      <tr>
+        <td style="color: gray;"><i class="glyphicon glyphicon-headphones" title="Remote"></i>Remote</td>
+        <td>' . $attendance[2] . '</td>
+        <td>' . round( ($attendance[2]/$attendance[0])*100, 2 ) . '</td>
+      </tr>
+      <tr style="background: lightgray;">
+        <th>Totals</th>
+        <th>' . ( $attendance[1] + $attendance[2] ) . '</th>
+        <th>' . ( round( ($attendance[1]/$attendance[0])*100, 2 ) + round( ($attendance[2]/$attendance[0])*100, 2) ) . ' %</th>
+        </tr>
     </tbody>
   </table>';
 

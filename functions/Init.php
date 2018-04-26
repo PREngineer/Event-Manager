@@ -3,11 +3,6 @@
 // Initialize the session
 session_start();
 
-// Extend cookie life time
-// A year in seconds = 365 days * 24 hours * 60 mins * 60 secs
-$cookieLifetime = 365 * 24 * 60 * 60;
-setcookie(session_name(),session_id(),time() + $cookieLifetime);
-
 /*
   Function that checks if the user SESSION is active
   - Used all over the place

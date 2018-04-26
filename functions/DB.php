@@ -927,6 +927,33 @@ Function get_AllAttendanceTotalsByCareerLevel()
 
 /*
   Description:
+    This function executes a query to get attendance data by Career Level (Report 4).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_attendanceByCareerLevel()
+{
+  $result = query_DB("SELECT `E`.`Name`, `A`.`EventID`, `M`.`Level`
+                      FROM `Attendance` A, `Members` M, `Events` E
+                      WHERE `A`.`EnterpriseID` = `M`.`EID`
+                      AND `E`.`ID` = `A`.`EventID`
+                      ORDER BY `A`.`EventID`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
     This function executes a query to get all roles data (Report 0).
   @PARAM:
 
@@ -951,7 +978,7 @@ Function get_AllRSVP()
 
 /*
   Description:
-    This function executes a query to get all RSVP data (Report 0).
+    This function executes a query to get all Role data (Report 0).
   @PARAM:
 
   @RETURN:
@@ -962,6 +989,31 @@ Function get_AllRoles()
 {
   $result = query_DB("SELECT *
                       FROM `Users`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all Role Distribution data (Report 1).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllRolesDistribution()
+{
+  $result = query_DB("SELECT Role, COUNT(Role) AS Amount
+                      FROM Users
+                      GROUP BY Role");
 
   if( $result['Result'] )
   {

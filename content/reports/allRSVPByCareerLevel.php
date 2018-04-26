@@ -1,5 +1,5 @@
 <!-- Table -->
-<title>Event Manager - RSVP Reports - RSVP Dump</title>
+<title>Event Manager - RSVP Reports - All RSVP By Career Level</title>
 
 <?php
 
@@ -7,16 +7,15 @@
   include '../../functions/DB.php';
   //include '../layout/LinkHandler.php';
 
-  $rsvps = get_AllRSVP();
+  //$rsvps = get_AllRSVP();
 
   echo  '
   <table id="reportTable" class="container table">
     <thead>
       <tr style="background: lightgray;">
-        <th>Event ID</th>
-        <th>Enterprise ID</th>
-        <th>Cancelled</th>
-        <th>Reserved</th>
+        <th>Career Level</th>
+        <th>Amount</th>
+        <th>%</th>
       </tr>
     </thead>
     <tbody>';

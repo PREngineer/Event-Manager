@@ -1,5 +1,5 @@
 <!-- Table -->
-<title>Event Manager - Attendance Reports - Roles Dump</title>
+<title>Event Manager - Role Reports - Roles Dump</title>
 
 <?php
 
@@ -7,11 +7,9 @@
   include '../../functions/DB.php';
   //include '../layout/LinkHandler.php';
 
-  session_start();
-
   $members = get_AllRoles();
 
-  $report = '
+  echo '
   <table id="reportTable" class="container table">
     <thead>
       <tr style="background: lightgray;">
@@ -33,7 +31,7 @@
   {
     foreach ($members as $name => $value)
     {
-      $report .= '<tr>
+      echo '<tr>
           <td>
             ' . $value[0] . '
           </td>
@@ -42,30 +40,27 @@
 
             if( $value[2] == 0)
             {
-              $report .= '<i class="glyphicon glyphicon-star" title="No" style="color:gray;">Member</i>';
+              echo '<i class="glyphicon glyphicon-star" title="No" style="color:gray;">Member</i>';
             }
             else if( $value[2] == 1)
             {
-              $report .= '<i class="glyphicon glyphicon-star" title="Yes" style="color:green;">Approver</i>';
+              echo '<i class="glyphicon glyphicon-star" title="Yes" style="color:green;">Approver</i>';
             }
             else if( $value[2] == 2)
             {
-              $report .= '<i class="glyphicon glyphicon-star" title="Yes" style="color:darkorange;">Point Of Contact</i>';
+              echo '<i class="glyphicon glyphicon-star" title="Yes" style="color:darkorange;">Point Of Contact</i>';
             }
             else if( $value[2] == 3)
             {
-              $report .= '<i class="glyphicon glyphicon-star" title="Yes" style="color:red;">Administrator</i>';
+              echo '<i class="glyphicon glyphicon-star" title="Yes" style="color:red;">Administrator</i>';
             }
-            $report .= '
+            echo '
           </td>
         </tr>
       ';
     }
   }
 
-  $report .= '</table>';
-
-  // Print the report to the webpage
-  echo $report;
+  echo '</table>';
 
 ?>
