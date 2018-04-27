@@ -92,7 +92,7 @@ protectAdmin();
     </tr>
 
     <tr>
-      <td><a link="index.php?display=UserRoles" style="cursor:pointer;">User Roles</a></td>
+      <td><a link="index.php?display=RolesReport" style="cursor:pointer;">User Roles</a></td>
       <td>
         Use this option to determine which members of the Employee Resource
         Group can have the following roles:<br>

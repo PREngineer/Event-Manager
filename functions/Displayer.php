@@ -131,23 +131,6 @@ This is used to determine which element will be loaded into the center of the pa
 }
 
 /*
-* Membership Handling
-*/
-{
-  // Show User Roles
-  if( $_POST['display'] == 'UserRoles' || $_GET['display'] == 'UserRoles' )
-  {
-    echo'
-      <script>
-        $("#Content").load("UserRoles.php");
-      </script>
-    ';
-  }
-
-
-}
-
-/*
 * Event Handling
 */
 {
