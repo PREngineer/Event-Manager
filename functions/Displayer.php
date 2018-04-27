@@ -7,7 +7,7 @@ This is used to determine which element will be loaded into the center of the pa
 */
 
 /*
-* Roles Specific Handling
+* Role Menus Handling
 */
 {
   // Show POC page
@@ -316,8 +316,8 @@ This is used to determine which element will be loaded into the center of the pa
 /*
 * Report Menu Handling
 */
-// Show Reports Menu (admin)
 {
+  // Show Reports Menu (admin)
   if( $_POST['display'] == 'Reports' || $_GET['display'] == 'Reports' )
   {
     echo'
@@ -423,6 +423,21 @@ This is used to determine which element will be loaded into the center of the pa
     echo'
       <script>
         $("#Content").load("rsvpReport.php?report=' . $_GET['report'] . '");
+      </script>
+    ';
+  }
+}
+
+/*
+* User Roles Handling
+*/
+{
+  // Show Announcements
+  if( $_POST['display'] == 'UserRoles' || $_GET['display'] == 'UserRoles' )
+  {
+    echo'
+      <script>
+        $("#Content").load("userRoles.php");
       </script>
     ';
   }
