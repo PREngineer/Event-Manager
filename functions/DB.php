@@ -1674,8 +1674,6 @@ Function user_checkIn($eid, $id, $type)
 */
 Function user_RSVP($eid, $id)
 {
-
-  echo '<script>alert("Ran DB function.");</script>';
   // Check if the user has already RSVPed
   $exists = ( mysqli_fetch_all(
                 query_DB("SELECT COUNT(EventID)

@@ -1,7 +1,7 @@
 <title>Event Manager - Event RSVP</title>
 <!-- ******************* START FORM ******************* -->
 <form class="container" method="POST" id="rsvpForm">
-  <input name="display" type="hidden" value="RSVP">
+  <input name="display" type="hidden" value="index.php?display=RSVP">
 
   <!-- Heading -->
   <header role="banner">
@@ -38,7 +38,8 @@
 <script type="text/javascript">
    $(document).ready(function()
    {
-    $('#rsvpForm').bootstrapValidator({
+    $('#rsvpForm').bootstrapValidator(
+      {
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
         feedbackIcons:
         {
