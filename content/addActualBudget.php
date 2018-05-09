@@ -23,8 +23,8 @@ $eventData = get_EventData($_GET['id'])[0];
     </a>
   </li>
   <li>
-    <a link="index.php?display=MyEvents" style="cursor:pointer;">
-      My Events
+    <a link="index.php?display=POCAction" style="cursor:pointer;">
+      Actions Pending
     </a>
   </li>
 </ol>
