@@ -219,7 +219,7 @@ This is used to determine which element will be loaded into the center of the pa
   {
     echo'
       <script>
-        $("#Content").load("MyEvents.php");
+        $("#Content").load("myEvents.php");
       </script>
     ';
   }
