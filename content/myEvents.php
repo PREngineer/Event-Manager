@@ -27,7 +27,7 @@ $events = get_MyEvents($_SESSION['userID']);
 <div class="panel panel-default">
 
   <!-- Default panel contents -->
-  <div class="panel-heading"><?php echo $_SESSION['userID'];?>, here are all the events that you have created.</div>
+  <div class="panel-heading">Here are all the events that you have created.</div>
   <div class="panel-body">
     <a link="index.php?display=CreateEvent" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Event"></i> New Event</a>
     <i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i> = Edit
@@ -86,8 +86,20 @@ $events = get_MyEvents($_SESSION['userID']);
 
   </thead>
 
+  <tbody>
+
 <?php
 
+if( sizeof($events) == 0 )
+{
+  echo '
+  <div class="container">
+    <h2>There are no future events created by you.</h2>
+  </div>
+  ';
+}
+else
+{
   foreach ($events as $key => $value)
   {
     echo'
@@ -190,5 +202,10 @@ $events = get_MyEvents($_SESSION['userID']);
 
     </tr>';
   }
+}
+
 ?>
+
+  </tbody>
+
 </table>
