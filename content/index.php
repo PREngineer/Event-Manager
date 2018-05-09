@@ -78,6 +78,7 @@
   	<meta name="twitter:description" content="Event Manager. No install, just use it right away in your browser!">
   	<meta name="twitter:image" content="../images/TLogo.png">
   	<meta name="twitter:creator" content=@PianistaPR>
+
   </head>
 
   <body>

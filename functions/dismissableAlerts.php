@@ -330,6 +330,8 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
     // Retrieve the codes for this event
     $res = user_RSVP($_POST['EID'], $_GET['id']);
 
+    echo '<script>alert("Posted and ran DB function.");</script>';
+
     if( $res == 1)
     {
       echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
@@ -341,19 +343,22 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
     {
       echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
               <button type="button" class="close" data-dismiss="alert">x</button>
-              [!] Something went wrong while reserving your space.  Please, try again.</div>';
+              [!] Something went wrong while reserving your space.  Please, try again.
+            </div>';
     }
     else if( $res == 2)
     {
       echo '<div class="container alert alert-warning alert-dismissible" role="alert" style="padding-top:75px;">
               <button type="button" class="close" data-dismiss="alert">x</button>
-              [!] You have already registered.</div>';
+              [!] You have already registered.
+            </div>';
     }
     else
     {
       echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
               <button type="button" class="close" data-dismiss="alert">x</button>
-              [!] You cancellation was rolled back.</div>';
+              [!] You cancellation was rolled back.
+            </div>';
     }
   }
 }
