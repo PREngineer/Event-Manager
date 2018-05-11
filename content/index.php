@@ -89,7 +89,7 @@
 <?php include 'layout/NavBar.php'; ?>
 
 <!-- ******************* Content Section ******************* -->
-<?php include '../functions/DismissableAlerts.php'; echo 'Loaded DismissableAlerts';?>
+<?php include '../functions/DismissableAlerts.php';?>
 
 <?php
   echo '<br><br><br><br>POST: ';
