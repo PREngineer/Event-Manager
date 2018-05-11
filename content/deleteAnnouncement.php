@@ -1,10 +1,11 @@
 <?php
 
+include '../functions/Init.php';
 include '../functions/DB.php';
 
-$result = deleteAnnouncement( $_GET['id'] );
-
 protectAdmin();
+
+$result = deleteAnnouncement( $_GET['id'] );
 
 if($result)
 {
