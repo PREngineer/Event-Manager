@@ -25,7 +25,7 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
 /*
 * Announcement Actions
 */
-
+/*
 {
   // Message upon Creation of Announcements
   if( ($_POST['display'] == 'AnnouncementsMenu') && isset($_POST['created']) )
@@ -111,10 +111,11 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
     }
   }
 }
-
+*/
 /*
 * Event Actions
 */
+/*
 {
   // Message upon Adding Actual Budget (POCs)
   if( ($_POST['display'] == 'POCAction') && isset($_POST['id']) )
@@ -312,10 +313,11 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
     }
   }
 }
-
+*/
 /*
 * RSVP Actions
 */
+/*
 {
   // Message upon RSVP Cancellation Request
   if( ($_GET['display'] == 'CancelRSVP') )
@@ -364,10 +366,11 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
     }
   }
 }
-
+*/
 /*
 * Member Actions
 */
+/*
 {
   // Message upon Creation of Member
   if( ($_POST['display'] == 'CreateMember') )
@@ -396,5 +399,5 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
     }
   }
 }
-
+*/
 ?>
