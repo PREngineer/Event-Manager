@@ -1674,6 +1674,7 @@ Function user_checkIn($eid, $id, $type)
 */
 Function user_RSVP($eid, $id)
 {
+echo '<br><br><br><br>Inside functon.<br>';
   // Check if the user has already RSVPed
   $exists = ( mysqli_fetch_all(
                 query_DB("SELECT COUNT(EventID)
@@ -1687,23 +1688,27 @@ Function user_RSVP($eid, $id)
   // If the user hasn't RSVPed before
   if( $exists == 0 )
   {
+    echo 'Insert entry.<br>';
     $rsvp = query_DB("INSERT INTO `RSVP`
                         (`EventID`, `EnterpriseID`, `Cancel`)
                         VALUES ('" . $id . "', '" . $eid . "', '0')");
 
     if( $rsvp['Result'] )
     {
+      echo 'Successful insertion.<br>';
       // Success
       return 1;
     }
     else
     {
+      echo 'Failed to insert.<br>';
       // Error occurred
       return 0;
     }
   }
   else
   {
+    echo 'Entry exists, checking.<br>';
     // Check if the user RSVPed before but cancelled
     $cancelled = ( mysqli_fetch_all( query_DB("SELECT COUNT(EventID)
                         FROM `RSVP`
@@ -1714,6 +1719,7 @@ Function user_RSVP($eid, $id)
     // If the user had RSVPed before but cancelled
     if($cancelled == 1)
     {
+      echo 'Entry was cancelled.<br>';
       $timestamp = date('Y-m-d H:i:s');
 
       // Attempt to restore the RSVP to a valid RSVP
@@ -1724,17 +1730,20 @@ Function user_RSVP($eid, $id)
 
       if( $restore['Result'] )
       {
+        echo 'Reactivated RSVP.<br>';
         // Return that RSVP has been restored.
         return 3;
       }
       else
       {
+        echo 'Failure reactivating.<br>';
         // Error occurred
         return 0;
       }
     }
     else
     {
+      echo 'Already registered.<br>';
       // If the user is already registered.
       return 2;
     }

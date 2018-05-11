@@ -91,6 +91,13 @@
 <!-- ******************* Content Section ******************* -->
 <?php include '../functions/DismissableAlerts.php'; ?>
 
+<?php
+  echo '<br><br><br><br>POST: ';
+  print_r($_POST);
+  echo '<br>GET: ';
+  print_r($_GET);
+?>
+
     <div class="container" id="Content" name="Content" style="padding-top:40px;padding-bottom:30px;"></div>
 
 <?php
