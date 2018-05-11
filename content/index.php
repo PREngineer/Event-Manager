@@ -4,8 +4,6 @@
   include '../functions/Init.php';
   // Include DB functions
   include '../functions/DB.php';
-  // Include Alerts and Actions
-  include '../functions/Alerts.php';
 
 ?>
 
@@ -92,6 +90,10 @@
 
 <!-- ******************* Content Section ******************* -->
 <?php
+
+  // Include Alerts and Actions
+  include '../functions/Alerts.php';
+
   echo '<br><br><br><br>POST: ';
   print_r($_POST);
   echo '<br>GET: ';

@@ -1,5 +1,6 @@
 <?php
-echo '<br><br><br><br>Loaded DB';
+//echo '<br><br><br><br>Loaded DB';
+
 /*
 This contains all of the Database related functions.
 */

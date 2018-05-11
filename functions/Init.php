@@ -1,5 +1,5 @@
 <?php
-echo '<br><br><br><br>Loaded Init';
+//echo '<br><br><br><br>Loaded Init';
 
 // Initialize the session
 session_start();
