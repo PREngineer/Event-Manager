@@ -1,6 +1,6 @@
 <?php
 
-echo '<br><br><br><br>Loaded DismissableAlerts';
+echo '<br><br><br><br>Loaded Alerts';
 
 /*
 This contains the action alert notifications that appear on top.
