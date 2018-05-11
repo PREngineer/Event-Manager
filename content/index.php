@@ -85,12 +85,12 @@
 
     <a class="skip-navigation sr-only sr-only-focusable" href="#page-title">Skip Navigation</a>
 
+<?php include '../functions/DismissableAlerts.php'; ?>
+
 <!-- ******************* NavBar Section ******************* -->
 <?php include 'layout/NavBar.php'; ?>
 
 <!-- ******************* Content Section ******************* -->
-<?php include '../functions/DismissableAlerts.php'; ?>
-
 <?php
   echo '<br><br><br><br>POST: ';
   print_r($_POST);
