@@ -330,7 +330,7 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
   // Message upon RSVP
   if( ($_POST['display'] == 'RSVP') )
   {
-    echo 'Got to the action.';
+    echo '<br>Got to the action.';
     // Retrieve the codes for this event
     $res = user_RSVP($_POST['EID'], $_POST['id']);
 
