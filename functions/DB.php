@@ -1847,9 +1847,10 @@ function disapproveEvent($id)
 */
 function expireAnnouncement($id)
 {
+  $date = date("Y-m-d", strtotime( '-1 days' ) );
   // Insert into the Events Table
   $result = query_DB( "UPDATE `Announcements`
-                       SET `Expires` = '0'
+                       SET `Expires` = '$date'
                        WHERE `ID` = $id" );
 
   // If successful
