@@ -13,14 +13,14 @@ if( $res['Result'] )
 
   // Initialize the session
   session_start();
-  
+
   $_SESSION['userID'] = $userdata[0];
   $_SESSION['userRole'] = $userdata[1];
 
   // Extend cookie life time
   // A year in seconds = 365 days * 24 hours * 60 mins * 60 secs
   $cookieLifetime = 365 * 24 * 60 * 60;
-  setcookie(session_name(),session_id(),time() + $cookieLifetime);
+  setcookie("Event-Manager",session_id(),time() + $cookieLifetime);
 
   if( $_SESSION['userRole'] == '1' )
   {
