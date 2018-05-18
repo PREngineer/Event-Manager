@@ -186,7 +186,7 @@ echo '
   </body>
 
 </html>
-' > index.html
+' > /var/www/html/index.html
 progress-bar 2
 
 echo
