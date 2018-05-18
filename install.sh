@@ -50,10 +50,15 @@ echo
 echo -e $GREEN'Installer'$BLACK
 
 echo
-echo -e $YELLOW"|--> Updating Ubuntu..."
+echo -e $YELLOW"|--> Updating Ubuntu..."$BLACK
 echo
 
-sudo apt-get -y update &>/dev/null & progress-bar 20
-sudo apt-get -y upgrade &>/dev/null & progress-bar 20
+sudo apt-get -y update &>/dev/null & progress-bar 10
+
+echo
+echo -e $YELLOW"|--> Upgrading Ubuntu packages..."$BLACK
+echo
+
+sudo apt-get -y upgrade &>/dev/null & progress-bar 10
 
 exit 0
