@@ -53,7 +53,7 @@ echo
 echo -e $YELLOW"|--> Updating Ubuntu..."
 echo
 
-sudo apt-get -y update &>/dev/null & progress 20
-sudo apt-get -y upgrade &>/dev/null & progress 20
+sudo apt-get -y update &>/dev/null & progress-bar 20
+sudo apt-get -y upgrade &>/dev/null & progress-bar 20
 
 exit 0
