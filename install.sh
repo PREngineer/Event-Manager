@@ -125,7 +125,7 @@ echo
 echo -e $YELLOW"|--> Updating Ubuntu..."
 echo
 
-sudo apt-get -y update &>/dev/null & progress_bar
-sudo apt-get -y upgrade &>/dev/null & progress_bar
+sudo apt-get -y update &>/dev/null & progress_bar 20
+sudo apt-get -y upgrade &>/dev/null & progress_bar 20
 
 exit 0
