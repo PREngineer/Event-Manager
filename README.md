@@ -37,14 +37,19 @@ Libraries/Frameworks used:
   * Step 1 - Create /var/www/html folder and set permissions
 
     sudo mkdir /var
+
     sudo mkdir /var/www
+
     sudo mkdir /var/www/html
+
     sudo chmod -R 777 /var/www/html
 
   * Step 2 - Clone the repository
 
     cd /var/www/html
+
     sudo git clone https://github.com/PREngineer/Event-Manager.git
+    
     cd Event-Manager
 
   * Step 3 - Run the installer
@@ -54,10 +59,13 @@ Libraries/Frameworks used:
 # Important Considerations:
 
   * Not all links work like they do normally!
+
     The links' "href" property has been removed and replaced by a "link" property that is read by
     the JavaScript link handler function.
+
     This is done because we do not want a complete reload of a new page.  We just care about
     replacing the content of a DIV that represents the content of the pages.  We want to maintain the same navigation menu and footer.
+
     This also allows for better management of code in different locations without having a
     negative effect on others.
 
