@@ -57,7 +57,7 @@ echo -e $YELLOW"|--> Updating Ubuntu..."$BLACK
 echo
 echo
 
-sudo apt-get -y update &>/dev/null & progress-bar 10
+sudo apt-get -y update #&>/dev/null & progress-bar 10
 
 echo
 echo
@@ -65,7 +65,7 @@ echo -e $YELLOW"|--> Upgrading Ubuntu packages..."$BLACK
 echo
 echo
 
-sudo apt-get -y upgrade &>/dev/null & progress-bar 10
+sudo apt-get -y upgrade #&>/dev/null & progress-bar 10
 
 echo
 echo
@@ -73,7 +73,7 @@ echo -e $YELLOW"|--> Installing Apache 2 Web Server..."$BLACK
 echo
 echo
 
-sudo apt-get -y install apache2 &>/dev/null & progress-bar 5
+sudo apt-get -y install apache2 #&>/dev/null & progress-bar 5
 
 echo
 echo
@@ -81,7 +81,7 @@ echo -e $YELLOW"|--> Opening Firewall for Apache 2 Web Server..."$BLACK
 echo
 echo
 
-sudo ufw allow in “Apache Full” &>/dev/null & progress-bar 2
+sudo ufw allow in “Apache Full” #&>/dev/null & progress-bar 2
 
 echo
 echo
@@ -89,7 +89,7 @@ echo -e $YELLOW"|--> Installing MySQL Server 5.7..."$BLACK
 echo
 echo
 
-sudo apt-get -y install mysql-server &>/dev/null & progress-bar 5
+sudo apt-get -y install mysql-server #&>/dev/null & progress-bar 5
 
 echo
 echo
@@ -97,7 +97,7 @@ echo -e $YELLOW"|--> Installing PHP 7.2..."$BLACK
 echo
 echo
 
-sudo apt-get -y install php7.2 libapache2-mod-php7.2 php7.2-mysql php-memcache php7.2-mbstring php7.2-opcache php-apcu &>/dev/null & progress-bar 60
+sudo apt-get -y install php7.2 libapache2-mod-php7.2 php7.2-mysql php-memcache php7.2-mbstring php7.2-opcache php-apcu #&>/dev/null & progress-bar 60
 
 echo
 echo
@@ -105,7 +105,7 @@ echo -e $YELLOW"|--> Installing Unzip..."$BLACK
 echo
 echo
 
-sudo apt-get -y install unzip &>/dev/null & progress-bar 5
+sudo apt-get -y install unzip #&>/dev/null & progress-bar 5
 
 echo
 echo
@@ -114,7 +114,7 @@ echo
 echo
 
 cd /var/www/html
-sudo wget https://files.phpmyadmin.net/phpMyAdmin/4.8.0.1/phpMyAdmin-4.8.0.1-all-languages.zip &>/dev/null & progress-bar 5
+sudo wget https://files.phpmyadmin.net/phpMyAdmin/4.8.0.1/phpMyAdmin-4.8.0.1-all-languages.zip #&>/dev/null & progress-bar 5
 
 echo
 echo
@@ -122,7 +122,7 @@ echo -e $YELLOW"|--> Unzipping PHPMyAdmin 4.8.0.1..."$BLACK
 echo
 echo
 
-sudo unzip phpMyAdmin-4.8.0.1-all-languages.zip &>/dev/null & progress-bar 5
+sudo unzip phpMyAdmin-4.8.0.1-all-languages.zip #&>/dev/null & progress-bar 5
 
 echo
 echo
@@ -130,7 +130,7 @@ echo -e $YELLOW"|--> Renaming PHPMyAdmin 4.8.0.1 download..."$BLACK
 echo
 echo
 
-mv phpMyAdmin-4.8.0.1-all-languages phpmyadmin &>/dev/null & progress-bar 2
+mv phpMyAdmin-4.8.0.1-all-languages phpmyadmin #&>/dev/null & progress-bar 2
 
 echo
 echo
@@ -138,7 +138,7 @@ echo -e $YELLOW"|--> Removing previous version of PHPMyAdmin 4.8.0.1..."$BLACK
 echo
 echo
 
-sudo rm -R /usr/share/phpmyadmin &>/dev/null & progress-bar 2
+sudo rm -R /usr/share/phpmyadmin #&>/dev/null & progress-bar 2
 
 echo
 echo
@@ -146,7 +146,7 @@ echo -e $YELLOW"|--> Replacing with PHPMyAdmin 4.8.0.1..."$BLACK
 echo
 echo
 
-mv phpmyadmin /usr/share/ &>/dev/null & progress-bar 2
+mv phpmyadmin /usr/share/ #&>/dev/null & progress-bar 2
 
 echo
 echo
@@ -154,7 +154,7 @@ echo -e $YELLOW"|--> Deleting downloaded PHPMyAdmin 4.8.0.1 zip file..."$BLACK
 echo
 echo
 
-sudo rm phpMyAdmin-4.8.0.1-all-languages.zip &>/dev/null & progress-bar 2
+sudo rm phpMyAdmin-4.8.0.1-all-languages.zip #&>/dev/null & progress-bar 2
 
 echo
 echo
@@ -162,7 +162,7 @@ echo -e $YELLOW"|--> Installing Git..."$BLACK
 echo
 echo
 
-sudo apt-get -y install git &>/dev/null & progress-bar 2
+sudo apt-get -y install git #&>/dev/null & progress-bar 2
 
 echo
 echo
@@ -195,7 +195,7 @@ echo -e $YELLOW"|--> Getting latest version of application..."$BLACK
 echo
 echo
 
-sudo git clone https://www.github.com/PREngineer/Event-Manager &>/dev/null & progress-bar 10
+sudo git clone https://www.github.com/PREngineer/Event-Manager #&>/dev/null & progress-bar 10
 
 echo
 echo
@@ -203,7 +203,7 @@ echo -e $YELLOW"|--> Fixing file permissions..."$BLACK
 echo
 echo
 
-sudo chmod -R 777 /var/www/html &>/dev/null & progress-bar 2
+sudo chmod -R 777 /var/www/html #&>/dev/null & progress-bar 2
 
 echo
 echo
@@ -211,7 +211,7 @@ echo -e $YELLOW"|--> Making sure that the settings file is not present..."$BLACK
 echo
 echo
 
-sudo rm /var/www/html/Event-Manager/functions/settings.php &>/dev/null & progress-bar 2
+sudo rm /var/www/html/Event-Manager/functions/settings.php #&>/dev/null & progress-bar 2
 
 echo
 echo
