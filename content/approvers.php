@@ -8,7 +8,7 @@ include 'layout/LinkHandler.php';
 
 protectApprover();
 
-$events = get_approverEvents();
+$events = get_ApproverEvents();
 
 ?>
 

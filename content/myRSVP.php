@@ -45,7 +45,7 @@ include 'layout/LinkHandler.php';
 <?php
 if( !empty($_GET) && ($_GET['display'] == 'MyRSVP') )
 {
-  $rsvps = get_myRSVPs( $_GET['enterpriseID'] );
+  $rsvps = get_MyRSVPs( $_GET['enterpriseID'] );
 
   if( sizeof($rsvps) == 0 && !empty($_POST) )
   {

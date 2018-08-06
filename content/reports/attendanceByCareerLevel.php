@@ -9,7 +9,7 @@
 
   protectAdmin();
 
-  $attendance = get_attendanceByCareerLevel();
+  $attendance = get_AttendanceByCareerLevel();
 
   $oldid = NULL;
   $count = 0;

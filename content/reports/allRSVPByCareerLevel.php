@@ -9,7 +9,9 @@
 
   protectAdmin();
 
-  //$rsvps = get_AllRSVP();
+  $rsvps = get_AllRSVPByCareerLevel()[0];
+
+  $total = $rsvps[0] + $rsvps[1] + $rsvps[2] + $rsvps[3] + $rsvps[4] + $rsvps[5] + $rsvps[6] + $rsvps[7] + $rsvps[8] + $rsvps[9];
 
   echo  '
   <table id="reportTable" class="container table">
@@ -32,34 +34,127 @@
   }
   else
   {
-    foreach ($rsvps as $name => $value)
-    {
-      echo  '<tr>
+    echo  '
+        <tr>
           <td>
-            ' . $value[1] . '
+            Leadership
           </td>
           <td>
-            ' . $value[2] . '
+            ' . $rsvps[0] . '
           </td>
           <td>
-            ';
+            ' . ($rsvps[0] / $total) * 100 . '
+          </td>
+        </tr>
 
-            if( $value[3] == 0)
-            {
-              echo  '<i class="glyphicon glyphicon-remove" title="No" style="color:red;">No</i>';
-            }
-            else if( $value[3] == 1)
-            {
-              echo  '<i class="glyphicon glyphicon-ok" title="Yes" style="color:green;">Yes</i>';
-            }
-            echo  '
+        <tr>
+          <td>
+            6
           </td>
           <td>
-            ' . $value[4] . '
+            ' . $rsvps[1] . '
+          </td>
+          <td>
+            ' . ($rsvps[1] / $total) * 100 . '
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            7
+          </td>
+          <td>
+            ' . $rsvps[2] . '
+          </td>
+          <td>
+            ' . ($rsvps[2] / $total) * 100 . '
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            8
+          </td>
+          <td>
+            ' . $rsvps[3] . '
+          </td>
+          <td>
+            ' . ($rsvps[3] / $total) * 100 . '
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            9
+          </td>
+          <td>
+            ' . $rsvps[4] . '
+          </td>
+          <td>
+            ' . ($rsvps[4] / $total) * 100 . '
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            10
+          </td>
+          <td>
+            ' . $rsvps[5] . '
+          </td>
+          <td>
+            ' . ($rsvps[5] / $total) * 100 . '
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            11
+          </td>
+          <td>
+            ' . $rsvps[6] . '
+          </td>
+          <td>
+            ' . ($rsvps[6] / $total) * 100 . '
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            12
+          </td>
+          <td>
+            ' . $rsvps[7] . '
+          </td>
+          <td>
+            ' . ($rsvps[7] / $total) * 100 . '
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            13
+          </td>
+          <td>
+            ' . $rsvps[8] . '
+          </td>
+          <td>
+            ' . ($rsvps[8] / $total) * 100 . '
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            14
+          </td>
+          <td>
+            ' . $rsvps[9] . '
+          </td>
+          <td>
+            ' . ($rsvps[9] / $total) * 100 . '
           </td>
         </tr>
       ';
-    }
   }
 
   echo  '

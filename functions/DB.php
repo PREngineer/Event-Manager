@@ -791,7 +791,7 @@ Function get_Announcement($id)
     [Array]   - Data
     [Boolean] - False
 */
-Function get_approverEvents()
+Function get_ApproverEvents()
 {
   $date = date('Y-m-d');
   $time = date('H:i:s');
@@ -936,37 +936,13 @@ Function get_AllAttendanceTotalsByCareerLevel()
     [Array]   - Data
     [Boolean] - False
 */
-Function get_attendanceByCareerLevel()
+Function get_AttendanceByCareerLevel()
 {
   $result = query_DB("SELECT `E`.`Name`, `A`.`EventID`, `M`.`Level`
                       FROM `Attendance` A, `Members` M, `Events` E
                       WHERE `A`.`EnterpriseID` = `M`.`EID`
                       AND `E`.`ID` = `A`.`EventID`
                       ORDER BY `A`.`EventID`");
-
-  if( $result['Result'] )
-  {
-    return mysqli_fetch_all( $result['Data'] );
-  }
-  else
-  {
-    return $result['Errors'];
-  }
-}
-
-/*
-  Description:
-    This function executes a query to get all roles data (Report 0).
-  @PARAM:
-
-  @RETURN:
-    [Array]   - Data
-    [Boolean] - False
-*/
-Function get_AllRSVP()
-{
-  $result = query_DB("SELECT *
-                      FROM `RSVP`");
 
   if( $result['Result'] )
   {
@@ -1016,6 +992,65 @@ Function get_AllRolesDistribution()
   $result = query_DB("SELECT Role, COUNT(Role) AS Amount
                       FROM Users
                       GROUP BY Role");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all rsvp data (Report 0).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllRSVP()
+{
+  $result = query_DB("SELECT *
+                      FROM `RSVP`");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all rsvp data (Report 1).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllRSVPByCareerLevel()
+{
+  $result = query_DB("SELECT  SUM(case when `M`.`Level` = '5' then 1 else 0 end) as 'Leadership',
+                         		  SUM(case when `M`.`Level` = '6' then 1 else 0 end) as 'CL6',
+                              SUM(case when `M`.`Level` = '7' then 1 else 0 end) as 'CL7',
+                              SUM(case when `M`.`Level` = '8' then 1 else 0 end) as 'CL8',
+                              SUM(case when `M`.`Level` = '9' then 1 else 0 end) as 'CL9',
+                              SUM(case when `M`.`Level` = '10' then 1 else 0 end) as 'CL10',
+                              SUM(case when `M`.`Level` = '11' then 1 else 0 end) as 'CL11',
+                              SUM(case when `M`.`Level` = '12' then 1 else 0 end) as 'CL12',
+                              SUM(case when `M`.`Level` = '13' then 1 else 0 end) as 'CL13',
+                              SUM(case when `M`.`Level` = '14' then 1 else 0 end) as 'CL14'
+                              FROM Members M
+                              INNER JOIN RSVP R
+                              ON M.EID = R.EnterpriseID");
 
   if( $result['Result'] )
   {
@@ -1357,7 +1392,7 @@ Function get_MyEventsPendingAction($id)
     [Array]   - Data
     [Boolean] - False
 */
-Function get_myRSVPs($id)
+Function get_MyRSVPs($id)
 {
   $date = date('Y-m-d');
 
