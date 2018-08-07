@@ -113,6 +113,53 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
 }
 
 /*
+* Attendance Actions
+*/
+
+{
+  // Message upon creation of Attendance Entry
+  if( ($_POST['display'] == 'Attendance-EditEvent') && isset($_POST['created']) )
+  {
+    $res = insert_NewAttendanceEntry($_POST);
+
+    if( $res == True)
+    {
+      echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type = "button" class="close" data-dismiss = "alert">x</button>
+              Your entry has been created!
+            </div>';
+    }
+    else
+    {
+      echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              [!] ' . count($res) . ' Error(s) occurred while creating the entry!<br><br>' .
+              $res .
+            '</div>';
+    }
+  }
+
+  // Message upon successful deletion of entry
+  if( ($_GET['display'] == 'Attendance-EditEvent') && ($_GET['success'] == '1') )
+  {
+    echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+            <button type = "button" class="close" data-dismiss = "alert">x</button>
+            The entry has been deleted!
+          </div>';
+  }
+
+  // Message upon unsuccessful deletion of entry
+  if( ($_GET['display'] == 'Attendance-EditEvent') && ($_GET['success'] == '0') )
+  {
+    echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            [!] ' . count($res) . ' Error(s) occurred while deleting the attendance entry!<br><br>' .
+            $res .
+          '</div>';
+  }
+}
+
+/*
 * Event Actions
 */
 

@@ -500,6 +500,10 @@ Function connect_DB()
   {
     include '../functions/settings.php';
   }
+  else if( file_exists('../../functions/settings.php') )
+  {
+    include '../../functions/settings.php';
+  }
   else
   {
     include 'functions/settings.php';
@@ -686,9 +690,6 @@ Region Start - Regular Use MySQL DB Get Functions
 */
 Function get_AllEvents()
 {
-  $date = date('Y-m-d');
-  $time = date('H:i:s');
-
   $result = query_DB("SELECT `ID`, `Name`, `Date`, `Created`, `Creator`, `Person_Code`, `Remote_Code`,
                              `Approved`, `Estimated_Budget`, `Actual_Budget`, `Deleted`
                       FROM `Events`
@@ -1119,6 +1120,31 @@ Function get_CurrentEvents()
 }
 
 /*
+  Description:
+    This function executes a query to get all the attendance for a specific event.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_EventAttendance($id)
+{
+  $result = query_DB("SELECT *
+                      FROM Attendance
+                      WHERE `EventID` = '$id'");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
   Function that retrieves the event codes
   @Param  - NONE
   @RETURN:
@@ -1490,6 +1516,37 @@ Function insert_newAnnouncement($data)
 
 /*
   Description:
+    This function executes a query to insert a new attendance entry.
+  @PARAM:
+
+  @RETURN:
+    [Boolean] - True
+    [Array]   - Errors
+*/
+Function insert_NewAttendanceEntry($data)
+{
+  // Insert into the Attendance Table
+  $result = query_DB( "INSERT INTO `Attendance`
+              (`EventID`,`EnterpriseID`,`Type`)
+              VALUES (
+                '" . sanitize($data['event'])        . "',
+                '" . sanitize($data['EnterpriseID']) . "',
+                '" . sanitize($data['Type'])         . "')"
+            );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
     This function executes a query to insert a new Event.
   @PARAM:
 
@@ -1816,6 +1873,28 @@ function deleteAnnouncement($id)
 {
   // Insert into the Events Table
   $result = query_DB( "DELETE FROM `Announcements`
+                       WHERE `ID` = $id" );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Function that deletes the event attendance entry
+  @Param  - Int - The Entry ID.
+  @Return - Boolean (T or F) if correct
+*/
+function deleteAttendanceEntry($id)
+{
+  // Insert into the Events Table
+  $result = query_DB( "DELETE FROM `Attendance`
                        WHERE `ID` = $id" );
 
   // If successful

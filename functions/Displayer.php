@@ -111,14 +111,42 @@ This is used to determine which element will be loaded into the center of the pa
     ';
   }
 
+  // Show Events to manage
+  if( $_POST['display'] == 'AttendanceByEvent' || $_GET['display'] == 'AttendanceByEvent' )
+  {
+    echo'
+      <script>
+        $("#Content").load("attendance/events.php?init=sub");
+      </script>
+    ';
+  }
 
+  // Show Event Attendance
+  if( $_POST['display'] == 'Attendance-EditEvent' || $_GET['display'] == 'Attendance-EditEvent' )
+  {
+    echo'
+      <script>
+        $("#Content").load("attendance/editEvent.php?init=sub&event=' . $_GET['event'] . '&name=' . $_GET["name"] . '");
+      </script>
+    ';
+  }
+
+  // Show Event Attendance - New Entry form
+  if( $_POST['display'] == 'Attendance-EventNewEntry' || $_GET['display'] == 'Attendance-EventNewEntry' )
+  {
+    echo'
+      <script>
+        $("#Content").load("attendance/newEntry.php?init=sub&event=' . $_GET['event'] . '&name=' . $_GET['name'] . '");
+      </script>
+    ';
+  }
 }
 
 /*
 * Membership Handling
 */
 {
-  // Show Attendance
+  // Show Members Menu
   if( $_POST['display'] == 'Members' || $_GET['display'] == 'Members' )
   {
     echo'
@@ -434,7 +462,7 @@ This is used to determine which element will be loaded into the center of the pa
 * User Roles Handling
 */
 {
-  // Show Announcements
+  // Show User Roles
   if( $_POST['display'] == 'UserRoles' || $_GET['display'] == 'UserRoles' )
   {
     echo'
