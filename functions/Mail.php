@@ -6,7 +6,7 @@ require '../lib/PHPMailer/class.smtp.php';
 Function cancelRSVPMail($data)
 {
 	$msg = '
-	<img src="http://' . $_SERVER['HTTP_HOST'] . '/images/event.png" width="200" height="200" alt="Event Manager Banner"/>
+	<img src="http://' . $_SERVER['HTTP_HOST'] . preg_split("/content/", $_SERVER['PHP_SELF'])[0] . 'images/event.png" width="200" height="200" alt="Event Manager Banner"/>
 
 	<br><br>
 	Hello ' . $data[4] . ',
@@ -79,7 +79,7 @@ Function cancelRSVPMail($data)
 				Confirm:
 			</td>
 			<td>
-				<a href="http://' . $_SERVER['HTTP_HOST'] .  preg_split("/content/", $_SERVER['PHP_SELF'])[0] . 'content/index.php?display=doCancelRSVP&id=' . $data[0] .
+				<a href="http://' . $_SERVER['HTTP_HOST'] . preg_split("/content/", $_SERVER['PHP_SELF'])[0] . 'content/index.php?display=doCancelRSVP&id=' . $data[0] .
 								'&rsvpid=' . $data[5] . '&code=' . SHA1($data[4]) . '">CONFIRM CANCELLATION</a>
 			</td>
 		</tr>
