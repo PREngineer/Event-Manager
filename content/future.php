@@ -29,7 +29,7 @@ else
 {
   foreach ($events as $name => $value)
   {
-    $url = 'http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?display=RSVP%26id=' . $value[0];
+    $url = 'http://' . $_SERVER['HTTP_HOST'] . preg_split("/content/", $_SERVER['PHP_SELF'])[0] . 'content/index.php?display=RSVP%26id=' . $value[0];
 
     echo '
     <div class="col-sm-3">
