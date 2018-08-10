@@ -117,6 +117,28 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
 */
 
 {
+  // Message upon edition of Attendance Entry
+  if( ($_POST['display'] == 'Attendance-EditEvent') && isset($_POST['edited']) )
+  {
+    $res = update_AttendanceEntry($_POST);
+
+    if( $res == True)
+    {
+      echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type = "button" class="close" data-dismiss = "alert">x</button>
+              Your entry has been updated!
+            </div>';
+    }
+    else
+    {
+      echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              [!] ' . count($res) . ' Error(s) occurred while updating the entry!<br><br>' .
+              $res .
+            '</div>';
+    }
+  }
+
   // Message upon creation of Attendance Entry
   if( ($_POST['display'] == 'Attendance-EditEvent') && isset($_POST['created']) )
   {

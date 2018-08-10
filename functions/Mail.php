@@ -6,10 +6,10 @@ require '../lib/PHPMailer/class.smtp.php';
 Function cancelRSVPMail($data)
 {
 	$msg = '
-	<img src="banner.png" alt="Event Manager Banner"/>
+	<img src="http://' . $_SERVER['HTTP_HOST'] . '/images/event.png" width="200" height="200" alt="Event Manager Banner"/>
 
 	<br><br>
-	Hello ' . $data['FirstName'] . ' ' . $data['LastName'] . ',
+	Hello ' . $data[4] . ',
 
 	<br><br>
 	We have received a request to cancel a reservation on ' . date("m/d/Y") . ' through the Event Manager.
@@ -30,11 +30,16 @@ Function cancelRSVPMail($data)
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td colspan="2">
+				---------------------------------------------------------
+			</td>
+		</tr>
+		<tr>
+			<td width="50%">
 				Your EID:
 			</td>
-			<td>' .
-				$data[eid] . '
+			<td width="50%">' .
+				$data[4] . '
 			</td>
 		</tr>
 		<tr>
@@ -42,7 +47,7 @@ Function cancelRSVPMail($data)
 				Event Name:
 			</td>
 			<td>' .
-				$data[name] . '
+				$data[1] . '
 			</td>
 		</tr>
 		<tr>
@@ -50,7 +55,7 @@ Function cancelRSVPMail($data)
 				Event Date:
 			</td>
 			<td>' .
-				$data[date] . '
+				$data[2] . '
 			</td>
 		</tr>
 		<tr>
@@ -58,7 +63,7 @@ Function cancelRSVPMail($data)
 				Event Location:
 			</td>
 			<td>' .
-			$data[location] . '
+				$data[3] . '
 			</td>
 		</tr>
 		<tr>
@@ -66,15 +71,16 @@ Function cancelRSVPMail($data)
 				Reason for cancellation:
 			</td>
 			<td>' .
-				$data[reason] . '
+				$data[6] . '
 			</td>
 		</tr>
 		<tr>
 			<td>
-				Confirm by clicking here
+				Confirm:
 			</td>
 			<td>
-				<a href="">http://doCancelRSVP?id=' . $data[id] . '
+				<a href="http://' . $_SERVER['HTTP_HOST'] . '/content/index.php?display=doCancelRSVP&id=' . $data[0] .
+								'&rsvpid=' . $data[5] . '&code=' . SHA1($data[4]) . '">CONFIRM CANCELLATION</a>
 			</td>
 		</tr>
 	</table>
@@ -82,45 +88,49 @@ Function cancelRSVPMail($data)
 
 	Thank you,
 	<br>
-	Project Ark Mailer
+	Event Manager
 	<br>
 	My Company';
+
+	// Used to view the e-mail that gets generated when coding changes.
+	//echo $msg;
 
 	$mail = new PHPMailer;
 
 	// Set mailer to use SMTP
 	$mail->isSMTP();
 	// Specify main and backup SMTP servers
-	$mail->Host = SMTPHOSTS;
+	$mail->Host = $data[7];
 	// Enable SMTP authentication
-	$mail->SMTPAuth = SMTPAUTHENTICATION;
+	$mail->SMTPAuth = $data[8];
 	// SMTP username
-	$mail->Username = SMTPUSER;
+	$mail->Username = $data[9];
 	// SMTP password
-	$mail->Password = SMTPPASS;
+	$mail->Password = $data[10];
 	// Enable TLS encryption
-	if(SMTPENC == 1)
+	if($data[11] == 1)
 	{
 		$mail->SMTPSecure = 'tls';
 	}
-	if(SMTPENC == 2)
+	// Enable SSL encryption
+	if($data[11] == 2)
 	{
 		$mail->SMTPSecure = 'ssl';
 	}
 	// TCP port to connect to
-	$mail->Port = SMTPPORT;
+	$mail->Port = $data[12];
 
 	// Set Sender
-	$mail->setFrom("Project.Ark.Mailer@mycompany.com", "Project Ark Mailer");
+	$mail->setFrom($data[13], $data[14]);
 	// Add a recipient
-	$mail->addAddress($data['Email'], $data['FirstName'] . ' ' . $data['LastName']);
-
-	if(SMTPREPLYTO !== "")
-	{
-		$mail->addReplyTo(SMTPREPLYTO, "Project Ark Admin");
-	}
+	$mail->addAddress($data[4] . '@' . $data[15], $data[4]);
 
 	/*
+	if($SMTPREPLYTO !== "")
+	{
+		$mail->addReplyTo($SMTPREPLYTOEMAIL, $SMTPREPLYTO);
+	}
+
 	if(SMTPCC !== "")
 	{
 		$mail->addCC(SMTPCC);
@@ -134,7 +144,7 @@ Function cancelRSVPMail($data)
 	// Set email format to HTML
 	$mail->isHTML(true);
 
-	$mail->Subject = SMTPSUBJECT;
+	$mail->Subject = "Event Manager - RSVP Cancellation Request";
 	$mail->Body    = $msg;
 	$mail->AltBody = $msg;
 
@@ -144,19 +154,20 @@ Function cancelRSVPMail($data)
 	//$mail->addAttachment(""/tmp/image.jpg", "new.jpg");
 
 	// Add the banner on top
-	$mail->AddEmbeddedImage("img/banner.png", "banner");
+	//$mail->AddEmbeddedImage("../images/logo.png", "banner");
+
+	// Use if having troubles with the e-mail.
+	//$mail->SMTPDebug = 2;
 
 	if( !$mail->send() )
 	{
 		//echo 'Message could not be sent.';
-		echo '<div class="alert alert-danger alert-dismissible" role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span></button>
-		Mailer Error: ' . $mail->ErrorInfo . '</div>';
+		Return $mail->ErrorInfo;
 	}
 	else
 	{
 		//echo 'Message has been sent';
+		Return True;
 	}
 }
 

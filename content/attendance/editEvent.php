@@ -72,7 +72,8 @@ $attendance = get_EventAttendance($_GET['event']);
 
     <td>
       <a link="index.php?display=Attendance-EventEditEntry&id=' . $value[0] .
-              '&return=Attendance-EditEvent&event=' . $_GET['event'] . '&name=' . $_GET['name'] . '" style="cursor:pointer;">
+              '&return=Attendance-EditEvent&event=' . $_GET['event'] . '&name=' . $_GET['name'] . '&EnterpriseID=' .
+              $value[2] . '&Type=' . $value[3] . '" style="cursor:pointer;">
         <i class="glyphicon glyphicon-edit" title="Edit" style="color: orange"></i>
       </a>
       <a link="attendance/deleteEntry.php?id=' . $value[0] .

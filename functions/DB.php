@@ -49,14 +49,68 @@ Function test_MySQL($dbname, $user, $pass, $host, $port)
     // Save settings to file
     $file = 'functions/settings.php';
 
-    $content = '
-    <?php
+    $content = '    <?php
+      //------------------------------------------------------------------------
+      // IMPORTANT:
+      //------------------------------------------------------------------------
+      // This information is retrieved from the Setup execution.
+      // If you need to re-run the Setup, make sure to delete this file first.
+      // Then, attempt to load the website again and it will prompt you to setup
+      // the DB again.
+      //------------------------------------------------------------------------
+
+      //------------------------------------------------------------------------
+      // Database connection information
+      //------------------------------------------------------------------------
+
       $DBUSER = "'  . $user   . '";
       $DBPASS = "'  . $pass   . '";
       $DB     = "'  . $dbname . '";
       $DBHOST = "'  . $host   . '";
       $DBPORT = "'  . $port   . '";
       $DBTYPE = "mysql";
+
+      //------------------------------------------------------------------------
+      // Mail (SMTP) connection settings and credentials
+      //------------------------------------------------------------------------
+
+      //------------------------------------------------------------------------
+      // SMTP Hosts:     Specify the SMTP servers to use to send the e-mails
+      //------------------------------------------------------------------------
+      //   Single:       sub.domain.tld
+      //   Multiple:     sub.domain.tld;sub.domain.tld
+      //------------------------------------------------------------------------
+      // Authentication: Use a user/pass to authenticate to the SMTP Server?
+      //------------------------------------------------------------------------
+      //                 [True / False]
+      //------------------------------------------------------------------------
+      // Encryption:     If using encryption or not
+      //------------------------------------------------------------------------
+      //                 [0 = none, 1 = tls, 2 = ssl]
+      //------------------------------------------------------------------------
+      // From E-mail:    Specify the reply to e-mail.
+      //------------------------------------------------------------------------
+      //                 event.manager@mycompany.com
+      //------------------------------------------------------------------------
+      // From Name:      Specify the reply to name.
+      //------------------------------------------------------------------------
+      //                 Event Manager
+      //------------------------------------------------------------------------
+      // My Domain:      Specify the company domain.
+      //------------------------------------------------------------------------
+      //                 mycompany.com
+      //------------------------------------------------------------------------
+
+      $SMTPHOSTS          = "smtp.domain.tld";
+      $SMTPAUTHENTICATION = true;
+      $SMTPUSER           = "<Username>";
+      $SMTPPASS           = "<Password>";
+      $SMTPPORT           = 25;
+      $SMTPENC            = 1;
+      $SMTPFROMEMAIL      = "Event.Manager@mycompany.com";
+      $SMTPFROMNAME       = "Event Manager";
+      $MYDOMAIN           = "mycompany.com";
+
     ?>';
 
     file_put_contents($file, $content);
@@ -1427,7 +1481,8 @@ Function get_MyRSVPs($id)
                         Events.Name       AS EventName,
                         Events.Date       AS EventDate,
                         Events.Location   AS EventLocation,
-                        RSVP.EnterpriseID AS UserID
+                        RSVP.EnterpriseID AS UserID,
+                        RSVP.ID           AS RSVPID
                       FROM `Events`,`RSVP`
                       WHERE Date >= '$date'
                       AND Approved = '1'
@@ -2082,6 +2137,35 @@ Function update_Announcement($data)
                            `Content` = '" . sanitize($text)          . "',
                            `Expires` = '" . sanitize($data['Date'])  . "'
                        WHERE `ID` = '" . sanitize($data['id']) . "'"
+                    );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to update an Attendance Entry.
+  @PARAM:
+    [Array]   - The event data
+  @RETURN:
+    [Boolean] - True
+    [Array]   - Errors
+*/
+Function update_AttendanceEntry($data)
+{
+  // Update the Events Table
+  $result = query_DB( "UPDATE `Attendance`
+                       SET `EnterpriseID` = '" . sanitize($data['EnterpriseID']) . "',
+                           `Type`         = '" . sanitize($data['Type'])         . "'
+                       WHERE `ID` = '" . sanitize($data['ID']) . "'"
                     );
 
   // If successful

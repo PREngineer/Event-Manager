@@ -131,6 +131,17 @@ This is used to determine which element will be loaded into the center of the pa
     ';
   }
 
+  // Show Event Attendance - Edit Entry form
+  if( $_POST['display'] == 'Attendance-EventEditEntry' || $_GET['display'] == 'Attendance-EventEditEntry' )
+  {
+    echo'
+      <script>
+        $("#Content").load("attendance/editEntry.php?init=sub&event=' . $_GET['event'] . '&name=' . $_GET['name'] . '&EnterpriseID=' .
+        $_GET['EnterpriseID'] . '&Type=' . $_GET['Type'] . '&id=' . $_GET['id'] . '");
+      </script>
+    ';
+  }
+
   // Show Event Attendance - New Entry form
   if( $_POST['display'] == 'Attendance-EventNewEntry' || $_GET['display'] == 'Attendance-EventNewEntry' )
   {
@@ -274,11 +285,21 @@ This is used to determine which element will be loaded into the center of the pa
 */
 {
   // Show cancellation confirmation
+  if( $_POST['display'] == 'doCancelRSVP' || $_GET['display'] == 'doCancelRSVP' )
+  {
+    echo'
+      <script>
+        $("#Content").load("doCancelRSVP.php?id=' . $_POST['id'] . '");
+      </script>
+    ';
+  }
+
+  // Show cancellation request
   if( $_POST['display'] == 'CancelRSVP' || $_GET['display'] == 'CancelRSVP' )
   {
     echo'
       <script>
-        $("#Content").load("cancelRSVP.php?id=' . $_GET['id'] . '&eid=' . $_GET['eid'] . '");
+        $("#Content").load("cancelRSVP.php?id=' . $_GET['id'] . '&eid=' . $_GET['eid'] . '&rsvpid=' . $_GET['rsvpid'] . '");
       </script>
     ';
   }
