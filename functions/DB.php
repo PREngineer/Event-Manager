@@ -502,6 +502,7 @@ Function setup_RSVPTable()
     `EventID` BIGINT NOT NULL COMMENT 'Event ID' ,
     `EnterpriseID` TEXT NOT NULL COMMENT 'Enterprise ID' ,
     `Cancel` BOOLEAN NOT NULL COMMENT 'Was it cancelled' ,
+    `CancelReason` TEXT COMMENT 'Reason it was cancelled' ,
     `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person registered',
     PRIMARY KEY (`ID`) )
     ENGINE  = InnoDB
@@ -1911,6 +1912,32 @@ function approveEvent($id)
   // If successful
   if( $result['Result'] )
   {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Function that marks an RSVP as cancelled
+  @Param  - int - RSVP ID
+  @Return - Boolean (T or F) if correct
+*/
+function cancelRSVP($id, $reason)
+{
+  // Insert into the Events Table
+  $result = query_DB( "UPDATE `RSVP`
+                       SET `Cancel` = '1', `CancelReason` = '$reason'
+                       WHERE `ID` = '$id'" );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    // Log
+
+
     return True;
   }
   else

@@ -284,12 +284,23 @@ This is used to determine which element will be loaded into the center of the pa
 * RSVP Handling
 */
 {
-  // Show cancellation confirmation
-  if( $_POST['display'] == 'doCancelRSVP' || $_GET['display'] == 'doCancelRSVP' )
+  // Request cancellation reason
+  if( empty($_POST) && $_GET['display'] == 'doCancelRSVP' )
   {
     echo'
       <script>
-        $("#Content").load("doCancelRSVP.php?id=' . $_POST['id'] . '");
+        $("#Content").load("doCancelRSVP.php?id=' . $_GET['id'] . '&code=' . $_GET['code'] . '&rsvpid=' . $_GET['rsvpid'] . '&eid=' . $_GET['eid'] . '");
+      </script>
+    ';
+  }
+
+  // Show cancellation confirmation
+  if( $_POST['display'] == 'doCancelRSVP' )
+  {
+    echo'
+      <script>
+        $("#Content").load("doCancelRSVP.php?id=' . $_GET['id'] . '&code=' . $_GET['code'] . '&rsvpid=' . $_GET['rsvpid'] . '&eid=' . $_GET['eid'] .
+                                            '&post=' . $_POST['Answer'] . '");
       </script>
     ';
   }

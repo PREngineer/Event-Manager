@@ -15,7 +15,8 @@ include 'layout/LinkHandler.php';
 
 <?php
 
-if( !empty($_GET) )
+// Get the information if everything was provided
+if( !empty($_GET['eid']) && !empty($_GET['id']) && !empty($_GET['rsvpid']) && !empty($_GET['code']) )
 {
   $eventData = get_EventData( $_GET['id'] )[0];
 
@@ -29,13 +30,11 @@ if( !empty($_GET) )
   $data[4]   = $_GET['eid'];
   $data[5]   = $_GET['rsvpid'];
 
-  //print_r($data);
 }
 
-//$success = cancelRSVPMail($data);
-
-//if($success == true)
-//{
+// Page just loaded, valid code prompt for reason
+if( !isset($_GET['post']) && ( SHA1($_GET['eid']) == $_GET['code'] ) )
+{
   echo '
   <!-- Form STARTS here -->
 
@@ -49,25 +48,25 @@ if( !empty($_GET) )
     <div class="form-group">
       <label for="Answer"> <label class="text-danger">*</label> Please, tell us why you are cancelling:</label>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="Scheduling Conflict">
+        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="0">
         <label class="form-check-label" for="Answer">
           Scheduling Conflict
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="No longer interested">
+        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="1">
         <label class="form-check-label" for="Answer">
           No longer interested
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="Personal Reasons">
+        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="2">
         <label class="form-check-label" for="Answer">
           Personal Reasons
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="Other">
+        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="3">
         <label class="form-check-label" for="Answer">
           Other
         </label>
@@ -81,10 +80,32 @@ if( !empty($_GET) )
 
   </form>
   <!-- Form ENDS here -->';
-//}
-//else
-//{
+}
 
-//}
+// Page loaded, invalid code provided, show message
+if( !isset($_GET['post']) && ( SHA1($_GET['eid']) !== $_GET['code'] ) )
+{
+  echo 'The request is not valid.  Please make sure to follow the link provided via e-mail.';
+}
 
+// Reason has been provided
+if( !empty($_GET['post']) )
+{
+  // Check if the code provided is valid
+  if( SHA1($_GET['eid']) == $_GET['code'] )
+  {
+
+    // Process the cancellation
+    $success = cancelRSVP($_GET['rsvpid'], $_GET['post']);
+
+    if($success == true)
+    {
+      echo 'Your RSVP has been cancelled.';
+    }
+    else
+    {
+      echo 'Something went wrong while trying to cancel your RSVP.  Please, try again.';
+    }
+  }
+}
 ?>

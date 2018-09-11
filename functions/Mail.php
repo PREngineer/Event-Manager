@@ -80,7 +80,7 @@ Function cancelRSVPMail($data)
 			</td>
 			<td>
 				<a href="http://' . $_SERVER['HTTP_HOST'] . preg_split("/content/", $_SERVER['PHP_SELF'])[0] . 'content/index.php?display=doCancelRSVP&id=' . $data[0] .
-								'&rsvpid=' . $data[5] . '&code=' . SHA1($data[4]) . '">CONFIRM CANCELLATION</a>
+								'&rsvpid=' . $data[5] . '&code=' . SHA1($data[4]) . '&eid=' . $data[4] . '">CONFIRM CANCELLATION</a>
 			</td>
 		</tr>
 	</table>
