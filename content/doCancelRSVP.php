@@ -84,7 +84,7 @@ if( !empty($_GET) )
 //}
 //else
 //{
-
+//	echo '<h2>An error occurred while attempting to cancel your RSVP.  Please, try again.</h2>';
 //}
 
 ?>
