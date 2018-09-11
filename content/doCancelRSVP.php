@@ -80,6 +80,7 @@ if( !isset($_GET['post']) && ( SHA1($_GET['eid']) == $_GET['code'] ) )
 
   </form>
   <!-- Form ENDS here -->';
+<<<<<<< HEAD
 }
 
 // Page loaded, invalid code provided, show message
@@ -87,6 +88,13 @@ if( !isset($_GET['post']) && ( SHA1($_GET['eid']) !== $_GET['code'] ) )
 {
   echo 'The request is not valid.  Please make sure to follow the link provided via e-mail.';
 }
+=======
+//}
+//else
+//{
+//	echo '<h2>An error occurred while attempting to cancel your RSVP.  Please, try again.</h2>';
+//}
+>>>>>>> a7f890134b38a7066d3107460fd76e7045124217
 
 // Reason has been provided
 if( !empty($_GET['post']) )
