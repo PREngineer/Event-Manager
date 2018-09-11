@@ -40,33 +40,31 @@ if( !isset($_GET['post']) && ( SHA1($_GET['eid']) == $_GET['code'] ) )
 
   <form class="container" method="POST" id="AttendanceNewEntry">
     <input name="display"   type="hidden" value="doCancelRSVP">
-    <input name="created"   type="hidden" value="">
-    <input name="event"     type="hidden" value="">
 
     <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
 
     <div class="form-group">
       <label for="Answer"> <label class="text-danger">*</label> Please, tell us why you are cancelling:</label>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="0">
+        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="Scheduling&nbsp;Conflict">
         <label class="form-check-label" for="Answer">
           Scheduling Conflict
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="1">
+        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="No&nbsp;longer&nbsp;interested">
         <label class="form-check-label" for="Answer">
           No longer interested
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="2">
+        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="Personal&nbsp;Reasons">
         <label class="form-check-label" for="Answer">
           Personal Reasons
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="3">
+        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="Other">
         <label class="form-check-label" for="Answer">
           Other
         </label>
@@ -80,7 +78,6 @@ if( !isset($_GET['post']) && ( SHA1($_GET['eid']) == $_GET['code'] ) )
 
   </form>
   <!-- Form ENDS here -->';
-<<<<<<< HEAD
 }
 
 // Page loaded, invalid code provided, show message
@@ -88,13 +85,6 @@ if( !isset($_GET['post']) && ( SHA1($_GET['eid']) !== $_GET['code'] ) )
 {
   echo 'The request is not valid.  Please make sure to follow the link provided via e-mail.';
 }
-=======
-//}
-//else
-//{
-//	echo '<h2>An error occurred while attempting to cancel your RSVP.  Please, try again.</h2>';
-//}
->>>>>>> a7f890134b38a7066d3107460fd76e7045124217
 
 // Reason has been provided
 if( !empty($_GET['post']) )
