@@ -503,6 +503,7 @@ Function setup_RSVPTable()
     `EnterpriseID` TEXT NOT NULL COMMENT 'Enterprise ID' ,
     `Cancel` BOOLEAN NOT NULL COMMENT 'Was it cancelled' ,
     `CancelReason` TEXT COMMENT 'Reason it was cancelled' ,
+    `CancelTimestamp` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT 'Time the person cancelled',
     `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person registered',
     PRIMARY KEY (`ID`) )
     ENGINE  = InnoDB
@@ -1327,6 +1328,31 @@ Function get_FutureEvents()
 
 /*
   Description:
+    This function executes a query to get a member's attendance history.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_MemberAttendance($id)
+{
+  $result = query_DB("SELECT *
+                      FROM Attendance
+                      WHERE `EnterpriseID` = '" . $id . "'");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
     This function executes a query to get all the membership report #1.
   @PARAM:
 
@@ -1927,9 +1953,13 @@ function approveEvent($id)
 */
 function cancelRSVP($id, $reason)
 {
+  $ts = date("Y-m-d H:m:s");
+
   // Insert into the Events Table
   $result = query_DB( "UPDATE `RSVP`
-                       SET `Cancel` = '1', `CancelReason` = '$reason'
+                       SET `Cancel` = '1',
+                           `CancelReason` = '$reason',
+                           `CancelTimestamp` = '$ts'
                        WHERE `ID` = '$id'" );
 
   // If successful

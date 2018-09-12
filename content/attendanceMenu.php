@@ -53,14 +53,14 @@ $announcements = get_Announcements();
   <tr>
     <td><a link="index.php?display=AttendanceByMember" style="cursor:pointer;">Look up member</a></td>
     <td>
-      Filter to see all the entries by a member.
+      To view and manage all the attendance entries of a member.
     </td>
   </tr>
 
   <tr>
     <td><a link="index.php?display=AttendanceByEvent" style="cursor:pointer;">Look up event</a></td>
     <td>
-      Filter to see all the entries in a specific event.
+      To view and manage all the attendance entries in a specific event.
     </td>
   </tr>
 

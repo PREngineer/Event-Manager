@@ -98,7 +98,16 @@ if( !empty($_GET['post']) )
 
     if($success == true)
     {
-      echo 'Your RSVP has been cancelled.';
+      $ts = date('Y-m-d H:m:s');
+      echo '
+      <h2>Your RSVP has been cancelled.</h2>
+      <br>
+      <p>
+      Cancellation processed on ' . $ts . '
+      <br><br>
+      Please save a copy of this confirmation for your record.
+      </p>
+      ';
     }
     else
     {

@@ -121,6 +121,16 @@ This is used to determine which element will be loaded into the center of the pa
     ';
   }
 
+  // Show People to manage
+  if( $_POST['display'] == 'AttendanceByMember' || $_GET['display'] == 'AttendanceByMember' )
+  {
+    echo'
+      <script>
+        $("#Content").load("attendance/members.php?init=sub");
+      </script>
+    ';
+  }
+
   // Show Event Attendance
   if( $_POST['display'] == 'Attendance-EditEvent' || $_GET['display'] == 'Attendance-EditEvent' )
   {
@@ -148,6 +158,16 @@ This is used to determine which element will be loaded into the center of the pa
     echo'
       <script>
         $("#Content").load("attendance/newEntry.php?init=sub&event=' . $_GET['event'] . '&name=' . $_GET['name'] . '");
+      </script>
+    ';
+  }
+
+  // Show Member to manage
+  if( $_POST['display'] == 'Attendance-ShowMember' || $_GET['display'] == 'Attendance-ShowMember' )
+  {
+    echo'
+      <script>
+        $("#Content").load("attendance/showMember.php?init=sub&id=' . $_GET['id'] . '&eid=' . $_GET['eid'] . '");
       </script>
     ';
   }
