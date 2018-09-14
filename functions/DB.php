@@ -503,7 +503,7 @@ Function setup_RSVPTable()
     `EnterpriseID` TEXT NOT NULL COMMENT 'Enterprise ID' ,
     `Cancel` BOOLEAN NOT NULL COMMENT 'Was it cancelled' ,
     `CancelReason` TEXT COMMENT 'Reason it was cancelled' ,
-    `CancelTimestamp` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT 'Time the person cancelled',
+    `CancelTimestamp` TIMESTAMP NULL DEFAULT NULL COMMENT 'Time the person cancelled',
     `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time the person registered',
     PRIMARY KEY (`ID`) )
     ENGINE  = InnoDB

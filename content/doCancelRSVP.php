@@ -46,9 +46,9 @@ if( !isset($_GET['post']) && ( SHA1($_GET['eid']) == $_GET['code'] ) )
     <div class="form-group">
       <label for="Answer"> <label class="text-danger">*</label> Please, tell us why you are cancelling:</label>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="Scheduling&nbsp;Conflict">
+        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="Scheduling&nbsp;conflict">
         <label class="form-check-label" for="Answer">
-          Scheduling Conflict
+          Scheduling conflict
         </label>
       </div>
       <div class="form-check">
@@ -58,9 +58,15 @@ if( !isset($_GET['post']) && ( SHA1($_GET['eid']) == $_GET['code'] ) )
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="Personal&nbsp;Reasons">
+        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="Personal&nbsp;circumstances">
         <label class="form-check-label" for="Answer">
-          Personal Reasons
+          Personal circumstances
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="Answer" id="Answer" value="RSVPed&nbsp;by&nbsp;accident">
+        <label class="form-check-label" for="Answer">
+          RSVPed by accident
         </label>
       </div>
       <div class="form-check">
