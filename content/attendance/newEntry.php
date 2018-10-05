@@ -25,7 +25,7 @@ protectAdmin();
   </li>
   <li>
     <a link="index.php?display=Attendance-EditEvent&event=<?php echo $_GET['event']; ?>&name=<?php echo $_GET['name']; ?>" style="cursor:pointer;">
-      Event
+      <?php echo str_replace("|", " ", $_GET['name']);?>
     </a>
   </li>
 </ol>
@@ -40,6 +40,16 @@ protectAdmin();
   <hr>
 
   <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
+
+  <div class="form-group">
+    <label for="Event"> <label class="text-danger">*</label> Event:</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </span>
+      <input name="Event" type="text" class="form-control" value="<?php echo str_replace("|", " ", $_GET['name']);?>" disabled>
+    </div>
+  </div>
 
   <div class="form-group">
     <label for="EnterpriseID"> <label class="text-danger">*</label> Enterprise ID:</label>

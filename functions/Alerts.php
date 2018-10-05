@@ -162,7 +162,7 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
   }
 
   // Message upon successful deletion of entry
-  if( ($_GET['display'] == 'Attendance-EditEvent') && ($_GET['success'] == '1') )
+  if( ( ($_GET['display'] == 'Attendance-EditEvent') || ($_GET['display'] == 'Attendance-ShowMember') ) && ($_GET['success'] == '1') )
   {
     echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
             <button type = "button" class="close" data-dismiss = "alert">x</button>
@@ -171,13 +171,35 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
   }
 
   // Message upon unsuccessful deletion of entry
-  if( ($_GET['display'] == 'Attendance-EditEvent') && ($_GET['success'] == '0') )
+  if( ( ($_GET['display'] == 'Attendance-EditEvent') || ($_GET['display'] == 'Attendance-ShowMember') ) && ($_GET['success'] == '0') )
   {
     echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
             <button type="button" class="close" data-dismiss="alert">x</button>
             [!] ' . count($res) . ' Error(s) occurred while deleting the attendance entry!<br><br>' .
             $res .
           '</div>';
+  }
+
+  // Message upon edition of Member Attendance Entry
+  if( ($_POST['display'] == 'Attendance-MemberEditEntry') && isset($_POST['edited']) )
+  {
+    $res = update_AttendanceEntry($_POST);
+
+    if( $res == True)
+    {
+      echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type = "button" class="close" data-dismiss = "alert">x</button>
+              Your entry has been updated!
+            </div>';
+    }
+    else
+    {
+      echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              [!] ' . count($res) . ' Error(s) occurred while updating the entry!<br><br>' .
+              $res .
+            '</div>';
+    }
   }
 }
 

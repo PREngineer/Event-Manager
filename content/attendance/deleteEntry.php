@@ -9,19 +9,41 @@ $result = deleteAttendanceEntry( $_GET['id'] );
 
 if( $result )
 {
-  echo'
-    <script>
-      window.location = "../index.php?display=' . $_GET['display'] . '&event=' . $_GET['event'] . '&name=' . $_GET['name'] . '&success=1";
-    </script>
-  ';
+  if( isset($_GET['event']) )
+  {
+    echo'
+      <script>
+        window.location = "../index.php?display=' . $_GET['display'] . '&event=' . $_GET['event'] . '&name=' . $_GET['name'] . '&success=1";
+      </script>
+    ';
+  }
+  else
+  {
+    echo'
+      <script>
+        window.location = "../index.php?display=' . $_GET['display'] . '&id=' . $_GET['id'] . '&eid=' . $_GET['EID'] . '&success=1";
+      </script>
+    ';
+  }
 }
 else
 {
-  echo'
-    <script>
-      window.location = "../index.php?display=' . $_GET['display'] . '&event=' . $_GET['event'] . '&name=' . $_GET['name'] . '&success=0";
-    </script>
-  ';
+  if( isset($_GET['event']) )
+  {
+    echo'
+      <script>
+        window.location = "../index.php?display=' . $_GET['display'] . '&event=' . $_GET['event'] . '&name=' . $_GET['name'] . '&success=0";
+        </script>
+    ';
+  }
+  else
+  {
+    echo'
+      <script>
+        window.location = "../index.php?display=' . $_GET['display'] . '&id=' . $_GET['id'] . '&eid=' . $_GET['EID'] . '&success=0";
+      </script>
+    ';
+  }
 }
 
 ?>

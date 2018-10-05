@@ -1,4 +1,4 @@
-<title>Event Manager - Attendance - Edit Entry</title>
+<title>Event Manager - Attendance - Member - Edit Entry</title>
 
 <?php
 
@@ -10,7 +10,7 @@ protectAdmin();
 
 ?>
 
-<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Attendance - Edit Entry</h1>
+<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Attendance - Member - Edit Entry</h1>
 
 <ol class="breadcrumb">
   <li>
@@ -24,8 +24,13 @@ protectAdmin();
     </a>
   </li>
   <li>
-    <a link="index.php?display=Attendance-EditEvent&event=<?php echo $_GET['event']; ?>&name=<?php echo $_GET['name']; ?>" style="cursor:pointer;">
-      <?php echo str_replace("|", " ", $_GET['name']);?>
+    <a link="index.php?display=AttendanceByMember" style="cursor:pointer;">
+      All Members
+    </a>
+  </li>
+  <li>
+    <a link="index.php?display=Attendance-ShowMember&id=<?php echo $_GET['id']; ?>&eid=<?php echo $_GET['EID']; ?>" style="cursor:pointer;">
+      <?php echo $_GET['EID']; ?>
     </a>
   </li>
 </ol>
@@ -33,24 +38,13 @@ protectAdmin();
 <!-- Form STARTS here -->
 
 <form class="container" method="POST" id="AttendanceEditEntry">
-  <input name="display" type="hidden" value="Attendance-EditEvent">
+  <input name="display" type="hidden" value="Attendance-MemberEditEntry">
   <input name="edited"  type="hidden" value="1">
-  <input name="event"   type="hidden" value="<?php echo $_GET['event']; ?>">
   <input name="ID"      type="hidden" value="<?php echo $_GET['id']; ?>">
 
   <hr>
 
   <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
-
-  <div class="form-group">
-    <label for="Event"> <label class="text-danger">*</label> Event:</label>
-    <div class="input-group">
-      <span class="input-group-addon">
-        <i class="glyphicon glyphicon-pencil"></i>
-      </span>
-      <input name="Event" type="text" class="form-control" value="<?php echo str_replace("|", " ", $_GET['name']);?>" disabled>
-    </div>
-  </div>
 
   <div class="form-group">
     <label for="EnterpriseID"> <label class="text-danger">*</label> Enterprise ID:</label>
@@ -60,9 +54,9 @@ protectAdmin();
       </span>
       <input name="EnterpriseID" type="text" class="form-control" id="EnterpriseID" placeholder="Enterprise ID goes here." aria-required="true"
         <?php
-          if( isset($_GET['EnterpriseID']) )
+          if( isset($_GET['EID']) )
           {
-            echo ' value=' . $_GET['EnterpriseID'];
+            echo ' value=' . $_GET['EID'];
           }
         ?>>
     </div>

@@ -1,4 +1,4 @@
-<title>Event Manager - Attendance - Events</title>
+<title>Event Manager - Attendance - List Event Entries</title>
 
 <?php
 
@@ -12,7 +12,7 @@ $attendance = get_EventAttendance($_GET['event']);
 
 ?>
 
-<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Attendance - All Events</h1>
+<h1 id="page-title" tabindex="-1" role="heading" aria-level="1">Attendance - List Event Entries</h1>
 
 <hr>
 
