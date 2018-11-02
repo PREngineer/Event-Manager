@@ -76,7 +76,7 @@ $events = get_AllMembers();
     <tr id="Entry' . $value[0] . '">
 
       <td>
-        <a link="index.php?display=Attendance-ShowMember&id=' . $value[0] . '&eid=' . $value[1] . '" style="cursor:pointer";>
+        <a link="index.php?display=Attendance-ShowMember&eid=' . $value[1] . '" style="cursor:pointer";>
       ' . $value[1] . '
         </a>
       </td>

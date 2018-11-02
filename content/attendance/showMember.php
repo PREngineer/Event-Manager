@@ -77,12 +77,21 @@ $events = get_AllEvents();
 
   foreach ($attendance as $key => $value)
   {
+    // Get the event's name
+    $evname = "";
+    foreach($events as $key2 => $value2)
+    {
+      if($value[1] == $value2[0])
+      {
+        $evname = $value2[1];
+      }
+    }
     echo'
     <tr id="Entry' . $value[0] . '">
 
     <td>
       <a link="index.php?display=Attendance-MemberEditEntry&id=' . $value[0] .
-              '&return=Attendance-ShowMember&EID=' . $value[2] . '&Type=' . $value[3] . '" style="cursor:pointer;">
+              '&return=Attendance-ShowMember&EID=' . $value[2] . '&Type=' . $value[3] . '&Event=' . str_replace(" ","|",$evname) . '" style="cursor:pointer;">
         <i class="glyphicon glyphicon-edit" title="Edit" style="color: orange"></i>
       </a>
       <a link="attendance/deleteEntry.php?id=' . $value[0] .

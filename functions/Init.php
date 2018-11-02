@@ -89,4 +89,16 @@ if( !file_exists('../../functions/settings.php') && ($_GET['init'] == 'sub') )
   ';
 }
 
+// Find the string in between two other
+function getSubstring($start, $end, $content)
+{
+    $r = explode($start, $content);
+    if (isset($r[1]))
+    {
+        $r = explode($end, $r[1]);
+        return $r[0];
+    }
+    return '';
+}
+
 ?>

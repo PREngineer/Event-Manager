@@ -201,6 +201,32 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
             '</div>';
     }
   }
+
+  // Message upon creation of Member Attendance Entry
+  if( ($_POST['display'] == 'Attendance-MemberNewEntry') && isset($_POST['created']) )
+  {
+    $ev = explode("-", $_POST['Event']);
+    $event = getSubstring("[", "]", $ev[4]);
+    $data = array("EnterpriseID"=>$_POST['EnterpriseID'], "event"=>$event, "Type"=>$_POST['Type']);
+
+    $res = insert_NewAttendanceEntry($data);
+
+    if( $res == True)
+    {
+      echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type = "button" class="close" data-dismiss = "alert">x</button>
+              Your entry has been created!
+            </div>';
+    }
+    else
+    {
+      echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              [!] ' . count($res) . ' Error(s) occurred while creating the entry!<br><br>' .
+              $res .
+            '</div>';
+    }
+  }
 }
 
 /*

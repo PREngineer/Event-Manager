@@ -169,7 +169,8 @@ This is used to determine which element will be loaded into the center of the pa
     {
       echo'
         <script>
-          $("#Content").load("attendance/memberEditEntry.php?init=sub&Type=' . $_GET['Type'] . '&id=' . $_GET['id'] . '&EID=' . $_GET['EID'] . '");
+          $("#Content").load("attendance/memberEditEntry.php?init=sub&Type=' . $_GET['Type'] . '&id=' . $_GET['id'] . '&EID=' . $_GET['EID'] .
+          '&Event=' . $_GET['Event'] . '");
         </script>
       ';
     }
@@ -177,7 +178,8 @@ This is used to determine which element will be loaded into the center of the pa
     {
       echo'
         <script>
-          $("#Content").load("attendance/memberEditEntry.php?init=sub&Type=' . $_POST['Type'] . '&id=' . $_GET['id'] . '&EID=' . $_GET['EID'] . '");
+          $("#Content").load("attendance/memberEditEntry.php?init=sub&Type=' . $_POST['Type'] . '&id=' . $_GET['id'] . '&EID=' . $_GET['EID'] .
+          '&Event=' . $_GET['Event'] . '");
         </script>
       ';
     }
@@ -186,11 +188,22 @@ This is used to determine which element will be loaded into the center of the pa
   // Show Event Attendance - New Entry form (member)
   if( $_POST['display'] == 'Attendance-MemberNewEntry' || $_GET['display'] == 'Attendance-MemberNewEntry' )
   {
-    echo'
-      <script>
-        $("#Content").load("attendance/memberNewEntry.php?init=sub&eid=' . $_GET['eid'] . '");
-      </script>
-    ';
+    if( empty($_POST) )
+    {
+      echo'
+        <script>
+          $("#Content").load("attendance/memberNewEntry.php?init=sub&eid=' . $_GET['eid'] . '");
+        </script>
+      ';
+    }
+    else
+    {
+      echo'
+        <script>
+          $("#Content").load("attendance/showMember.php?init=sub&eid=' . $_GET['eid'] . '");
+        </script>
+      ';
+    }
   }
 
   // Show Member to manage

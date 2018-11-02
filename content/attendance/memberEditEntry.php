@@ -47,6 +47,16 @@ protectAdmin();
   <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
 
   <div class="form-group">
+    <label for="Event"> <label class="text-danger">*</label> Event:</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </span>
+      <input name="Event" type="text" class="form-control" value="<?php echo str_replace("|", " ", $_GET['Event']);?>" disabled>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label for="EnterpriseID"> <label class="text-danger">*</label> Enterprise ID:</label>
     <div class="input-group">
       <span class="input-group-addon">

@@ -26,8 +26,13 @@ $events = get_AllEvents();
     </a>
   </li>
   <li>
-    <a link="index.php?display=Attendance-EditEvent&event=<?php echo $_GET['event']; ?>&name=<?php echo $_GET['name']; ?>" style="cursor:pointer;">
-      Event
+    <a link="index.php?display=AttendanceByMember" style="cursor:pointer;">
+      All Members
+    </a>
+  </li>
+  <li>
+    <a link="index.php?display=Attendance-ShowMember&eid=<?php echo $_GET['eid']; ?>" style="cursor:pointer;">
+      <?php echo $_GET['eid']; ?>
     </a>
   </li>
 </ol>
@@ -35,21 +40,31 @@ $events = get_AllEvents();
 <!-- Form STARTS here -->
 
 <form class="container" method="POST" id="AttendanceNewEntry">
-  <input name="display"   type="hidden" value="Attendance-EditEvent">
-  <input name="created"   type="hidden" value="1">
-  <input name="event"     type="hidden" value="<?php echo $_GET['event']; ?>">
+  <input name="display"      type="hidden" value="Attendance-MemberNewEntry">
+  <input name="created"      type="hidden" value="1">
+  <input name="EnterpriseID" type="hidden" value="<?php echo $_GET['eid']; ?>">
 
   <hr>
 
   <p><strong> Note: All fields marked with an asterisk ( <label class="text-danger">*</label> ) are required.</strong></p>
 
   <div class="form-group">
-    <label for="event"> <label class="text-danger">*</label> Event:</label>
+    <label> <label class="text-danger"></label> Enterprise ID:</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-pencil"></i>
+      </span>
+      <input type="text" class="form-control" placeholder="Enterprise ID goes here." value=<?php echo $_GET['eid'];?> disabled>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="Event"> <label class="text-danger">*</label> Event:</label>
     <div class="input-group">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-th-list"></i>
       </span>
-      <select name="event" class="form-control" id="event" aria-required="true">
+      <select name="Event" class="form-control" id="Event" aria-required="true">
   	     <option></option>
       <?php
 
@@ -104,7 +119,7 @@ $events = get_AllEvents();
         },
         fields:
         {
-			      EnterpriseID:
+			      Event:
             {
                 validators:
                 {
