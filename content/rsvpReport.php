@@ -20,17 +20,21 @@
     {
       window.location = "index.php?display=RSVPReport&report=1";
     }
-    if(value == "All RSVP by Type")
+    if(value == "All RSVP by Company Segment")
     {
       window.location = "index.php?display=RSVPReport&report=2";
     }
-    if(value == "RSVP by Event")
+    if(value == "All RSVP by Event")
     {
       window.location = "index.php?display=RSVPReport&report=3";
     }
-    if(value == "RSVP by Career Level")
+    if(value == "Event RSVP by Career Level")
     {
-      window.location = "index.php?display=RSVPReport&report=4";
+      window.location = "index.php?display=RSVPEvents&report=4";
+    }
+    if(value == "Event RSVPs")
+    {
+      window.location = "index.php?display=RSVPEvents&report=5";
     }
   }
 
@@ -55,6 +59,18 @@
       All Reports
     </a>
   </li>
+  <?php
+    if( isset($_GET['eventID']) )
+    {
+      echo '
+      <li>
+        <a link="index.php?display=RSVPEvents&report=' . $_GET['report'] . '" style="cursor:pointer;">
+          All Events
+        </a>
+      </li>
+      ';
+    }
+  ?>
 </ol>
 
 <div class="panel panel-default">
@@ -71,6 +87,10 @@
             <select onchange="changeReport(this.value)" class="form-control" id="reportOptions">
         	    <option <?php if($_GET['report'] == 0){echo 'selected';} ?> value="All Data">-All Data-</option>
               <option <?php if($_GET['report'] == 1){echo 'selected';} ?> value="All RSVP by Career Level">All RSVP by Career Level</option>
+              <option <?php if($_GET['report'] == 2){echo 'selected';} ?> value="All RSVP by Company Segment">All RSVP by Company Segment</option>
+              <option <?php if($_GET['report'] == 3){echo 'selected';} ?> value="All RSVP by Event">All RSVP by Event</option>
+              <option <?php if($_GET['report'] == 4){echo 'selected';} ?> value="Event RSVP by Career Level">Event RSVP by Career Level</option>
+              <option <?php if($_GET['report'] == 5){echo 'selected';} ?> value="Event RSVPs">Event RSVPs</option>
             </select>
           </div>
         </td>
@@ -189,15 +209,19 @@
   }
   if($_GET['report'] == 2)
   {
-    include 'reports/allRSVPByType.php';
+    include 'reports/allRSVPByCompanySegment.php';
   }
   if($_GET['report'] == 3)
   {
-    include 'reports/RSVPByEvent.php';
+    include 'reports/allRSVPByEvent.php';
   }
   if($_GET['report'] == 4)
   {
-    include 'reports/RSVPByCareerLevel.php';
+    include 'reports/eventRSVPsByCareerLevel.php';
+  }
+  if($_GET['report'] == 5)
+  {
+    include 'reports/eventRSVPs.php';
   }
 
 ?>

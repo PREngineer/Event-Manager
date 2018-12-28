@@ -1,5 +1,5 @@
 <!-- Table -->
-<title>Event Manager - RSVP Reports - RSVP Dump</title>
+<title>Event Manager - RSVP Reports - Event RSVPs</title>
 
 <?php
 
@@ -9,18 +9,21 @@
 
   protectAdmin();
 
-  $rsvps = get_AllRSVP();
+  $rsvps = get_EventRSVPs($_GET['eventID']);
 
   echo  '
   <table id="reportTable" class="container table">
     <thead>
+      <tr style="background: gray;">
+      <th colspan="6" class="text-center">' . str_replace("|"," ",$_GET['eventName']) . '</th>
+      </tr>
       <tr style="background: lightgray;">
-      <th>Event ID</th>
-      <th>Enterprise ID</th>
-      <th>Reserve Timestamp</th>
-      <th>Cancelled</th>
-      <th>Cancel Reason</th>
-      <th>Cancel Timestamp</th>
+        <th>Event ID</th>
+        <th>Enterprise ID</th>
+        <th>Reserve Timestamp</th>
+        <th>Cancelled</th>
+        <th>Cancel Reason</th>
+        <th>Cancel Timestamp</th>
       </tr>
     </thead>
     <tbody>';
@@ -29,7 +32,7 @@
   {
     echo '
     <div class="container">
-      <h3>There are no RSVP entries in the platform at the moment.</h3>
+      <h3>There are no RSVP entries for the event in the platform at the moment.</h3>
     </div>
     ';
   }

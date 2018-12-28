@@ -1275,6 +1275,67 @@ Function get_EventObjectives()
 
 /*
   Description:
+    This function executes a query to get all the event RSVPs by Career Level.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_EventRSVPsByCareerLevel($id)
+{
+  $result = query_DB("SELECT  SUM(case when `M`.`Level` = '5' then 1 else 0 end) as 'Leadership',
+                         		  SUM(case when `M`.`Level` = '6' then 1 else 0 end) as 'CL6',
+                              SUM(case when `M`.`Level` = '7' then 1 else 0 end) as 'CL7',
+                              SUM(case when `M`.`Level` = '8' then 1 else 0 end) as 'CL8',
+                              SUM(case when `M`.`Level` = '9' then 1 else 0 end) as 'CL9',
+                              SUM(case when `M`.`Level` = '10' then 1 else 0 end) as 'CL10',
+                              SUM(case when `M`.`Level` = '11' then 1 else 0 end) as 'CL11',
+                              SUM(case when `M`.`Level` = '12' then 1 else 0 end) as 'CL12',
+                              SUM(case when `M`.`Level` = '13' then 1 else 0 end) as 'CL13',
+                              SUM(case when `M`.`Level` = '14' then 1 else 0 end) as 'CL14'
+                              FROM Members M
+                              INNER JOIN RSVP R
+                              ON M.EID = R.EnterpriseID
+                              WHERE R.EventID = '" . $id . "'");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all the event RSVPs.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_EventRSVPs($id)
+{
+  $result = query_DB("SELECT  *
+                              FROM RSVP
+                              WHERE EventID = '" . $id . "'");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
     This function executes a query to get all the DIM Event Type entries.
   @PARAM:
 

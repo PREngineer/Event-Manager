@@ -533,6 +533,16 @@ This is used to determine which element will be loaded into the center of the pa
 * RSVP Report Handling
 */
 {
+  // Show RSVP - Events List (admin)
+  if( $_GET['display'] == 'RSVPEvents' )
+  {
+    echo'
+      <script>
+        $("#Content").load("reports/rsvpEvents.php?init=sub&report=' . $_GET['report'] . '");
+      </script>
+    ';
+  }
+
   // Show RSVP Report 0 (admin)
   if( $_GET['display'] == 'RSVPReport' && ( !isset($_GET['report']) ) )
   {
@@ -544,11 +554,21 @@ This is used to determine which element will be loaded into the center of the pa
   }
 
   // Show RSVP Report 1+ (admin)
-  if( ($_GET['display'] == 'RSVPReport') && isset($_GET['report']) )
+  if( ($_GET['display'] == 'RSVPReport') && isset($_GET['report']) && !isset($_GET['eventID']) )
   {
     echo'
       <script>
         $("#Content").load("rsvpReport.php?report=' . $_GET['report'] . '");
+      </script>
+    ';
+  }
+
+  // Show RSVP Report 4 (admin)
+  if( ($_GET['display'] == 'RSVPReport') && isset($_GET['report']) && isset($_GET['eventID']) )
+  {
+    echo'
+      <script>
+        $("#Content").load("rsvpReport.php?report=' . $_GET['report'] . '&eventID=' . $_GET['eventID'] . '&eventName=' . $_GET['eventName'] . '");
       </script>
     ';
   }

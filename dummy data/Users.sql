@@ -1,4 +1,0 @@
-INSERT INTO `Users` (`Username`, `Password`, `Role`) VALUES
-('administrator', 'b739d195ad7192bbd6a223a67645e3a766c239073667821cec0e07257f74410f', 3),
-('approver', 'b739d195ad7192bbd6a223a67645e3a766c239073667821cec0e07257f74410f', 1),
-('poc', 'b739d195ad7192bbd6a223a67645e3a766c239073667821cec0e07257f74410f', 2);
