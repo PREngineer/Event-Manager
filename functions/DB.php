@@ -1086,7 +1086,7 @@ Function get_AllRSVP()
 
 /*
   Description:
-    This function executes a query to get all rsvp data (Report 1).
+    This function executes a query to get all rsvp by career level data (Report 1).
   @PARAM:
 
   @RETURN:
@@ -1108,6 +1108,59 @@ Function get_AllRSVPByCareerLevel()
                               FROM Members M
                               INNER JOIN RSVP R
                               ON M.EID = R.EnterpriseID");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all rsvp by company segment data (Report 2).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllRSVPByCompanySegment()
+{
+  $result = query_DB("SELECT  SUM(case when `M`.`Segment` = 'LLP' then 1 else 0 end) as 'LLP',
+                         		  SUM(case when `M`.`Segment` = 'Federal' then 1 else 0 end) as 'Federal'
+                              FROM Members M
+                              INNER JOIN RSVP R
+                              ON M.EID = R.EnterpriseID");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to get all rsvp by event data (Report 3).
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_AllRSVPByEvent()
+{
+  $result = query_DB("SELECT E.Name, E.Date, R.*
+                      FROM Events E, RSVP R
+                      WHERE E.ID = R.EventID
+                      ORDER BY R.EventID ASC");
 
   if( $result['Result'] )
   {
