@@ -505,6 +505,31 @@ This is used to determine which element will be loaded into the center of the pa
 }
 
 /*
+* Budget Report Handling
+*/
+{
+  // Show Budget Report 0 (admin)
+  if( $_GET['display'] == 'BudgetReport' && ( !isset($_GET['report']) ) )
+  {
+    echo'
+      <script>
+        $("#Content").load("budgetReport.php?report=0");
+      </script>
+    ';
+  }
+
+  // Show Budget Report 1+ (admin)
+  if( ($_GET['display'] == 'BudgetReport') && isset($_GET['report']) )
+  {
+    echo'
+      <script>
+        $("#Content").load("budgetReport.php?report=' . $_GET['report'] . '");
+      </script>
+    ';
+  }
+}
+
+/*
 * Roles Report Handling
 */
 {

@@ -48,6 +48,13 @@ protectAdmin();
     </tr>
 
     <tr>
+      <td><a link="index.php?display=BudgetReport" style="cursor:pointer;">Budget</a></td>
+      <td>
+        Provides details about the budget and expenses.
+      </td>
+    </tr>
+
+    <tr>
       <td><a link="index.php?display=MembershipReport&report=0" style="cursor:pointer;">Membership</a></td>
       <td>
         Provides details about the ERG members.
@@ -57,7 +64,7 @@ protectAdmin();
     <tr>
       <td><a link="index.php?display=RolesReport" style="cursor:pointer;">Roles</a></td>
       <td>
-        Provides details about members that special roles in the portal.
+        Provides details about members that have special roles in the portal.
       </td>
     </tr>
 
