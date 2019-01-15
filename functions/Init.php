@@ -24,7 +24,7 @@ function protectAdmin()
   if( $_SESSION['userRole'] != '3' )
   {
     echo '<script type="text/javascript">
-        window.location.href = "/content/index.php?display=Login"
+        window.location.href = "index.php?display=Login"
       </script>';
   }
 }
@@ -39,7 +39,7 @@ function protectApprover()
   if( $_SESSION['userRole'] != '1' && $_SESSION['userRole'] != '3')
   {
     echo '<script type="text/javascript">
-        window.location.href = "/content/index.php?display=Login"
+        window.location.href = "index.php?display=Login"
       </script>';
   }
 }
@@ -54,7 +54,7 @@ function protectPoc()
   if( $_SESSION['userRole'] != '2' && $_SESSION['userRole'] != '3')
   {
     echo '<script type="text/javascript">
-        window.location.href = "/content/index.php?display=Login"
+        window.location.href = "index.php?display=Login"
       </script>';
   }
 }
