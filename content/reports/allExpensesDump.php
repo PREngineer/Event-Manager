@@ -9,15 +9,19 @@
 
   protectAdmin();
 
-  $expenses = get_AllExpenses();
+  $expenses = get_AllEvents();
+  $on = $over = $under = 0;
 
-  echo '<table id="reportTable" class="container table">
+  echo '
+  <table id="reportTable" class="container table">
     <thead>
       <tr style="background: lightgray;">
         <th>Event ID</th>
-        <th>Enterprise ID</th>
-        <th>Type</th>
-        <th>Registered</th>
+        <th>Event Name</th>
+        <th>Event Date</th>
+        <th>Creator</th>
+        <th>Forecasted Budget ($)</th>
+        <th>Actual Budget Spent ($)</th>
       </tr>
     </thead>
     <tbody>';
@@ -37,24 +41,40 @@
       echo '
         <tr>
           <td>
+            ' . $value[0] . '
+          </td>
+          <td>
             ' . $value[1] . '
           </td>
           <td>
             ' . $value[2] . '
           </td>
-            ';
-
-            if( $value[3] == 0)
-            {
-              echo '<td style="color: blue;"><i class="glyphicon glyphicon-user" title="In Person"></i> In Person';
-            }
-            else if( $value[3] == 1)
-            {
-              echo '<td style="color: gray;"><i class="glyphicon glyphicon-headphones" title="Remote"></i> Remote';
-            }
-    echo '</td>
           <td>
             ' . $value[4] . '
+          </td>
+          <td>
+            ' . $value[8] . '
+          </td>
+          <td';
+
+      if($value[8] > $value[9])
+      {
+        echo ' style="background:lightgreen;"';
+        $under++;
+      }
+      if($value[8] == $value[9])
+      {
+        echo ' style="background:lightblue;"';
+        $on++;
+      }
+      if($value[8] < $value[9])
+      {
+        echo ' style="background:pink;"';
+        $over++;
+      }
+
+      echo '>
+            ' . $value[9] . '
           </td>
         </tr>
       ';
@@ -62,5 +82,45 @@
   }
 
   echo '</tbody>
-      </table>';
+      </table>
+
+      <table id="reportTable" class="container table">
+
+        <thead>
+          <tr style="background: lightgray;">
+            <th>Under Budget</th>
+            <th>% Under Budget</th>
+            <th>On Budget</th>
+            <th>% On Budget</th>
+            <th>Over Budget</th>
+            <th>% Over Budget</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+            ' . $under . '
+            </td>
+            <td>
+            ' . round( ( ($under) / ($under + $on + $over) * 100 ),2 ) . '
+            </td>
+            <td>
+            ' . $on . '
+            </td>
+            <td>
+            ' . round( ( ($on) / ($under + $on + $over) * 100 ),2 ) . '
+            </td>
+            <td>
+            ' . $over . '
+            </td>
+            <td>
+            ' . round( ( ($over) / ($under + $on + $over) * 100 ),2 ) . '
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+      ';
+
 ?>

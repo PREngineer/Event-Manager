@@ -20,7 +20,7 @@
     {
       window.location = "index.php?display=BudgetReport&report=1";
     }
-    if(value == "Forecasted vs Spent")
+    if(value == "YTD Forecasted vs Spent")
     {
       window.location = "index.php?display=BudgetReport&report=2";
     }
@@ -63,7 +63,7 @@
             <select onchange="changeReport(this.value)" class="form-control" id="reportOptions">
         	    <option <?php if($_GET['report'] == 0){echo 'selected';} ?> value="All Data">-All Data-</option>
               <option <?php if($_GET['report'] == 1){echo 'selected';} ?> value="YTD Expenses">YTD Expenses</option>
-              <option <?php if($_GET['report'] == 2){echo 'selected';} ?> value="Forecasted vs Spent">Forecasted vs Spent</option>
+              <option <?php if($_GET['report'] == 2){echo 'selected';} ?> value="YTD Forecasted vs Spent">YTD Forecasted vs Spent</option>
             </select>
           </div>
         </td>
