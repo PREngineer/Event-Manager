@@ -174,7 +174,7 @@
 
   if( ($_GET['report'] == 0) || !isset($_GET['report']) )
   {
-    include 'reports/allexpensesDump.php';
+    include 'reports/allExpensesDump.php';
   }
   if($_GET['report'] == 1)
   {
