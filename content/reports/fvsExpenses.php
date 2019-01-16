@@ -102,22 +102,22 @@
 
         <tbody>
           <tr>
-            <td>
+            <td style="background:lightgreen;">
             ' . $under . '
             </td>
-            <td>
+            <td style="background:lightgreen;">
             ' . round( ( ($under) / ($under + $on + $over) * 100 ),2 ) . '
             </td>
-            <td>
+            <td style="background:lightblue;">
             ' . $on . '
             </td>
-            <td>
+            <td style="background:lightblue;">
             ' . round( ( ($on) / ($under + $on + $over) * 100 ),2 ) . '
             </td>
-            <td>
+            <td style="background:pink;">
             ' . $over . '
             </td>
-            <td>
+            <td style="background:pink;">
             ' . round( ( ($over) / ($under + $on + $over) * 100 ),2 ) . '
             </td>
           </tr>
