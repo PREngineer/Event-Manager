@@ -477,7 +477,7 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
     {
       echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
               <button type="button" class="close" data-dismiss="alert">x</button>
-              [!] You cancellation was rolled back.
+              [!] Your cancellation was rolled back.
             </div>';
     }
   }
