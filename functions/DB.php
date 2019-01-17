@@ -1442,6 +1442,31 @@ Function get_FutureEvents()
 
 /*
   Description:
+    This function executes a query to get a member's data
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_Member($id)
+{
+  $result = query_DB("SELECT *
+                      FROM Members
+                      WHERE `id` = '" . $id . "'");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
     This function executes a query to get a member's attendance history.
   @PARAM:
 
@@ -1617,21 +1642,20 @@ Function get_MyRSVPs($id)
 {
   $date = date('Y-m-d');
 
-  $result = query_DB("SELECT DISTINCT
-                        Events.ID         AS EventID,
-                        Events.Name       AS EventName,
-                        Events.Date       AS EventDate,
-                        Events.Location   AS EventLocation,
-                        RSVP.EnterpriseID AS UserID,
-                        RSVP.ID           AS RSVPID
-                      FROM `Events`,`RSVP`
+  $result = query_DB("SELECT
+                      E.ID           AS EventID,
+                      E.Name         AS EventName,
+                      E.Date         AS EventDate,
+                      E.Location     AS EventLocation,
+                      R.EnterpriseID AS UserID,
+                      R.ID           AS RSVPID
+                      FROM `Events` E
+                      INNER JOIN `RSVP` R
+                      ON E.ID = R.EventID
                       WHERE Date >= '$date'
-                      AND Approved = '1'
-                      AND Deleted = '0'
-                      AND Events.ID IN
-                      (SELECT EventID FROM `RSVP`
-                        WHERE EnterpriseID = '$id')
-                      AND RSVP.EnterpriseID = '$id'");
+                      AND E.Approved = '1'
+                      AND E.Deleted = '0'
+                      AND R.EnterpriseID = '$id'");
 
   if( $result['Result'] )
   {
@@ -2141,9 +2165,32 @@ function deleteAttendanceEntry($id)
 */
 function deleteEvent($id)
 {
-  // Insert into the Events Table
+  // Delete from the Events Table
   $result = query_DB( "UPDATE `Events`
                        SET `Deleted` = '1'
+                       WHERE `id` = $id" );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return False;
+  }
+}
+
+/*
+  Function that deletes the member
+  @Param  - Int - The Member ID.
+  @Return - Boolean (T or F) if correct
+*/
+function deleteMember($id)
+{
+  // Delete from Members
+  $result = query_DB( "DELETE
+                       FROM `Members`
                        WHERE `id` = $id" );
 
   // If successful
@@ -2252,45 +2299,6 @@ function set_ActualBudget($data)
 
 /*
   Description:
-    This function executes a query to update an Event.
-  @PARAM:
-    [Array]   - The event data
-    [Int]     - The Event ID
-  @RETURN:
-    [Boolean] - True
-    [Array]   - Errors
-*/
-Function update_Event($data)
-{
-  // Update the Events Table
-  $result = query_DB( "UPDATE `Events`
-                       SET `Name`             = '" . sanitize($data['eventName'])        . "',
-                           `Date`             = '" . sanitize($data['eventDate'])        . "',
-                           `Start`            = '" . sanitize($data['start'])            . "',
-                           `End`              = '" . sanitize($data['end'])              . "',
-                           `Estimated_Budget` = '" . sanitize($data['estimatedBudget'])  . "',
-                           `Actual_Budget`    = '" . sanitize($data['actualBudget'])     . "',
-                           `Location`         = '" . sanitize($data['location'])         . "',
-                           `Committee_ID`     = '" . sanitize($data['sponsorCommittee']) . "',
-                           `Type`             = '" . sanitize($data['eventType'])        . "',
-                           `Objective`        = '" . sanitize($data['eventObjective'])   . "',
-                           `Creator`          = '" . sanitize($data['creator'])          . "'
-                       WHERE `ID` = " . sanitize($data['id'])
-                    );
-
-  // If successful
-  if( $result['Result'] )
-  {
-    return True;
-  }
-  else
-  {
-    return $result['Errors'];
-  }
-}
-
-/*
-  Description:
     This function executes a query to update an Announcement.
   @PARAM:
     [Array]   - The event data
@@ -2337,6 +2345,86 @@ Function update_AttendanceEntry($data)
                        SET `EnterpriseID` = '" . sanitize($data['EnterpriseID']) . "',
                            `Type`         = '" . sanitize($data['Type'])         . "'
                        WHERE `ID` = '" . sanitize($data['ID']) . "'"
+                    );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to update an Event.
+  @PARAM:
+    [Array]   - The event data
+    [Int]     - The Event ID
+  @RETURN:
+    [Boolean] - True
+    [Array]   - Errors
+*/
+Function update_Event($data)
+{
+  // Update the Events Table
+  $result = query_DB( "UPDATE `Events`
+                       SET `Name`             = '" . sanitize($data['eventName'])        . "',
+                           `Date`             = '" . sanitize($data['eventDate'])        . "',
+                           `Start`            = '" . sanitize($data['start'])            . "',
+                           `End`              = '" . sanitize($data['end'])              . "',
+                           `Estimated_Budget` = '" . sanitize($data['estimatedBudget'])  . "',
+                           `Actual_Budget`    = '" . sanitize($data['actualBudget'])     . "',
+                           `Location`         = '" . sanitize($data['location'])         . "',
+                           `Committee_ID`     = '" . sanitize($data['sponsorCommittee']) . "',
+                           `Type`             = '" . sanitize($data['eventType'])        . "',
+                           `Objective`        = '" . sanitize($data['eventObjective'])   . "',
+                           `Creator`          = '" . sanitize($data['creator'])          . "'
+                       WHERE `ID` = " . sanitize($data['id'])
+                    );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to update a member.
+  @PARAM:
+    [Array]   - The event data
+    [Int]     - The Event ID
+  @RETURN:
+    [Boolean] - True
+    [Array]   - Errors
+*/
+Function update_Member($data)
+{
+  // Update the Events Table
+  $result = query_DB( "UPDATE `Members`
+                       SET `EID`        = '" . sanitize($data['enterpriseID'])  . "',
+                           `FName`      = '" . sanitize($data['firstName']) . "',
+                           `Initials`   = '" . sanitize($data['initials'])            . "',
+                           `LName`      = '" . sanitize($data['lastName'])              . "',
+                           `Level`      = '" . sanitize($data['level'])  . "',
+                           `Title`      = '" . sanitize($data['title'])     . "',
+                           `Segment`    = '" . sanitize($data['segment'])         . "',
+                           `Email`      = '" . sanitize($data['email']) . "',
+                           `Newsletter` = '" . sanitize($data['newsletter'])        . "',
+                           `Volunteer`  = '" . sanitize($data['volunteer'])   . "',
+                           `Active`     = '" . sanitize($data['active'])          . "',
+                           `Lead`       = '" . sanitize($data['lead'])   . "',
+                           `Role`       = '" . sanitize($data['role'])   . "'
+                       WHERE `ID` = " . sanitize($data['id'])
                     );
 
   // If successful

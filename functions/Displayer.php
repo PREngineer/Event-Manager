@@ -231,7 +231,15 @@ This is used to determine which element will be loaded into the center of the pa
     ';
   }
 
-
+  // Edit Member (Admins)
+  if( $_GET['display'] == 'EditMember' )
+  {
+    echo'
+    <script>
+      $("#Content").load("editMember.php?display=' . $_GET['display'] . '&id=' . $_GET['id'] . '");
+    </script>
+    ';
+  }
 }
 
 /*

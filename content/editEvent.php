@@ -370,7 +370,6 @@ else
 <hr>
 
 <input class="btn btn-primary" type="submit" value="Submit">
-<input class="btn btn-primary" type="reset"  value="Clear">
 
 </form>
 <!-- Form ENDS here -->

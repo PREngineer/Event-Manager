@@ -1,7 +1,7 @@
 <title>Event Manager - Event RSVP</title>
 <!-- ******************* START FORM ******************* -->
 <form class="container" method="POST" id="rsvpForm">
-  <input name="display" type="hidden" value="RSVP">
+  <input name="display" type="hidden" value="Future">
   <input name="id" type="hidden" value="<?php echo $_GET['id']; ?>">
 
   <!-- Heading -->

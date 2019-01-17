@@ -447,7 +447,7 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
   }
 
   // Message upon RSVP
-  if( ($_POST['display'] == 'RSVP') )
+  if( ($_POST['display'] == 'Future') )
   {
     // Retrieve the codes for this event
     $res = user_RSVP($_POST['EID'], $_POST['id']);
@@ -512,6 +512,48 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
       echo '<div class="container alert alert-warning alert-dismissible" role="alert" style="padding-top:75px;">
               <button type="button" class="close" data-dismiss="alert">x</button>
               [!] This Member already exists.</div>';
+    }
+  }
+
+  // Message upon Edition of Members
+  if( $_POST['display'] == 'EditMember' )
+  {
+    $res = update_Member($_POST);
+
+    if( $res == True)
+    {
+      echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type = "button" class="close" data-dismiss = "alert">x</button>
+              Member data has been updated!
+            </div>';
+    }
+    else
+    {
+      echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              [!] ' . count($res) . ' Error(s) occurred while updating the member data!<br><br>' .
+              $res .
+            '</div>';
+    }
+  }
+
+  // Message upon Deletion of Members
+  if( ($_GET['display'] == 'Members') && ( isset($_GET['MemberDeletion']) ) )
+  {
+    if( $_GET['MemberDeletion'] == 1)
+    {
+      echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type = "button" class="close" data-dismiss = "alert">x</button>
+              The member has been deleted!
+            </div>';
+    }
+    else
+    {
+      echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              [!] An error occurred while deleting the member!  Please, try again.<br><br>' .
+              $res .
+            '</div>';
     }
   }
 }
