@@ -73,14 +73,6 @@ Libraries/Frameworks used:
     This also allows for better management of code in different locations without having a
     negative effect on others.
 
-# The Team
-
-  * Carlo Burgos
-  * Jean Mendez
-  * Emmanuel Munet
-  * Joaquin Ortiz
-  * Jorge Pabon
-
 # License
 
-All rights are reserved by Jorge L. Pabon Cruz.  Use of this application without a license is not authorized.  For licensing costs contact Jorge L. Pabon Cruz at pianistapr@hotmail.com.
+All rights are reserved by Jorge Pabon.  Use of this application without a license is not authorized.  For licensing costs contact Jorge Pabon at pianistapr@hotmail.com.
