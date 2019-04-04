@@ -8,6 +8,7 @@ include 'layout/LinkHandler.php';
 
 protectAdmin();
 
+$users = get_AllRoles();
 ?>
 
 <h1 id="page-title" tabindex="-1" role="heading" aria-level="1">User Roles</h1>
@@ -27,12 +28,9 @@ protectAdmin();
   <!-- Default panel contents -->
   <div class="panel-heading">Here are all the platform users and their roles.</div>
   <div class="panel-body">
-    <a href="?action=createEvent"><i class="glyphicon glyphicon-plus" title="New Event"></i> New Role</a>
+    <a href="?action=createRole"><i class="glyphicon glyphicon-plus" title="New Event"></i> New Role</a>
     <i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i> = Edit
-    <i class="glyphicon glyphicon-ok" title="Approve" style="color:green; padding-left:2em"></i> = Approve
-    <i class="glyphicon glyphicon-remove" title="Disapprove" style="color:red; padding-left:2em"></i> = Disapprove
     <i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i> = Delete
-    <i class="glyphicon glyphicon-magnet" title="Recover" style="color:green; padding-left:2em"></i> = Recover
   </div>
 </div>
 
@@ -40,50 +38,64 @@ protectAdmin();
 <table class="table">
 
   <thead>
-    <th>
-      Options
-    </th>
 
-    <th>
-      Name
-    </th>
+    <tr>
 
-    <th>
-      Date
-    </th>
+      <th>
+        Options
+      </th>
 
-    <th>
-      Created
-    </th>
+      <th>
+        Username
+      </th>
 
-    <th>
-      Creator
-    </th>
+      <th>
+        Role
+      </th>
 
-    <th>
-      <i class="glyphicon glyphicon-user" title="In Person Code" style="color:black"></i> Code
-    </th>
-
-    <th>
-      <i class="glyphicon glyphicon-headphones" title="Remote Code" style="color:black"></i> Code
-    </th>
-
-    <th>
-      Approved
-    </th>
-
-    <th>
-      <i class="glyphicon glyphicon-flag" title="Estimated Budget" style="color:blue"><i class="glyphicon glyphicon-usd" title="Estimated Budget" style="color:black"></i></i>
-    </th>
-
-    <th>
-      <i class="glyphicon glyphicon-ok" title="Actual Budget" style="color:green"><i class="glyphicon glyphicon-usd" title="Actual Budget" style="color:black"></i></i>
-    </th>
-
-    <th>
-      Deleted
-    </th>
+    </tr>
 
   </thead>
+
+  <tbody>
+    <?php
+    foreach ($users as $name => $value)
+    {
+      echo '
+    <tr>
+      <td>
+        <a href="?action=editRole"><i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i></a>
+        <a href="?action=deleteRole"><i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i></a>
+      </td>
+
+      <td>
+        ' . $value[0] . '
+      </td>
+
+      <td>
+      ';
+
+      if( $value[2] == 0)
+      {
+        echo '<i class="glyphicon glyphicon-star" title="No" style="color:gray;"> Member</i>';
+      }
+      else if( $value[2] == 1)
+      {
+        echo '<i class="glyphicon glyphicon-star" title="Yes" style="color:green;"> Approver</i>';
+      }
+      else if( $value[2] == 2)
+      {
+        echo '<i class="glyphicon glyphicon-star" title="Yes" style="color:darkorange;"> Point Of Contact</i>';
+      }
+      else if( $value[2] == 3)
+      {
+        echo '<i class="glyphicon glyphicon-star" title="Yes" style="color:red;"> Administrator</i>';
+      }
+      echo '
+      </td>
+    </tr>';
+    }
+    ?>
+  </tbody>
 
 </table>
