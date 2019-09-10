@@ -58,10 +58,10 @@ else
               </tr>
               <tr>
                 <td class="text-center">
-                  <a link="index.php?display=RSVP&id=' . $value[0] . '" class="btn btn-primary" role="button">RSVP</a>
+                  <a href="index.php?display=RSVP&id=' . $value[0] . '" class="btn btn-primary" role="button">RSVP</a>
                 </td>
                 <td>
-                  <a link="mailto:?subject=Thought%20you%20would%20like%20to%20know&body=Check%20out%20this%20event.%0A%0AIt is named: ' . $value[1] .
+                  <a link="mailto:?subject=Event%20Recommendation%20-%20Thought%20you%20would%20like%20to%20know&body=Check%20out%20this%20event.%0A%0AIt is named: ' . $value[1] .
                   '%0A%0ALocation: ' . $value[5] . '%0A%0ADate: ' . $value[2] . '%0A%0AFrom: ' . $value[3] . '%20-%20' . $value[4] .
                   '%0A%0ARSVP here: ' . $url . '" class="btn btn-success" role="button">Share</a>
                 </td class="text-center">

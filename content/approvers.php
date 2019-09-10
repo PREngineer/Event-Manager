@@ -87,13 +87,13 @@ $events = get_ApproverEvents();
   if( $value[7] == 0 )
   {
     echo '
-        <a link="approveEvent.php?display=Approver&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-ok" title="Approve" style="color: green"></i></a>
+        <a href="approveEvent.php?display=Approver&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-ok" title="Approve" style="color: green"></i></a>
     ';
   }
   else
   {
     echo '
-        <a link="disapproveEvent.php?display=Approver&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-remove" title="Disapprove" style="color: red"></i></a>
+        <a href="disapproveEvent.php?display=Approver&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-remove" title="Disapprove" style="color: red"></i></a>
     ';
   }
     echo '

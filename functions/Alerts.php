@@ -558,4 +558,31 @@ The alerts are dismissible but they disappear after 5 a seconds with an upper sc
   }
 }
 
+
+/*
+* Roles Actions
+*/
+{
+	// Message upon Edition of User Role
+  if( $_POST['display'] == 'EditRole' )
+  {
+    $res = update_Role($_POST);
+
+    if( $res == True)
+    {
+      echo '<div class="container alert alert-success alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type = "button" class="close" data-dismiss = "alert">x</button>
+              The user role has been updated!
+            </div>';
+    }
+    else
+    {
+      echo '<div class="container alert alert-danger alert-dismissible" role="alert" style="padding-top:75px;">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              [!] ' . count($res) . ' Error(s) occurred while updating the user role!<br><br>' .
+              $res .
+            '</div>';
+    }
+  }
+}
 ?>

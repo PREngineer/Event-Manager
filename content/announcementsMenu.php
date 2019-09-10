@@ -18,7 +18,7 @@ $announcements = get_Announcements();
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin Menu
     </a>
   </li>
@@ -29,7 +29,7 @@ $announcements = get_Announcements();
   <!-- Default panel contents -->
   <div class="panel-heading">Here are all the announcements that have been created.</div>
   <div class="panel-body">
-    <a link="index.php?display=CreateAnnouncement" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Event"></i> New Announcement</a>
+    <a href="index.php?display=CreateAnnouncement" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Event"></i> New Announcement</a>
     <i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i> = Edit
     <i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i> = Delete
     <i class="glyphicon glyphicon-time" title="Delete" style="color:red; padding-left:2em"></i> = Expire
@@ -50,9 +50,9 @@ $announcements = get_Announcements();
                 <h6 class="text-muted text-right">Expires: ' . $value[4] . '</h6>
 
                 <h4>' . $value[1] . '</h4>
-                  <a link="index.php?display=EditAnnouncement&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i></a>
-                  <a link="expireAnnouncement.php?id='   . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-time" title="Expire" style="color:red; padding-left:2em"></i></a>
-                  <a link="deleteAnnouncement.php?id='   . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i></a>
+                  <a href="index.php?display=EditAnnouncement&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i></a>
+                  <a href="expireAnnouncement.php?id='   . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-time" title="Expire" style="color:red; padding-left:2em"></i></a>
+                  <a href="deleteAnnouncement.php?id='   . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i></a>
                 </td>
               </tr>
               <tr>

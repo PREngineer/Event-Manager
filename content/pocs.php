@@ -35,13 +35,13 @@ protectPoc();
       <tr>
     </thead>
     <tr>
-      <td><a link="index.php?display=CreateEvent" style="cursor:pointer;">Create Event</a></td>
+      <td><a href="index.php?display=CreateEvent" style="cursor:pointer;">Create Event</a></td>
       <td>
         Use this option to create a New Event.
       </td>
     </tr>
     <tr>
-      <td><a link="index.php?display=MyEvents" style="cursor:pointer;">My Events</a></td>
+      <td><a href="index.php?display=MyEvents" style="cursor:pointer;">My Events</a></td>
       <td>
         Use this option to view and manage your events.  You can perform the
         following actions on your existing events:<br>
@@ -51,7 +51,7 @@ protectPoc();
       </td>
     </tr>
     <tr>
-      <td><a link="index.php?display=POCAction" style="cursor:pointer;">Action Pending</a></td>
+      <td><a href="index.php?display=POCAction" style="cursor:pointer;">Action Pending</a></td>
       <td>
         Use this option to add the actual budget and close past events.
       </td>

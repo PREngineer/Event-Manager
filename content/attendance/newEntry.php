@@ -14,17 +14,17 @@ protectAdmin();
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin
     </a>
   </li>
   <li>
-    <a link="index.php?display=Attendance" style="cursor:pointer;">
+    <a href="index.php?display=Attendance" style="cursor:pointer;">
       Attendance
     </a>
   </li>
   <li>
-    <a link="index.php?display=Attendance-EditEvent&event=<?php echo $_GET['event']; ?>&name=<?php echo $_GET['name']; ?>" style="cursor:pointer;">
+    <a href="index.php?display=Attendance-EditEvent&event=<?php echo $_GET['event']; ?>&name=<?php echo $_GET['name']; ?>" style="cursor:pointer;">
       <?php echo str_replace("|", " ", $_GET['name']);?>
     </a>
   </li>

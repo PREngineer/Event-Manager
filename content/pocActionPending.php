@@ -18,7 +18,7 @@ $events = get_MyEventsPendingAction($_SESSION['userID']);
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Poc" style="cursor:pointer;">
+    <a href="index.php?display=Poc" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> POC Menu
     </a>
   </li>
@@ -91,7 +91,7 @@ $events = get_MyEventsPendingAction($_SESSION['userID']);
     <tr>
 
       <td>
-        <a link="index.php?display=POCAddActual&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-question-sign" title="Edit" style="color: orange"></i></a>
+        <a href="index.php?display=POCAddActual&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-question-sign" title="Edit" style="color: orange"></i></a>
       </td>
 
       <td>

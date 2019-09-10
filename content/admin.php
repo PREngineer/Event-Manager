@@ -37,7 +37,7 @@ protectAdmin();
     </thead>
 
     <tr>
-      <td><a link="index.php?display=AnnouncementsMenu" style="cursor:pointer;">Announcements</a></td>
+      <td><a href="index.php?display=AnnouncementsMenu" style="cursor:pointer;">Announcements</a></td>
       <td>
         Use this option to manage the announcements:<br>
         * Create<br>
@@ -48,7 +48,7 @@ protectAdmin();
     </tr>
 
     <tr>
-      <td><a link="index.php?display=Attendance" style="cursor:pointer;">Attendance</a></td>
+      <td><a href="index.php?display=Attendance" style="cursor:pointer;">Attendance</a></td>
       <td>
         Use this option to manage attendance related information:<br>
         * Add (outside of the event date)<br>
@@ -58,7 +58,7 @@ protectAdmin();
     </tr>
 
     <tr>
-      <td><a link="index.php?display=Events" style="cursor:pointer;">Events</a></td>
+      <td><a href="index.php?display=Events" style="cursor:pointer;">Events</a></td>
       <td>
         Use this option to manage the information currently stored in the
         database:<br>
@@ -70,7 +70,7 @@ protectAdmin();
     </tr>
 
     <tr>
-      <td><a link="index.php?display=Members" style="cursor:pointer;">Members</a></td>
+      <td><a href="index.php?display=Members" style="cursor:pointer;">Members</a></td>
       <td>
         Use this option to manage the members of the Employee Resource Group:<br>
         * Add<br>
@@ -80,7 +80,7 @@ protectAdmin();
     </tr>
 
     <tr>
-      <td><a link="index.php?display=Reports" style="cursor:pointer;">Reports</a></td>
+      <td><a href="index.php?display=Reports" style="cursor:pointer;">Reports</a></td>
       <td>
         Use this option to view live or historical reports about the
         Employee Resource Group's:<br>
@@ -92,7 +92,7 @@ protectAdmin();
     </tr>
 
     <tr>
-      <td><a link="index.php?display=UserRoles" style="cursor:pointer;">User Roles</a></td>
+      <td><a href="index.php?display=UserRoles" style="cursor:pointer;">User Roles</a></td>
       <td>
         Use this option to determine which members of the Employee Resource
         Group can have the following roles:<br>

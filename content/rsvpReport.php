@@ -50,12 +50,12 @@
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin
     </a>
   </li>
   <li>
-    <a link="index.php?display=Reports" style="cursor:pointer;">
+    <a href="index.php?display=Reports" style="cursor:pointer;">
       All Reports
     </a>
   </li>
@@ -64,7 +64,7 @@
     {
       echo '
       <li>
-        <a link="index.php?display=RSVPEvents&report=' . $_GET['report'] . '" style="cursor:pointer;">
+        <a href="index.php?display=RSVPEvents&report=' . $_GET['report'] . '" style="cursor:pointer;">
           All Events
         </a>
       </li>

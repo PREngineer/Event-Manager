@@ -19,12 +19,12 @@ $text = str_replace("<br />",PHP_EOL,$details['2']);
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin Menu
     </a>
   </li>
   <li>
-    <a link="index.php?display=AnnouncementsMenu" style="cursor:pointer;">
+    <a href="index.php?display=AnnouncementsMenu" style="cursor:pointer;">
       All Announcements
     </a>
   </li>

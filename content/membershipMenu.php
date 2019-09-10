@@ -18,7 +18,7 @@ $members = get_AllMembers();
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin Menu
     </a>
   </li>
@@ -29,7 +29,7 @@ $members = get_AllMembers();
   <!-- Default panel contents -->
   <div class="panel-heading">Here are all the membership options.</div>
   <div class="panel-body">
-    <a link="index.php?display=CreateMember" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Event"></i> New Member</a>
+    <a href="index.php?display=CreateMember" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Event"></i> New Member</a>
     <i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i> = Edit
     <i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i> = Delete
   </div>
@@ -105,8 +105,8 @@ $members = get_AllMembers();
         <tr id="Entry' . $value[0] . '">
 
           <td>
-            <a link="index.php?display=EditMember&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-edit" title="Edit" style="color: orange"></i></a>
-            <a link="deleteMember.php?display=Members&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-trash" title="Delete" style="color: red"></i></a>
+            <a href="index.php?display=EditMember&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-edit" title="Edit" style="color: orange"></i></a>
+            <a href="deleteMember.php?display=Members&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-trash" title="Delete" style="color: red"></i></a>
           </td>
 
           <td>

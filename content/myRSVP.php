@@ -82,7 +82,7 @@ if( !empty($_GET) && ($_GET['display'] == 'MyRSVP') )
                 </tr>
                 <tr>
                   <td colspan="2" class="text-center">
-                    <a link="index.php?display=CancelRSVP&id=' . $value[0] . '&eid=' . $value[4] . '&rsvpid=' . $value[5] . '" class="btn btn-danger" role="button">Cancel my RSVP</a>
+                    <a href="index.php?display=CancelRSVP&id=' . $value[0] . '&eid=' . $value[4] . '&rsvpid=' . $value[5] . '" class="btn btn-danger" role="button">Cancel my RSVP</a>
                   </td>
                 </tr>
               </table>

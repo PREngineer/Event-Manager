@@ -14,22 +14,22 @@ protectAdmin();
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin
     </a>
   </li>
   <li>
-    <a link="index.php?display=Attendance" style="cursor:pointer;">
+    <a href="index.php?display=Attendance" style="cursor:pointer;">
       Attendance
     </a>
   </li>
   <li>
-    <a link="index.php?display=AttendanceByMember" style="cursor:pointer;">
+    <a href="index.php?display=AttendanceByMember" style="cursor:pointer;">
       All Members
     </a>
   </li>
   <li>
-    <a link="index.php?display=Attendance-ShowMember&id=<?php echo $_GET['id']; ?>&eid=<?php echo $_GET['EID']; ?>" style="cursor:pointer;">
+    <a href="index.php?display=Attendance-ShowMember&id=<?php echo $_GET['id']; ?>&eid=<?php echo $_GET['EID']; ?>" style="cursor:pointer;">
       <?php echo $_GET['EID']; ?>
     </a>
   </li>

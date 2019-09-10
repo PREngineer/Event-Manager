@@ -18,12 +18,12 @@ $events = get_AllEvents();
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin
     </a>
   </li>
   <li>
-    <a link="index.php?display=Attendance" style="cursor:pointer;">
+    <a href="index.php?display=Attendance" style="cursor:pointer;">
       Attendance
     </a>
   </li>
@@ -68,7 +68,7 @@ $events = get_AllEvents();
     <tr id="Entry' . $value[0] . '">
 
       <td>
-        <a link="index.php?display=Attendance-EditEvent&event=' . $value[0] . '&name=' . str_replace(" ", "|", $value[1]) . '" style="cursor:pointer";>
+        <a href="index.php?display=Attendance-EditEvent&event=' . $value[0] . '&name=' . str_replace(" ", "|", $value[1]) . '" style="cursor:pointer";>
       ' . $value[1] . '
         </a>
       </td>

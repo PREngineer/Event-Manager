@@ -620,6 +620,16 @@ This is used to determine which element will be loaded into the center of the pa
       </script>
     ';
   }
+  
+  // Edit User Roles
+  if( $_POST['display'] == 'editRole' || $_GET['display'] == 'editRole' )
+  {
+	echo'
+      <script>
+        $("#Content").load("editRole.php?u='.$_GET['u'].'");
+      </script>
+    ';
+  }
 }
 
 ?>

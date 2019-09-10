@@ -21,12 +21,12 @@ $member = ( get_Member($_GET['id']) )[0];
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin Menu
     </a>
   </li>
   <li>
-    <a link="index.php?display=Members" style="cursor:pointer;">
+    <a href="index.php?display=Members" style="cursor:pointer;">
       Members
     </a>
   </li>
@@ -74,9 +74,11 @@ $member = ( get_Member($_GET['id']) )[0];
     <div class="input-group form-control">
       <input name="role" type="radio" id="role" value="0" required <?php if($member[13] == 0){echo 'checked';}?>> User
     <br>
-      <input name="role" type="radio" id="role" value="1" required <?php if($member[13] == 1){echo 'checked';}?>> Point Of Contact
+      <input name="role" type="radio" id="role" value="1" required <?php if($member[13] == 1){echo 'checked';}?>> Approver
+	<br>
+      <input name="role" type="radio" id="role" value="2" required <?php if($member[13] == 2){echo 'checked';}?>> Point Of Contact
     <br>
-      <input name="role" type="radio" id="role" value="2" required <?php if($member[13] == 2){echo 'checked';}?>> Administrator
+      <input name="role" type="radio" id="role" value="3" required <?php if($member[13] == 3){echo 'checked';}?>> Administrator
     </div>
   </div>
 

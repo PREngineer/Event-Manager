@@ -18,12 +18,12 @@ $eventData = get_EventData($_GET['id'])[0];
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Poc" style="cursor:pointer;">
+    <a href="index.php?display=Poc" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> POC Menu
     </a>
   </li>
   <li>
-    <a link="index.php?display=POCAction" style="cursor:pointer;">
+    <a href="index.php?display=POCAction" style="cursor:pointer;">
       Actions Pending
     </a>
   </li>

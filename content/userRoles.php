@@ -17,7 +17,7 @@ $users = get_AllRoles();
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin Menu
     </a>
   </li>
@@ -64,8 +64,8 @@ $users = get_AllRoles();
       echo '
     <tr>
       <td>
-        <a href="?action=editRole"><i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i></a>
-        <a href="?action=deleteRole"><i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i></a>
+        <a href="?display=editRole&u=' . $value[0] . '"><i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i></a>
+        <a href="?display=deleteRole&u=' . $value[0] . '"><i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i></a>
       </td>
 
       <td>
@@ -77,19 +77,19 @@ $users = get_AllRoles();
 
       if( $value[2] == 0)
       {
-        echo '<i class="glyphicon glyphicon-star" title="No" style="color:gray;"> Member</i>';
+        echo '<i class="glyphicon glyphicon-star" title="Member" style="color:gray;"> Member</i>';
       }
       else if( $value[2] == 1)
       {
-        echo '<i class="glyphicon glyphicon-star" title="Yes" style="color:green;"> Approver</i>';
+        echo '<i class="glyphicon glyphicon-star" title="Approver" style="color:green;"> Approver</i>';
       }
       else if( $value[2] == 2)
       {
-        echo '<i class="glyphicon glyphicon-star" title="Yes" style="color:darkorange;"> Point Of Contact</i>';
+        echo '<i class="glyphicon glyphicon-star" title="Point Of Contact" style="color:darkorange;"> Point Of Contact</i>';
       }
       else if( $value[2] == 3)
       {
-        echo '<i class="glyphicon glyphicon-star" title="Yes" style="color:red;"> Administrator</i>';
+        echo '<i class="glyphicon glyphicon-star" title="Administrator" style="color:red;"> Administrator</i>';
       }
       echo '
       </td>

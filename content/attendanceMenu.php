@@ -18,7 +18,7 @@ $announcements = get_Announcements();
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin Menu
     </a>
   </li>
@@ -51,14 +51,14 @@ $announcements = get_Announcements();
   </thead>
 
   <tr>
-    <td><a link="index.php?display=AttendanceByMember" style="cursor:pointer;">Look up member</a></td>
+    <td><a href="index.php?display=AttendanceByMember" style="cursor:pointer;">Look up member</a></td>
     <td>
       To view and manage all the attendance entries of a member.
     </td>
   </tr>
 
   <tr>
-    <td><a link="index.php?display=AttendanceByEvent" style="cursor:pointer;">Look up event</a></td>
+    <td><a href="index.php?display=AttendanceByEvent" style="cursor:pointer;">Look up event</a></td>
     <td>
       To view and manage all the attendance entries in a specific event.
     </td>

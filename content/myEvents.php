@@ -18,7 +18,7 @@ $events = get_MyEvents($_SESSION['userID']);
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Poc" style="cursor:pointer;">
+    <a href="index.php?display=Poc" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> POC Menu
     </a>
   </li>
@@ -29,7 +29,7 @@ $events = get_MyEvents($_SESSION['userID']);
   <!-- Default panel contents -->
   <div class="panel-heading">Here are all the events that you have created.</div>
   <div class="panel-body">
-    <a link="index.php?display=CreateEvent" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Event"></i> New Event</a>
+    <a href="index.php?display=CreateEvent" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Event"></i> New Event</a>
     <i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i> = Edit
     <i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i> = Delete
     <i class="glyphicon glyphicon-magnet" title="Recover" style="color:green; padding-left:2em"></i> = Recover
@@ -106,18 +106,18 @@ else
     <tr>
 
       <td>
-        <a link="index.php?display=EditEvent&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-edit" title="Edit" style="color: orange"></i></a>
+        <a href="index.php?display=EditEvent&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-edit" title="Edit" style="color: orange"></i></a>
     ';
   if( $value[10] == 0 )
   {
     echo '
-        <a link="deleteEvent.php?id=' . $value[0] . '&display=Poc" style="cursor:pointer;"><i class="glyphicon glyphicon-trash" title="Delete" style="color: red"></i></a>
+        <a href="deleteEvent.php?id=' . $value[0] . '&display=Poc" style="cursor:pointer;"><i class="glyphicon glyphicon-trash" title="Delete" style="color: red"></i></a>
     ';
   }
   else
   {
     echo '
-        <a link="recoverEvent.php?id=' . $value[0] . '&display=Poc" style="cursor:pointer;"><i class="glyphicon glyphicon-magnet" title="Recover" style="color: green"></i></a>
+        <a href="recoverEvent.php?id=' . $value[0] . '&display=Poc" style="cursor:pointer;"><i class="glyphicon glyphicon-magnet" title="Recover" style="color: green"></i></a>
     ';
   }
   echo '

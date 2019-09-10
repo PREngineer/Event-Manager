@@ -165,13 +165,14 @@ Function setup_AnnouncementsTable()
 {
   return query_DB("CREATE TABLE `Announcements` (
     `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Announcement ID',
+    `ERG_ID` bigint(20) NOT NULL COMMENT 'ERG ID',
     `Title` text NOT NULL COMMENT 'Announcement Title',
     `Content` text NOT NULL COMMENT 'Announcement Content',
     `Posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'When the announcement was posted',
     `Expires` date NOT NULL COMMENT 'When the Announcement should be removed',
     PRIMARY KEY (`ID`)
     )
-    ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT
+    ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT
     CHARSET=utf8
     COMMENT='Contains all the announcements that will be displayed'");
 }
@@ -189,12 +190,12 @@ Function setup_AttendanceTable()
 {
   return query_DB("CREATE TABLE `Attendance` (
     `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Unique id for entry',
-    `EventID` bigint(20) NOT NULL COMMENT 'Event ID',
-    `EnterpriseID` text NOT NULL COMMENT 'Enterprise ID',
+    `Event_ID` bigint(20) NOT NULL COMMENT 'Event ID',
+    `Member_ID` bigint(20) NOT NULL COMMENT 'Member ID',
     `Type` tinyint(1) NOT NULL COMMENT 'Type of Attendee',
     `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time attendance was taken',
     PRIMARY KEY (`ID`) )
-    ENGINE=InnoDB AUTO_INCREMENT=401 DEFAULT
+    ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT
     CHARSET=utf8
     COMMENT='Contains all event attendance history'");
 }
@@ -253,9 +254,9 @@ Function setup_DB($dbname, $user, $pass, $host, $port)
     [Boolean] - False for failure
     [Array]   - Array if successful
 */
-Function setup_DIMCommitteeTable()
+Function setup_DIMSponsorCommitteeTable()
 {
-  $create = query_DB("CREATE TABLE `DIM Committee` (
+  $create = query_DB("CREATE TABLE `DIM Sponsor Committee` (
             `Committee_ID` VARCHAR(255) NOT NULL COMMENT 'Committee ID' ,
             `Committee_Name` TEXT NOT NULL COMMENT 'Committe Name' ,
             PRIMARY KEY (`Committee_ID`))
@@ -1670,6 +1671,31 @@ Function get_MyRSVPs($id)
 }
 
 /*
+  Description:
+    This function executes a query to get a specific user's role data.
+  @PARAM:
+
+  @RETURN:
+    [Array]   - Data
+    [Boolean] - False
+*/
+Function get_Role($username)
+{
+  $result = query_DB("SELECT Username,Role
+                      FROM `Users`
+					  WHERE `Username` = '$username'");
+
+  if( $result['Result'] )
+  {
+    return mysqli_fetch_all( $result['Data'] );
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
 *****************************
 Region Start - Regular Use MySQL DB Insert Functions
 *****************************
@@ -2425,6 +2451,35 @@ Function update_Member($data)
                            `Lead`       = '" . sanitize($data['lead'])   . "',
                            `Role`       = '" . sanitize($data['role'])   . "'
                        WHERE `ID` = " . sanitize($data['id'])
+                    );
+
+  // If successful
+  if( $result['Result'] )
+  {
+    return True;
+  }
+  else
+  {
+    return $result['Errors'];
+  }
+}
+
+/*
+  Description:
+    This function executes a query to update a User Role.
+  @PARAM:
+    [Array]   - The role data
+  @RETURN:
+    [Boolean] - True
+    [Array]   - Errors
+*/
+Function update_Role($data)
+{
+  // Update the Events Table
+  $result = query_DB( "UPDATE `Users`
+                       SET `Username`   = '" . sanitize($data['enterpriseID']) . "',
+                           `Role`       = '" . sanitize($data['role'])         . "'
+                       WHERE `Username` = '" . sanitize($data['enterpriseID']) . "'"
                     );
 
   // If successful

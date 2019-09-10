@@ -57,7 +57,7 @@ else
               </tr>
               <tr>
                 <td class="text-center" colspan="2">
-                  <a link="index.php?display=Checkin&id=' . $value[0] . '" class="btn btn-primary" role="button">Check In</a>
+                  <a href="index.php?display=Checkin&id=' . $value[0] . '" class="btn btn-primary" role="button">Check In</a>
                 </td>
               </tr>
             </table>

@@ -27,7 +27,7 @@ include '../../functions/Init.php';
         </button>
 
         <!-- Brand icon -->
-        <a link="index.php" class="navbar-brand" style="cursor: pointer;">
+        <a href="index.php" class="navbar-brand" style="cursor: pointer;">
           <img src="../images/logo.svg" width="30" height="30" alt="Logo">
         </a>
       </div>
@@ -36,19 +36,19 @@ include '../../functions/Init.php';
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="nav navbar-nav">
           <li id="announcementsLink">
-            <a link="index.php?display=Announcements" style="cursor: pointer;">Announcements</a>
+            <a href="index.php?display=Announcements" style="cursor: pointer;">Announcements</a>
           </li>
           <li id="currentLink">
-            <a link="index.php?display=Current" style="cursor: pointer;">Current Events</a>
+            <a href="index.php?display=Current" style="cursor: pointer;">Current Events</a>
           </li>
           <li id="futureLink">
-            <a link="index.php?display=Future" style="cursor: pointer;">Future Events</a>
+            <a href="index.php?display=Future" style="cursor: pointer;">Future Events</a>
           </li>
           <li id="myRSVPLink">
-            <a link="index.php?display=MyRSVP" style="cursor: pointer;">My RSVPs</a>
+            <a href="index.php?display=MyRSVP" style="cursor: pointer;">My RSVPs</a>
           </li>
           <li id="createMemberLink">
-            <a link="index.php?display=CreateMember" style="cursor: pointer;">New Member</a>
+            <a href="index.php?display=CreateMember" style="cursor: pointer;">New Member</a>
           </li>
         </ul>
 
@@ -59,7 +59,7 @@ if( !isset($_SESSION['userRole']) )
 {
 echo'
           <li id="loginLink">
-            <a link="index.php?display=Login" style="cursor: pointer;">Login</a>
+            <a href="index.php?display=Login" style="cursor: pointer;">Login</a>
           </li>
 ';
 }
@@ -68,10 +68,10 @@ if( $_SESSION['userRole'] == 1 )
 {
 echo'
           <li id="approverLink">
-            <a link="index.php?display=Approver" style="cursor: pointer;">Approvers</a>
+            <a href="index.php?display=Approver" style="cursor: pointer;">Approvers</a>
           </li>
           <li id="loginLink">
-            <a link="index.php?display=Logout" style="cursor: pointer;">Logout</a>
+            <a href="index.php?display=Logout" style="cursor: pointer;">Logout</a>
           </li>
 ';
 }
@@ -80,10 +80,10 @@ if( $_SESSION['userRole'] == 2 )
 {
 echo'
           <li id="pocLink">
-            <a link="index.php?display=Poc" style="cursor: pointer;">POCs</a>
+            <a href="index.php?display=Poc" style="cursor: pointer;">POCs</a>
           </li>
           <li id="loginLink">
-            <a link="index.php?display=Logout" style="cursor: pointer;">Logout</a>
+            <a href="index.php?display=Logout" style="cursor: pointer;">Logout</a>
           </li>
 ';
 }
@@ -92,10 +92,10 @@ if( $_SESSION['userRole'] == 3 )
 {
 echo'
           <li id="adminLink" class="dropdown">
-            <a link="index.php?display=Admin" style="cursor: pointer;">Administrators</a>
+            <a href="index.php?display=Admin" style="cursor: pointer;">Administrators</a>
           </li>
           <li id="loginLink">
-            <a link="index.php?display=Logout" style="cursor: pointer;">Logout</a>
+            <a href="index.php?display=Logout" style="cursor: pointer;">Logout</a>
           </li>
 ';
 }

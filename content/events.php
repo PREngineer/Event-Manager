@@ -18,7 +18,7 @@ $events = get_AllEvents();
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin
     </a>
   </li>
@@ -29,7 +29,7 @@ $events = get_AllEvents();
   <!-- Default panel contents -->
   <div class="panel-heading">Here are all the events that have been created.</div>
   <div class="panel-body">
-    <a link="index.php?display=CreateEvent" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Event"></i> New Event</a>
+    <a href="index.php?display=CreateEvent" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Event"></i> New Event</a>
     <i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i> = Edit
     <i class="glyphicon glyphicon-ok" title="Approve" style="color:green; padding-left:2em"></i> = Approve
     <i class="glyphicon glyphicon-remove" title="Disapprove" style="color:red; padding-left:2em"></i> = Disapprove
@@ -96,30 +96,30 @@ $events = get_AllEvents();
     <tr id="Entry' . $value[0] . '">
 
       <td>
-        <a link="index.php?display=EditEvent&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-edit" title="Edit" style="color: orange"></i></a>
+        <a href="index.php?display=EditEvent&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-edit" title="Edit" style="color: orange"></i></a>
     ';
   if( $value[7] == 0 )
   {
     echo '
-        <a link="approveEvent.php?display=Admin&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-ok" title="Approve" style="color: green"></i></a>
+        <a href="approveEvent.php?display=Admin&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-ok" title="Approve" style="color: green"></i></a>
     ';
   }
   else
   {
     echo '
-        <a link="disapproveEvent.php?display=Admin&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-remove" title="Disapprove" style="color: red"></i></a>
+        <a href="disapproveEvent.php?display=Admin&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-remove" title="Disapprove" style="color: red"></i></a>
     ';
   }
   if( $value[10] == 0 )
   {
     echo '
-        <a link="deleteEvent.php?display=Admin&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-trash" title="Delete" style="color: red"></i></a>
+        <a href="deleteEvent.php?display=Admin&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-trash" title="Delete" style="color: red"></i></a>
     ';
   }
   else
   {
     echo '
-        <a link="recoverEvent.php?display=Admin&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-magnet" title="Recover" style="color: green"></i></a>
+        <a href="recoverEvent.php?display=Admin&id=' . $value[0] . '" style="cursor:pointer;"><i class="glyphicon glyphicon-magnet" title="Recover" style="color: green"></i></a>
     ';
   }
   echo '

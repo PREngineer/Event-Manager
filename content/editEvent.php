@@ -63,12 +63,12 @@ if( $_SESSION['userRole'] == 2 )
 {
   echo '<ol class="breadcrumb">
           <li>
-            <a link="index.php?display=Poc" style="cursor:pointer;">
+            <a href="index.php?display=Poc" style="cursor:pointer;">
               <i class="glyphicon glyphicon-arrow-left"></i> POC Menu
             </a>
           </li>
           <li>
-            <a link="index.php?display=MyEvents" style="cursor:pointer;">
+            <a href="index.php?display=MyEvents" style="cursor:pointer;">
               My Events
             </a>
           </li>
@@ -78,12 +78,12 @@ else
 {
   echo '<ol class="breadcrumb">
           <li>
-            <a link="index.php?display=Admin" style="cursor:pointer;">
+            <a href="index.php?display=Admin" style="cursor:pointer;">
               <i class="glyphicon glyphicon-arrow-left"></i> Admin
             </a>
           </li>
           <li>
-            <a link="index.php?display=Events" style="cursor:pointer;">
+            <a href="index.php?display=Events" style="cursor:pointer;">
               All Events
             </a>
           </li>

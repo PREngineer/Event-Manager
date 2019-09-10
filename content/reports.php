@@ -14,7 +14,7 @@ protectAdmin();
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin
     </a>
   </li>
@@ -41,35 +41,35 @@ protectAdmin();
     </thead>
 
     <tr>
-      <td><a link="index.php?display=AttendanceReport" style="cursor:pointer;">Attendance</a></td>
+      <td><a href="index.php?display=AttendanceReport" style="cursor:pointer;">Attendance</a></td>
       <td>
         Provides details about the attendance to events.
       </td>
     </tr>
 
     <tr>
-      <td><a link="index.php?display=BudgetReport" style="cursor:pointer;">Budget</a></td>
+      <td><a href="index.php?display=BudgetReport" style="cursor:pointer;">Budget</a></td>
       <td>
         Provides details about the budget and expenses.
       </td>
     </tr>
 
     <tr>
-      <td><a link="index.php?display=MembershipReport&report=0" style="cursor:pointer;">Membership</a></td>
+      <td><a href="index.php?display=MembershipReport&report=0" style="cursor:pointer;">Membership</a></td>
       <td>
         Provides details about the ERG members.
       </td>
     </tr>
 
     <tr>
-      <td><a link="index.php?display=RolesReport" style="cursor:pointer;">Roles</a></td>
+      <td><a href="index.php?display=RolesReport" style="cursor:pointer;">Roles</a></td>
       <td>
         Provides details about members that have special roles in the portal.
       </td>
     </tr>
 
     <tr>
-      <td><a link="index.php?display=RSVPReport" style="cursor:pointer;">RSVPs</a></td>
+      <td><a href="index.php?display=RSVPReport" style="cursor:pointer;">RSVPs</a></td>
       <td>
         Provides details about RSVPs to events.
       </td>

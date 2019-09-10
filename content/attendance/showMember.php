@@ -19,17 +19,17 @@ $events = get_AllEvents();
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin
     </a>
   </li>
   <li>
-    <a link="index.php?display=Attendance" style="cursor:pointer;">
+    <a href="index.php?display=Attendance" style="cursor:pointer;">
       Attendance
     </a>
   </li>
   <li>
-    <a link="index.php?display=AttendanceByMember" style="cursor:pointer;">
+    <a href="index.php?display=AttendanceByMember" style="cursor:pointer;">
       All Members
     </a>
   </li>
@@ -40,7 +40,7 @@ $events = get_AllEvents();
   <!-- Default panel contents -->
   <div class="panel-heading">Complete attendance history for <b><?php echo $_GET['eid']; ?></b>.</div>
     <div class="panel-body">
-      <a link="index.php?display=Attendance-MemberNewEntry&eid=<?php echo $_GET['eid']; ?>" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Entry"></i> New Entry</a>
+      <a href="index.php?display=Attendance-MemberNewEntry&eid=<?php echo $_GET['eid']; ?>" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Entry"></i> New Entry</a>
       <i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i> = Edit
       <i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i> = Delete
     </div>
@@ -90,11 +90,11 @@ $events = get_AllEvents();
     <tr id="Entry' . $value[0] . '">
 
     <td>
-      <a link="index.php?display=Attendance-MemberEditEntry&id=' . $value[0] .
+      <a href="index.php?display=Attendance-MemberEditEntry&id=' . $value[0] .
               '&return=Attendance-ShowMember&EID=' . $value[2] . '&Type=' . $value[3] . '&Event=' . str_replace(" ","|",$evname) . '" style="cursor:pointer;">
         <i class="glyphicon glyphicon-edit" title="Edit" style="color: orange"></i>
       </a>
-      <a link="attendance/deleteEntry.php?id=' . $value[0] .
+      <a href="attendance/deleteEntry.php?id=' . $value[0] .
               '&display=Attendance-ShowMember&EID=' . $value[2] . '&init=sub" style="cursor:pointer;">
         <i class="glyphicon glyphicon-trash" title="Delete" style="color: red"></i>
       </a>

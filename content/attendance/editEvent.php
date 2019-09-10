@@ -18,12 +18,12 @@ $attendance = get_EventAttendance($_GET['event']);
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin
     </a>
   </li>
   <li>
-    <a link="index.php?display=Attendance" style="cursor:pointer;">
+    <a href="index.php?display=Attendance" style="cursor:pointer;">
       Attendance
     </a>
   </li>
@@ -34,7 +34,7 @@ $attendance = get_EventAttendance($_GET['event']);
   <!-- Default panel contents -->
   <div class="panel-heading">People that checked in to the event <b><?php echo str_replace("|", " ", $_GET['name']); ?></b>.</div>
     <div class="panel-body">
-      <a link="index.php?display=Attendance-EventNewEntry&event=<?php echo $_GET['event']; ?>&name=<?php echo $_GET['name']; ?>" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Entry"></i> New Entry</a>
+      <a href="index.php?display=Attendance-EventNewEntry&event=<?php echo $_GET['event']; ?>&name=<?php echo $_GET['name']; ?>" style="cursor:pointer;"><i class="glyphicon glyphicon-plus" title="New Entry"></i> New Entry</a>
       <i class="glyphicon glyphicon-edit" title="Edit" style="color:orange; padding-left:2em"></i> = Edit
       <i class="glyphicon glyphicon-trash" title="Delete" style="color:red; padding-left:2em"></i> = Delete
     </div>
@@ -71,12 +71,12 @@ $attendance = get_EventAttendance($_GET['event']);
     <tr id="Entry' . $value[0] . '">
 
     <td>
-      <a link="index.php?display=Attendance-EventEditEntry&id=' . $value[0] .
+      <a href="index.php?display=Attendance-EventEditEntry&id=' . $value[0] .
               '&return=Attendance-EditEvent&event=' . $_GET['event'] . '&name=' . $_GET['name'] . '&EnterpriseID=' .
               $value[2] . '&Type=' . $value[3] . '" style="cursor:pointer;">
         <i class="glyphicon glyphicon-edit" title="Edit" style="color: orange"></i>
       </a>
-      <a link="attendance/deleteEntry.php?id=' . $value[0] .
+      <a href="attendance/deleteEntry.php?id=' . $value[0] .
               '&display=Attendance-EditEvent&event=' . $_GET['event'] . '&name=' . $_GET['name'] . '&init=sub" style="cursor:pointer;">
         <i class="glyphicon glyphicon-trash" title="Delete" style="color: red"></i>
       </a>

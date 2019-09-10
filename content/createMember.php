@@ -22,7 +22,7 @@ if( $_SESSION['userRole'] == 3 )
   echo '
   <ol class="breadcrumb">
     <li>
-      <a link="index.php?display=Admin" style="cursor:pointer;">
+      <a href="index.php?display=Admin" style="cursor:pointer;">
         <i class="glyphicon glyphicon-arrow-left"></i> Admin Menu
       </a>
     </li>

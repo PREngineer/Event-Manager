@@ -16,22 +16,22 @@ $events = get_AllEvents();
 
 <ol class="breadcrumb">
   <li>
-    <a link="index.php?display=Admin" style="cursor:pointer;">
+    <a href="index.php?display=Admin" style="cursor:pointer;">
       <i class="glyphicon glyphicon-arrow-left"></i> Admin
     </a>
   </li>
   <li>
-    <a link="index.php?display=Attendance" style="cursor:pointer;">
+    <a href="index.php?display=Attendance" style="cursor:pointer;">
       Attendance
     </a>
   </li>
   <li>
-    <a link="index.php?display=AttendanceByMember" style="cursor:pointer;">
+    <a href="index.php?display=AttendanceByMember" style="cursor:pointer;">
       All Members
     </a>
   </li>
   <li>
-    <a link="index.php?display=Attendance-ShowMember&eid=<?php echo $_GET['eid']; ?>" style="cursor:pointer;">
+    <a href="index.php?display=Attendance-ShowMember&eid=<?php echo $_GET['eid']; ?>" style="cursor:pointer;">
       <?php echo $_GET['eid']; ?>
     </a>
   </li>
