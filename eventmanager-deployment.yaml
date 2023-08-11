@@ -1,0 +1,61 @@
+# Create the Production Namespace (if not exist)
+
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: production
+  labels:
+    name: production
+
+---
+
+# Create the App Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventmanager-deployment
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventmanager
+  template:
+    metadata:
+      labels:
+        app: eventmanager
+    spec:
+      containers:
+        - name: eventmanager
+          image: prengineer/eventmanager:latest
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "1000m"
+          ports:
+            - name: httpport
+              containerPort: 80
+
+---
+
+# Create the Exposed App Service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventmanager-external-service
+  namespace: production
+spec:
+  selector:
+    app: eventmanager
+  type: LoadBalancer
+  ports:
+  - name: httpport
+    protocol: TCP
+    port: 8002
+    targetPort: 80
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.0.0.80
