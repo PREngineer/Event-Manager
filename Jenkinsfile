@@ -38,7 +38,7 @@ spec:
     stage('Clone Repository to Kaniko') {
       steps {
         container('kaniko') {
-          git url: 'https://github.com/PREngineer/Event-Manager', branch: 'master'
+          git url: 'https://github.com/PREngineer/Event-Manager', branch: 'main'
         }
       }
     }
