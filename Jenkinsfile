@@ -59,7 +59,7 @@ spec:
           script {
             // Define the code to run in the remote machine, then execute in k3s master node
             sh '''
-            script="curl https://raw.githubusercontent.com/PREngineer/prengineer.github.io/master/eventmanager-deployment.yaml > ~/jenkins-deployments/eventmanager-deployment.yaml;
+            script="curl https://raw.githubusercontent.com/PREngineer/Event-Manager/main/eventmanager-deployment.yaml > ~/jenkins-deployments/eventmanager-deployment.yaml;
             kubectl apply -f ~/jenkins-deployments/eventmanager-deployment.yaml"
             
             ssh -oStrictHostKeyChecking=accept-new pi@10.0.0.80 ${script}
