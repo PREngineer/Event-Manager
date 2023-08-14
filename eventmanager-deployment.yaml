@@ -1,14 +1,3 @@
-# Create the Production Namespace (if not exist)
-
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: production
-  labels:
-    name: production
-
----
-
 # Create a Persistent Volume mapped to a local directory
 kind: PersistentVolume
 apiVersion: v1
