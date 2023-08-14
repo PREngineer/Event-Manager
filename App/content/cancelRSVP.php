@@ -4,7 +4,7 @@ include '../functions/Init.php';
 include '../functions/DB.php';
 include 'layout/LinkHandler.php';
 include '../functions/Mail.php';
-include '../functions/settings.php';
+include '/config/settings.php';
 
 ?>
 

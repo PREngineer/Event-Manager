@@ -1,5 +1,4 @@
 <?php
-//echo '<br><br><br><br>Loaded DB';
 
 /*
 This contains all of the Database related functions.
@@ -47,7 +46,7 @@ Function test_MySQL($dbname, $user, $pass, $host, $port)
     mysqli_close();
 
     // Save settings to file
-    $file = 'functions/settings.php';
+    $file = '/config/settings.php';
 
     $content = '    <?php
       //------------------------------------------------------------------------
@@ -552,17 +551,9 @@ Region Start - Regular Use MySQL DB Setup Functions
 Function connect_DB()
 {
   // Make sure to load the DB Variables
-  if( file_exists('../functions/settings.php') )
+  if( file_exists('/config/settings.php') )
   {
-    include '../functions/settings.php';
-  }
-  else if( file_exists('../../functions/settings.php') )
-  {
-    include '../../functions/settings.php';
-  }
-  else
-  {
-    include 'functions/settings.php';
+    include '/config/settings.php';
   }
 
   // Join Host + Port

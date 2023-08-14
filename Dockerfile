@@ -38,6 +38,10 @@ RUN apk --no-cache --update \
 COPY ./App /app
 RUN chmod -R 777 /app
 
+# Create the /config directory
+RUN mkdir /config
+RUN chmod -R 777 /config
+
 # Expose our web ports
 EXPOSE 80 443
 

@@ -9,6 +9,41 @@ metadata:
 
 ---
 
+# Create a Persistent Volume mapped to a local directory
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: eventmanager-pv-volume
+  namespace: production
+  labels:
+    type: local
+spec:
+  storageClassName: generic
+  capacity:
+    storage: 5Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/kubernetes/Event Manager"
+
+---
+
+# Create a Persistent Volume Claim for the pod to access the directory
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: eventmanager-pv-claim
+  namespace: production
+spec:
+  storageClassName: generic
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Mi
+
+---
+
 # Create the App Deployment
 
 apiVersion: apps/v1
@@ -26,6 +61,7 @@ spec:
       labels:
         app: eventmanager
     spec:
+    # Specify the container
       containers:
         - name: eventmanager
           image: prengineer/eventmanager:latest
@@ -36,6 +72,15 @@ spec:
           ports:
             - name: httpport
               containerPort: 80
+          # Add the volume
+          volumeMounts:
+          - mountPath: "/config"
+            name: eventmanager-pv-storage
+      # Specify the volume
+      volumes:
+      - name: eventmanager-pv-storage
+        persistentVolumeClaim:
+          claimName: eventmanager-pv-claim
 
 ---
 

@@ -1,5 +1,4 @@
 <?php
-//echo '<br><br><br><br>Loaded Init';
 
 // Initialize the session
 session_start();
@@ -72,19 +71,10 @@ if(array_key_exists('userRole', $_SESSION) === false)
 }
 
 // Redirect if settings was not found
-if( !file_exists('../functions/settings.php') && ($_GET['init'] != 'sub') )
+if( !file_exists('/config/settings.php') && ($_GET['init'] != 'sub') )
 {
   echo '<script type="text/javascript">
       window.location.href = "../setup.php"
-    </script>
-  ';
-}
-
-// Redirect if settings was not found but inside the attendance admin area
-if( !file_exists('../../functions/settings.php') && ($_GET['init'] == 'sub') )
-{
-  echo '<script type="text/javascript">
-      window.location.href = "../../setup.php"
     </script>
   ';
 }

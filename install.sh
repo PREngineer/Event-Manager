@@ -211,7 +211,7 @@ echo -e $YELLOW"|--> Making sure that the settings file is not present..."$BLACK
 echo
 echo
 
-sudo rm /var/www/html/Event-Manager/functions/settings.php #&>/dev/null & progress-bar 2
+sudo rm /config/settings.php #&>/dev/null & progress-bar 2
 
 echo
 echo
