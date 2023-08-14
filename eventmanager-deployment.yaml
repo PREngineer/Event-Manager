@@ -65,6 +65,9 @@ spec:
       containers:
         - name: eventmanager
           image: prengineer/eventmanager:latest
+          env:
+            - name: TZ
+              value: America/New_York
           resources:
             limits:
               memory: "500Mi"

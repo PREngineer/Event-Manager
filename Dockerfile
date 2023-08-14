@@ -32,6 +32,7 @@ RUN apk --no-cache --update \
     php7-phar \
     php7-session \
     php7-xml \
+    tzdata \
     && mkdir /app
 
 # Copy our application to the /app directory
