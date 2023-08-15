@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `Event_Manager`
 --
-CREATE DATABASE IF NOT EXISTS `Event_Manager` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `EventManager` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `Event_Manager`;
 
 -- --------------------------------------------------------
