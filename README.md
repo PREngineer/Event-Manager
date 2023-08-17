@@ -18,7 +18,7 @@ This project is designed as a Progressive Web App.  This means that the project 
 
 It consists of a Web Server component and a Database component.  The Web Server component is used to display a user interface and reporting.  The Database component is used to hold the data of interest.
 
-Admin authentication is done through an Azure Active Directory.
+Admin authentication was done through an Azure Active Directory.
 
 Core web development technologies include:
   * HTML

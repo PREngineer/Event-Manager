@@ -68,12 +68,12 @@
   	<meta property="og:title" content="EM">
   	<meta property="og:type" content="website">
   	<meta property="og:image" content="../images/TLogo.png">
-  	<meta property="og:url" content="https://pwa.eastus.cloudapp.azure.com/MELT/">
+  	<meta property="og:url" content="https://event-manager.jlpc.dns1.us">
   	<meta property="og:description" content="A Progressive Web App">
 
   	<!-- Twitter References -->
   	<meta name="twitter:card" content="summary">
-  	<meta name="twitter:url" content="https://pwa.eastus.cloudapp.azure.com/MELT/">
+  	<meta name="twitter:url" content="https://event-manager.jlpc.dns1.us">
   	<meta name="twitter:title" content="EM">
   	<meta name="twitter:description" content="Event Manager. No install, just use it right away in your browser!">
   	<meta name="twitter:image" content="../images/TLogo.png">
