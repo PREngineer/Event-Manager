@@ -8,7 +8,6 @@ metadata:
 spec:
   selector:
     app: eventmanager
-  type: LoadBalancer
   ports:
   - name: http
     protocol: TCP
