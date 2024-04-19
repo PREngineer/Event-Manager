@@ -1,0 +1,16 @@
+# Create the Exposed App Service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventmanager
+  namespace: production
+spec:
+  selector:
+    app: eventmanager
+  type: LoadBalancer
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80
