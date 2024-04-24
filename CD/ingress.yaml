@@ -15,8 +15,8 @@ metadata:
   labels:
     app: eventmanager
   name: eventmanager
-  # Deploy to production namespace
-  namespace: production
+  # Deploy to eventmanager namespace
+  namespace: eventmanager
 spec:
   rules:
   # Change to your domain

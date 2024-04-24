@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: eventmanager-deployment
-  namespace: production
+  namespace: eventmanager
 spec:
   replicas: 1
   selector:
