@@ -1,54 +1,57 @@
-# Base Image is latest Alpine
-FROM alpine:3.15
+# Base image
+FROM alpine:3.24.3
 
 # Maintainer information and description
-LABEL maintainer="Jorge Pabón <pianistapr@hotmail.com>" description="A Web Application to manage Events."
+LABEL maintainer="Jorge Pabón <pianistapr@hotmail.com>" \
+      description="A Web Application to manage Events."
 
-# Setup Apache and PHP 7.4, also create the directory that will hold our application files /app
-RUN apk --no-cache --update \
-    add apache2 \
+# Install Apache, PHP 8.4, extensions, and timezone data
+RUN apk add --no-cache \
+    apache2 \
     apache2-ssl \
     curl \
-    php7-apache2 \
-    php7-bcmath \
-    php7-bz2 \
-    php7-calendar \
-    php7-common \
-    php7-ctype \
-    php7-curl \
-    php7-dom \
-    php7-gd \
-    php7-iconv \
-    php7-mbstring \
-    php7-mysqli \
-    php7-mysqlnd \
-    php7-openssl \
-    php7-pdo \
-    php7-pdo_dblib \
-    php7-pdo_mysql \
-    php7-pdo_odbc \
-    php7-pdo_pgsql \
-    php7-pdo_sqlite \
-    php7-phar \
-    php7-session \
-    php7-xml \
+    php84 \
+    php84-apache2 \
+    php84-bcmath \
+    php84-bz2 \
+    php84-calendar \
+    php84-common \
+    php84-ctype \
+    php84-curl \
+    php84-dom \
+    php84-gd \
+    php84-iconv \
+    php84-mbstring \
+    php84-mysqli \
+    php84-mysqlnd \
+    php84-openssl \
+    php84-pdo \
+    php84-pdo_dblib \
+    php84-pdo_mysql \
+    php84-pdo_odbc \
+    php84-pdo_pgsql \
+    php84-pdo_sqlite \
+    php84-phar \
+    php84-session \
+    php84-xml \
     tzdata \
-    && mkdir /app
+    && mkdir -p /app /config
 
-# Copy our application to the /app directory
+# Copy application files
 COPY ./App /app
-RUN chmod -R 777 /app
 
-# Create the /config directory
-RUN mkdir /config
-RUN chmod -R 777 /config
+# Preserve existing permissions for compatibility
+RUN chmod -R 777 /app /config
 
-# Expose our web ports
+# Expose HTTP and HTTPS
 EXPOSE 80 443
 
 # Add the entrypoint script
-ADD entrypoint.sh /
-RUN ["chmod", "+x", "/entrypoint.sh"]
+COPY entrypoint.sh /entrypoint.sh
 
-# Execute the entrypoint script
-ENTRYPOINT ["/entrypoint.sh"]
+# Normalize line endings and set permissions
+RUN sed -i 's/\r$//' /entrypoint.sh \
+    && chmod 755 /entrypoint.sh
+
+# Execute entrypoint through the shell
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
